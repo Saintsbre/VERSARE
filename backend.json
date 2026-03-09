@@ -1,0 +1,6 @@
+
+{
+  "requiredFirebaseServices": [
+    "firestore"
+  ]
+}

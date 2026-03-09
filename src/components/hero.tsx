@@ -1,6 +1,8 @@
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import Link from "next/link";
 
 export function Hero() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-editorial');
@@ -21,12 +23,11 @@ export function Hero() {
             Streetwear de luxo com alma brasileira e materiais sustentáveis.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button className="bg-primary hover:bg-accent text-primary-foreground px-8 py-6 rounded-full text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 h-14">
-              Comprar Novo Drop
-            </Button>
-            <Button variant="ghost" className="text-primary hover:bg-secondary/20 px-8 py-6 rounded-full text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 h-14">
-              Nossa Visão
-            </Button>
+            <Link href="/pre-save">
+              <Button className="bg-primary hover:bg-accent text-primary-foreground px-12 py-6 rounded-full text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 h-14 shadow-lg active:scale-95">
+                Cadastrar Pré-Save
+              </Button>
+            </Link>
           </div>
         </div>
 
