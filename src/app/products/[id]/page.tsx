@@ -18,7 +18,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     price: 345,
     description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
     details: "Linho encorpado, corte boxy, feito no Brasil.",
-    image: "https://picsum.photos/seed/street1/600/800",
+    image: "https://i.imgur.com/QHnytp8.jpeg",
     category: "Streetwear"
   },
   "2": {
@@ -74,7 +74,7 @@ export default function ProductDetailPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20">
           <div className="md:col-span-7">
-            <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] shadow-xl rounded-3xl fade-in">
+            <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] shadow-xl rounded-[2.5rem] fade-in">
               <Image
                 src={product.image}
                 alt={product.name}

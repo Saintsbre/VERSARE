@@ -14,7 +14,7 @@ const SAMPLE_PRODUCTS = [
     price: 345,
     description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
     details: "Linho encorpado, corte boxy, feito no Brasil.",
-    image: "https://picsum.photos/seed/street1/600/800",
+    image: "https://i.imgur.com/QHnytp8.jpeg",
     category: "Streetwear"
   },
   {
@@ -78,7 +78,7 @@ export default function Home() {
 
       <section className="py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-           <div className="relative h-[400px] overflow-hidden">
+           <div className="relative h-[400px] overflow-hidden rounded-[2rem]">
              <Image 
               src="https://picsum.photos/seed/urban-editorial/800/600" 
               alt="Street Editorial" 
@@ -94,7 +94,7 @@ export default function Home() {
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
                 sempre com autenticidade e materiais de verdade.
               </p>
-              <Button variant="outline" className="rounded-none uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12">
+              <Button variant="outline" className="rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
                 Ver Lookbook Urban
               </Button>
            </div>
