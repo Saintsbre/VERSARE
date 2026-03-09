@@ -27,7 +27,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     price: 520,
     description: "Tênis minimalista em couro premium com solado vulcanizado.",
     details: "Couro legítimo, acabamento manual, durabilidade extrema.",
-    image: "https://picsum.photos/seed/street2/600/800",
+    image: "https://i.imgur.com/0emZ0Ht.jpeg",
     category: "Calçados"
   },
   "3": {
