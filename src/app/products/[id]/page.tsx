@@ -18,8 +18,8 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     price: 345,
     description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
     details: "Linho encorpado, corte boxy, feito no Brasil.",
-    image: "https://i.imgur.com/QHnytp8.jpeg",
-    imageBack: "https://i.imgur.com/x6JzQYO.jpeg",
+    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Streetwear"
   },
   "2": {
