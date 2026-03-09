@@ -17,7 +17,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     name: "FLY OVERSIZE",
     price: 185,
     description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    details: "Algodão premium, malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/45AlfcA.jpeg",
     imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Streetwear"
@@ -75,32 +75,39 @@ export default function ProductDetailPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <Link href="/" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors mb-8">
+      <div className="pt-24 md:pt-32 pb-20 px-4 md:px-12 max-w-7xl mx-auto">
+        <Link href="/" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors mb-6 md:mb-8">
           <ChevronLeft className="w-3 h-3" /> Voltar para a Coleção
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20">
-          <div className="md:col-span-7 flex flex-col md:flex-row-reverse gap-6">
-            <div className="relative aspect-[3/4] flex-1 overflow-hidden bg-[#F5F1E9] shadow-xl rounded-[2.5rem] fade-in">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-20">
+          <div className="md:col-span-7 flex flex-col md:flex-row-reverse gap-4 md:gap-6">
+            <div className="relative aspect-[3/4] flex-1 overflow-hidden bg-[#F5F1E9] shadow-xl rounded-[1.5rem] md:rounded-[2.5rem] fade-in">
               <Image
                 src={activeImage || product.image}
                 alt={product.name}
                 fill
                 className="object-cover transition-opacity duration-500"
                 priority
+                sizes="(max-width: 768px) 100vw, 60vw"
               />
             </div>
             
             {images.length > 1 && (
-              <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-y-auto">
+              <div className="flex md:flex-col gap-2 md:gap-4 overflow-x-auto md:overflow-y-auto pb-2 md:pb-0 scrollbar-hide">
                 {images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(img)}
-                    className={`relative w-20 h-28 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all ${activeImage === img ? 'border-secondary' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                    className={`relative w-16 h-20 md:w-20 md:h-28 flex-shrink-0 rounded-lg md:rounded-xl overflow-hidden border-2 transition-all ${activeImage === img ? 'border-secondary' : 'border-transparent opacity-60 hover:opacity-100'}`}
                   >
-                    <Image src={img} alt={`${product.name} view ${idx}`} fill className="object-cover" />
+                    <Image 
+                      src={img} 
+                      alt={`${product.name} view ${idx}`} 
+                      fill 
+                      className="object-cover" 
+                      sizes="80px"
+                    />
                   </button>
                 ))}
               </div>
@@ -109,7 +116,7 @@ export default function ProductDetailPage() {
 
           <div className="md:col-span-5 flex flex-col fade-in" style={{ animationDelay: '0.1s' }}>
             <div className="flex justify-between items-start mb-4">
-              <span className="text-secondary font-medium tracking-[0.2em] uppercase text-[10px]">
+              <span className="text-secondary font-medium tracking-[0.2em] uppercase text-[8px] md:text-[10px]">
                 {product.category}
               </span>
               <div className="flex gap-4">
@@ -118,18 +125,18 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-headline text-primary mb-4 leading-tight">{product.name}</h1>
-            <p className="text-2xl font-body text-primary mb-8">${product.price}</p>
+            <h1 className="text-3xl md:text-5xl font-headline text-primary mb-4 leading-tight">{product.name}</h1>
+            <p className="text-xl md:text-2xl font-body text-primary mb-6 md:mb-8 font-semibold">${product.price}</p>
             
-            <div className="h-px bg-primary/10 mb-8"></div>
+            <div className="h-px bg-primary/10 mb-6 md:mb-8"></div>
             
-            <p className="text-primary/70 text-lg font-body leading-relaxed mb-8">
+            <p className="text-primary/70 text-base md:text-lg font-body leading-relaxed mb-6 md:mb-8">
               {product.description}
             </p>
 
-            <div className="space-y-4 mb-10">
+            <div className="space-y-4 mb-8 md:mb-10">
               <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary">Detalhes</h4>
-              <p className="text-sm text-primary/60 font-body italic leading-relaxed">
+              <p className="text-xs md:text-sm text-primary/60 font-body italic leading-relaxed">
                 {product.details}
               </p>
             </div>
@@ -141,11 +148,9 @@ export default function ProductDetailPage() {
               Adicionar ao Carrinho
             </Button>
 
-            <div className="mt-8 flex items-center justify-center gap-6 text-[10px] uppercase tracking-widest text-primary/40">
+            <div className="mt-8 grid grid-cols-3 gap-2 text-center text-[7px] md:text-[9px] uppercase tracking-widest text-primary/40">
               <p>Frete Grátis</p>
-              <div className="w-1 h-1 rounded-full bg-primary/20"></div>
               <p>Materiais Sustentáveis</p>
-              <div className="w-1 h-1 rounded-full bg-primary/20"></div>
               <p>Trabalho Artesanal</p>
             </div>
           </div>

@@ -56,21 +56,21 @@ export default function Home() {
       <Navbar />
       <Hero />
       
-      <section className="py-20 px-6 md:px-12 bg-background">
+      <section className="py-16 md:py-20 px-4 md:px-12 bg-background">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
             <div>
-              <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-2 block">
+              <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[8px] md:text-[10px] mb-2 block">
                 O Drop
               </span>
-              <h2 className="text-4xl font-headline text-primary">Lançamentos</h2>
+              <h2 className="text-3xl md:text-4xl font-headline text-primary">Lançamentos</h2>
             </div>
             <Link href="/" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
               Ver Coleção Completa
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-8 gap-y-12 md:gap-y-16">
             {SAMPLE_PRODUCTS.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -80,25 +80,26 @@ export default function Home() {
 
       <Silence />
 
-      <section className="py-20 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-           <div className="relative h-[400px] overflow-hidden rounded-[2.5rem]">
+      <section className="py-16 md:py-20 px-4 md:px-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+           <div className="relative h-[300px] md:h-[500px] overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem]">
              <Image 
               src="https://imgur.com/cvRMhxV.jpeg" 
               alt="Manifesto Urbano" 
               fill 
               className="object-cover" 
+              sizes="(max-width: 768px) 100vw, 50vw"
               data-ai-hint="urban streetwear fashion"
              />
            </div>
-           <div className="p-8">
-              <h3 className="text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
-              <p className="text-primary/70 mb-8 leading-relaxed font-body">
+           <div className="p-4 md:p-8">
+              <h3 className="text-2xl md:text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
+              <p className="text-primary/70 mb-8 leading-relaxed font-body text-sm md:text-base">
                 Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
                 sempre com autenticidade e materiais de verdade.
               </p>
-              <Button variant="outline" className="rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
+              <Button variant="outline" className="w-full md:w-auto rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
                 Ver Lookbook Urban
               </Button>
            </div>

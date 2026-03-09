@@ -20,12 +20,12 @@ export function Navbar() {
   return (
     <nav 
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12 py-6",
-        isScrolled ? "bg-background/80 backdrop-blur-md py-4 shadow-sm" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 md:px-12 py-4 md:py-6",
+        isScrolled ? "bg-background/80 backdrop-blur-md py-3 md:py-4 shadow-sm" : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
-        <div className="flex gap-8 items-center">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="flex gap-4 md:gap-8 items-center flex-1">
           <Menu className="w-5 h-5 text-primary md:hidden cursor-pointer" />
           <div className="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium text-primary/80">
             <Link href="/" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary/20 pb-0.5">Início</Link>
@@ -34,8 +34,8 @@ export function Navbar() {
           </div>
         </div>
 
-        <Link href="/" className="justify-self-center">
-          <div className="relative w-40 h-14 md:w-56 md:h-20">
+        <Link href="/" className="flex-shrink-0">
+          <div className="relative w-32 h-10 md:w-56 md:h-20">
             <Image 
               src="https://i.imgur.com/Y0ZQbVN.png" 
               alt="Versare Logo" 
@@ -46,8 +46,8 @@ export function Navbar() {
           </div>
         </Link>
 
-        <div className="flex gap-6 items-center justify-self-end text-primary/80">
-          <Search className="w-5 h-5 cursor-pointer hover:text-primary transition-colors" />
+        <div className="flex gap-4 md:gap-6 items-center flex-1 justify-end text-primary/80">
+          <Search className="w-5 h-5 cursor-pointer hover:text-primary transition-colors hidden sm:block" />
           <Link href="/cart" className="relative hover:text-primary transition-colors">
             <ShoppingBag className="w-5 h-5" />
             {cart.length > 0 && (
