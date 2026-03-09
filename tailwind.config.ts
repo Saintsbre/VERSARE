@@ -1,4 +1,3 @@
-
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -13,6 +12,7 @@ export default {
       fontFamily: {
         body: ['Montserrat', 'sans-serif'],
         headline: ['Poppins', 'sans-serif'],
+        brand: ['Cinzel', 'serif'],
         code: ['monospace'],
       },
       colors: {

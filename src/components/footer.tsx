@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 
 export function Footer() {
@@ -6,7 +5,7 @@ export function Footer() {
     <footer className="bg-background py-20 px-6 md:px-12 border-t border-primary/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
-          <h2 className="text-2xl font-headline text-primary mb-6">Versare</h2>
+          <h2 className="text-2xl font-brand tracking-widest text-primary mb-6 uppercase">Versare</h2>
           <p className="text-primary/60 font-body text-sm max-w-xs leading-relaxed">
             Redefinindo o luxo através do artesanato e materiais sustentáveis. 
             Inspirado pela costa, feito para o mundo.

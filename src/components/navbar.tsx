@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -35,7 +34,7 @@ export function Navbar() {
         </div>
 
         <Link href="/" className="justify-self-center">
-          <h1 className="text-3xl font-headline tracking-tighter text-primary">Versare</h1>
+          <h1 className="text-3xl font-brand tracking-widest text-primary uppercase">Versare</h1>
         </Link>
 
         <div className="flex gap-6 items-center justify-self-end text-primary/80">
