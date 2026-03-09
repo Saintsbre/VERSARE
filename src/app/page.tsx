@@ -25,7 +25,7 @@ const SAMPLE_PRODUCTS = [
     description: "Tênis minimalista em couro premium com solado vulcanizado.",
     details: "Couro legítimo, acabamento manual, durabilidade extrema.",
     image: "https://i.imgur.com/0emZ0Ht.jpeg",
-    imageBack: "https://picsum.photos/seed/street2-back/600/800",
+    imageBack: "https://i.imgur.com/mRAZvlJ.jpeg",
     category: "Calçados"
   },
   {
