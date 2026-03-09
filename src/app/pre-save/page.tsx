@@ -11,7 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { db } from "@/lib/firebase-client";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle2, MapPin, HelpCircle } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function PreSavePage() {
   const [loading, setLoading] = useState(false);
@@ -77,18 +78,18 @@ export default function PreSavePage() {
     };
 
     try {
+      // Tenta salvar no Firestore na coleção 'pre-saves'
       await addDoc(collection(db, "pre-saves"), data);
       setSuccess(true);
-      toast({
-        title: "Sucesso!",
-        description: "Seu cadastro para o Drop 01 foi realizado.",
-      });
+      
+      // Rola para o topo para mostrar a mensagem de sucesso
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error("Erro ao salvar:", error);
       toast({
         variant: "destructive",
-        title: "Erro",
-        description: "Não foi possível realizar o cadastro. Tente novamente.",
+        title: "Erro no Cadastro",
+        description: "Não foi possível conectar ao banco de dados. Verifique sua conexão.",
       });
     } finally {
       setLoading(false);
@@ -102,19 +103,35 @@ export default function PreSavePage() {
       <div className="flex-grow flex items-center justify-center pt-32 pb-20 px-4 md:px-12">
         <div className="max-w-2xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
           {success ? (
-            <div className="text-center space-y-6 py-8">
-              <CheckCircle2 className="w-16 h-16 text-primary mx-auto" />
-              <h1 className="text-3xl font-headline text-primary">Bem-vindo à Versare.</h1>
-              <p className="text-primary/60 font-body leading-relaxed">
-                Seu lugar no Drop 01 está garantido. Você receberá um aviso exclusivo em breve.
+            <div className="text-center space-y-8 py-10 animate-in fade-in zoom-in duration-500">
+              <div className="relative mx-auto w-24 h-24">
+                <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping"></div>
+                <div className="relative bg-primary rounded-full w-24 h-24 flex items-center justify-center">
+                  <CheckCircle2 className="w-12 h-12 text-white" />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <h1 className="text-4xl font-headline text-primary">Reserva Confirmada.</h1>
+                <p className="text-primary/60 font-body leading-relaxed max-w-sm mx-auto">
+                  Você agora faz parte da lista exclusiva da Versare. Avisaremos você por WhatsApp assim que o Drop 01 for liberado.
+                </p>
+              </div>
+
+              <div className="pt-8 border-t border-primary/5">
+                <Link href="/">
+                  <Button 
+                    variant="outline" 
+                    className="rounded-full border-primary text-primary hover:bg-primary hover:text-white px-10 h-14 uppercase tracking-[0.2em] text-[10px] transition-all"
+                  >
+                    Voltar para a Coleção
+                  </Button>
+                </Link>
+              </div>
+
+              <p className="text-[9px] uppercase tracking-[0.3em] text-primary/30 font-bold">
+                The Future of Streetwear
               </p>
-              <Button 
-                variant="outline" 
-                onClick={() => window.location.href = "/"}
-                className="rounded-full uppercase tracking-widest text-[10px] mt-4"
-              >
-                Voltar ao Início
-              </Button>
             </div>
           ) : (
             <>
@@ -184,7 +201,7 @@ export default function PreSavePage() {
                       <div className="bg-primary/5 p-4 rounded-lg flex items-start gap-3 border border-primary/10 animate-in fade-in slide-in-from-top-2 duration-300">
                         <MapPin className="w-5 h-5 text-primary mt-0.5" />
                         <div className="text-xs text-primary/70">
-                          <p className="font-bold text-primary">CEP {addressData.uf ? "Localizado" : ""}</p>
+                          <p className="font-bold text-primary">CEP Localizado</p>
                           <p>{addressData.logradouro} - {addressData.bairro}</p>
                           <p>{addressData.localidade} - {addressData.uf}</p>
                         </div>
@@ -211,9 +228,10 @@ export default function PreSavePage() {
                         <div className="flex items-center space-x-2 min-w-fit pr-2">
                           <Checkbox 
                             id="noNumber" 
+                            checked={noNumber}
                             onCheckedChange={(checked) => setNoNumber(!!checked)}
                           />
-                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-medium">S/N</Label>
+                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-medium cursor-pointer">S/N</Label>
                         </div>
                       </div>
                       <Input 
@@ -242,7 +260,7 @@ export default function PreSavePage() {
                   />
 
                   <div className="flex items-start space-x-3 pt-2">
-                    <Checkbox id="newsletter" name="newsletter" className="mt-0.5" />
+                    <Checkbox id="newsletter" name="newsletter" className="mt-0.5" defaultChecked />
                     <Label 
                       htmlFor="newsletter" 
                       className="text-[11px] text-primary/60 leading-tight font-medium cursor-pointer"
@@ -255,9 +273,16 @@ export default function PreSavePage() {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-16 rounded-full uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-lg mt-4"
+                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-16 rounded-full uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-lg mt-4 group"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Garantir meu Acesso Antecipado"}
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      Garantir meu Acesso Antecipado
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  )}
                 </Button>
               </form>
             </>
