@@ -12,7 +12,7 @@ export function Hero() {
           <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block font-body">
             Drop 01 // City Vibes 2024
           </span>
-          <h2 className="text-6xl md:text-8xl font-headline leading-[0.9] text-primary mb-8">
+          <h2 className="text-6xl md:text-8xl font-brand leading-[0.9] text-primary mb-8">
             Street <br />
             <span className="italic">Elevado.</span>
           </h2>
@@ -22,10 +22,10 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button className="bg-primary hover:bg-accent text-primary-foreground px-8 py-6 rounded-full text-xs uppercase tracking-widest transition-all duration-300 h-14">
-              Shop New Drop
+              Comprar Novo Drop
             </Button>
             <Button variant="ghost" className="text-primary hover:bg-secondary/20 px-8 py-6 rounded-full text-xs uppercase tracking-widest transition-all duration-300 h-14">
-              Our Vision
+              Nossa Visão
             </Button>
           </div>
         </div>
