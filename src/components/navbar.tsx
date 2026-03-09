@@ -38,7 +38,7 @@ export function Navbar() {
         <Link href="/" className="justify-self-center">
           <div className="relative w-64 h-20 md:w-80 md:h-28">
             <Image 
-              src="https://i.imgur.com/89ZvbOW.png" 
+              src="https://i.imgur.com/Y0ZQbVN.png" 
               alt="Versare Logo" 
               fill 
               className="object-contain"

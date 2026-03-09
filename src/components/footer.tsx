@@ -10,7 +10,7 @@ export function Footer() {
           <Link href="/">
             <div className="relative w-64 h-24 mb-6">
               <Image 
-                src="https://i.imgur.com/89ZvbOW.png" 
+                src="https://i.imgur.com/Y0ZQbVN.png" 
                 alt="Versare Logo" 
                 fill 
                 className="object-contain object-left"
