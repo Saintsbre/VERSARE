@@ -34,8 +34,8 @@ const SAMPLE_PRODUCTS = [
     price: 185,
     description: "Acessório essencial para quem vive o ritmo da cidade.",
     details: "Lona resistente, alças ajustáveis, detalhes em couro.",
-    image: "https://picsum.photos/seed/street3/600/800",
-    imageBack: "https://picsum.photos/seed/street3-back/600/800",
+    image: "https://picsum.photos/seed/streetbag/600/800",
+    imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Acessórios"
   },
   {
