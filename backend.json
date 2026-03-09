@@ -6,10 +6,13 @@
   "entities": {
     "PreSave": {
       "title": "PreSave",
-      "description": "Informações de contato para reserva de drop exclusivo",
+      "description": "Informações completas para reserva e futura entrega do drop exclusivo",
       "type": "object",
       "properties": {
-        "name": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
           "type": "string"
         },
         "email": {
@@ -17,6 +20,25 @@
         },
         "whatsapp": {
           "type": "string"
+        },
+        "cep": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "noNumber": {
+          "type": "boolean"
+        },
+        "complement": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string",
+          "description": "CPF ou CNPJ para nota fiscal"
         },
         "newsletter": {
           "type": "boolean"
@@ -27,9 +49,13 @@
         }
       },
       "required": [
-        "name",
+        "firstName",
+        "lastName",
         "email",
-        "whatsapp"
+        "whatsapp",
+        "cep",
+        "address",
+        "document"
       ]
     }
   },
@@ -39,7 +65,7 @@
   "firestore": {
     "/pre-saves/{preSaveId}": {
       "schema": "PreSave",
-      "description": "Coleção de cadastros de pré-save"
+      "description": "Coleção de cadastros de pré-save detalhados"
     }
   }
 }
