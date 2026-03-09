@@ -9,13 +9,13 @@ import Image from "next/image";
 
 const SAMPLE_PRODUCTS = [
   {
-    id: "1",
-    name: "FLY OVERSIZE",
-    price: 185,
-    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg",
+    id: "3",
+    name: "ERREJOTA OVERSIZE",
+    price: 345,
+    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    details: "Algodão premium, corte oversized, feito no Brasil.",
+    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Streetwear"
   },
   {
@@ -29,13 +29,13 @@ const SAMPLE_PRODUCTS = [
     category: "Streetwear"
   },
   {
-    id: "3",
-    name: "ERREJOTA OVERSIZE",
-    price: 345,
-    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
-    details: "Algodão premium, corte oversized, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
+    id: "1",
+    name: "FLY OVERSIZE",
+    price: 185,
+    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    image: "https://i.imgur.com/45AlfcA.jpeg",
+    imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Streetwear"
   },
   {
@@ -82,10 +82,10 @@ export default function Home() {
 
       <section className="py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-           <div className="relative h-[400px] overflow-hidden rounded-[2rem]">
+           <div className="relative h-[400px] overflow-hidden rounded-[2.5rem]">
              <Image 
-              src="https://picsum.photos/seed/urban-editorial/800/600" 
-              alt="Street Editorial" 
+              src="https://imgur.com/cvRMhxV.jpeg" 
+              alt="Manifesto Urbano" 
               fill 
               className="object-cover" 
               data-ai-hint="urban streetwear fashion"
@@ -94,7 +94,7 @@ export default function Home() {
            <div className="p-8">
               <h3 className="text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
               <p className="text-primary/70 mb-8 leading-relaxed font-body">
-                Versare é sobre a liberdade de movemento. É o streetwear que entende de alfaiataria. 
+                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
                 sempre com autenticidade e materiais de verdade.
               </p>
