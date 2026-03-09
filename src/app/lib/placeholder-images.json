@@ -1,0 +1,41 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-editorial",
+      "description": "Luxury linen fashion editorial in sunset light",
+      "imageUrl": "https://picsum.photos/seed/versare-hero/1200/800",
+      "imageHint": "luxury linen fashion sunset"
+    },
+    {
+      "id": "product-1",
+      "description": "Handcrafted Linen Shirt",
+      "imageUrl": "https://picsum.photos/seed/product1/600/800",
+      "imageHint": "linen shirt fashion"
+    },
+    {
+      "id": "product-2",
+      "description": "Artisanal Leather Sandals",
+      "imageUrl": "https://picsum.photos/seed/product2/600/800",
+      "imageHint": "leather sandals luxury"
+    },
+    {
+      "id": "product-3",
+      "description": "Woven Straw Tote",
+      "imageUrl": "https://picsum.photos/seed/product3/600/800",
+      "imageHint": "straw bag fashion"
+    },
+    {
+      "id": "product-4",
+      "description": "Organic Cotton Trousers",
+      "imageUrl": "https://picsum.photos/seed/product4/600/800",
+      "imageHint": "cotton trousers beige"
+    },
+    {
+      "id": "essence-bg",
+      "description": "Close up of natural fabric textures",
+      "imageUrl": "https://picsum.photos/seed/essence/800/600",
+      "imageHint": "natural fabric texture"
+    }
+  ]
+}

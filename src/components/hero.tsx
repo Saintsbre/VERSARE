@@ -1,0 +1,50 @@
+
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+
+export function Hero() {
+  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-editorial');
+
+  return (
+    <section className="relative pt-32 pb-20 px-6 md:px-12 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        <div className="md:col-span-5 z-10 fade-in">
+          <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block">
+            Autumn / Winter 2024
+          </span>
+          <h2 className="text-6xl md:text-8xl font-headline leading-[0.9] text-primary mb-8">
+            The Soul of <br />
+            <span className="italic">Linen</span>
+          </h2>
+          <p className="text-primary/70 font-body text-lg max-w-md mb-10 leading-relaxed">
+            Where European structure meets the warmth of the Brazilian coast. 
+            Artisanal pieces designed to breathe with you.
+          </p>
+          <div className="flex gap-4">
+            <Button className="bg-primary hover:bg-accent text-primary-foreground px-8 py-6 rounded-none text-xs uppercase tracking-widest transition-all duration-300">
+              Discover Collection
+            </Button>
+            <Button variant="ghost" className="text-primary hover:bg-secondary/20 px-8 py-6 rounded-none text-xs uppercase tracking-widest transition-all duration-300">
+              Our Story
+            </Button>
+          </div>
+        </div>
+
+        <div className="md:col-span-7 relative h-[600px] md:h-[800px] w-full fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="absolute inset-0 bg-secondary/10 -m-4 md:-m-8 z-0 translate-x-4 translate-y-4"></div>
+          <div className="relative h-full w-full overflow-hidden shadow-2xl">
+            <Image
+              src={heroImage?.imageUrl || "https://picsum.photos/seed/versare-hero/1200/800"}
+              alt="Versare Fashion Editorial"
+              fill
+              className="object-cover"
+              priority
+              data-ai-hint="luxury fashion editorial"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
