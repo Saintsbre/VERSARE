@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import Image from "next/image";
 
@@ -5,14 +6,14 @@ export function Essence() {
   const essenceImg = PlaceHolderImages.find(img => img.id === 'essence-bg');
 
   return (
-    <section className="bg-primary py-24 px-6 md:px-12 text-primary-foreground overflow-hidden">
+    <section className="bg-primary py-24 px-6 md:px-12 text-primary-foreground overflow-hidden border-y border-primary/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-        <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-[2.5rem]">
+        <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
           <Image
-            src={essenceImg?.imageUrl || "https://picsum.photos/seed/street-essence/800/1000"}
+            src={essenceImg?.imageUrl || "https://i.imgur.com/QHnytp8.jpeg"}
             alt="Essência Urbana"
             fill
-            className="object-cover opacity-80"
+            className="object-cover opacity-90 transition-transform duration-700 hover:scale-105"
           />
         </div>
         

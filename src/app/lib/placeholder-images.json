@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-editorial",
-      "description": "Urban luxury streetwear editorial in concrete city setting",
-      "imageUrl": "https://i.imgur.com/QHnytp8.jpeg",
-      "imageHint": "luxury streetwear urban"
+      "description": "Urban luxury streetwear editorial",
+      "imageUrl": "https://i.imgur.com/IgsaBrY.jpeg",
+      "imageHint": "luxury streetwear"
     },
     {
       "id": "product-1",
@@ -33,9 +33,15 @@
     },
     {
       "id": "essence-bg",
-      "description": "Close up of urban textures and fabric",
-      "imageUrl": "https://picsum.photos/seed/street-essence/800/1000",
-      "imageHint": "concrete fabric texture"
+      "description": "Streetwear luxury editorial",
+      "imageUrl": "https://i.imgur.com/QHnytp8.jpeg",
+      "imageHint": "luxury fashion"
+    },
+    {
+      "id": "urban-manifesto",
+      "description": "Urban editorial shot",
+      "imageUrl": "https://picsum.photos/seed/urban-editorial/800/600",
+      "imageHint": "urban streetwear"
     }
   ]
 }
