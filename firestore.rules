@@ -9,19 +9,6 @@ service cloud.firestore {
      * This ruleset enforces a strict user-ownership model where private data is isolated 
      * by the user's unique Firebase Authentication ID (UID). It prioritizes authorization 
      * security while maintaining flexibility for data schemas during rapid development.
-     *
-     * DATA STRUCTURE:
-     * - /user_profiles/{userId}: Private profile data, restricted to the account owner.
-     * - /products/{productId}: Public product catalog, readable by everyone.
-     * - /users/{userId}/pre_saves/{id}: User-specific wishlist/interest items.
-     *
-     * KEY DECISIONS:
-     * 1. Path-Based Authorization: We use the {userId} variable in collection paths 
-     *    to verify ownership instantly without needing extra database reads (get() calls).
-     * 2. Denormalization: Critical relational fields like 'userId' are expected to be 
-     *    mirrored inside the documents to ensure query consistency and relational integrity.
-     * 3. Read-Only Catalog: The product catalog is globally readable but locked for 
-     *    writes to protect against unauthorized inventory changes.
      */
 
     // --- Global Helper Functions ---
@@ -44,11 +31,17 @@ service cloud.firestore {
     // --- Collection Rules ---
 
     /**
+     * @description Regras para a coleção de Pré-Save.
+     * @allow Qualquer pessoa pode criar um registro (cadastro de lead).
+     * @deny Leitura, atualização e exclusão são bloqueadas para o público para proteger dados sensíveis.
+     */
+    match /pre-save/{preSaveId} {
+      allow create: if true;
+      allow get, list, update, delete: if false; 
+    }
+
+    /**
      * @description Rules for the UserProfile collection, ensuring users can only access their own profile.
-     * @path /user_profiles/{userId}
-     * @allow Authenticated user (get, list, create, update, delete) if userId == auth.uid.
-     * @deny Any user attempting to access a different user's profile.
-     * @principle Restricts access to a user's own data tree and enforces path-to-data consistency.
      */
     match /user_profiles/{userId} {
       allow get, list: if isOwner(userId);
@@ -58,26 +51,15 @@ service cloud.firestore {
     }
 
     /**
-     * @description Rules for the Product catalog, allowing public browsing but restricted management.
-     * @path /products/{productId}
-     * @allow Public access (get, list) for all users, including anonymous.
-     * @deny Unauthorized writes (create, update, delete).
-     * @principle Public read with owner-only writes (Note: Owner/Admin fields currently missing in schema).
+     * @description Rules for the Product catalog.
      */
     match /products/{productId} {
       allow get, list: if true;
-      
-      // CRITICAL: Cannot implement owner-only writes. The 'Product' entity is missing an 'ownerId' or 'authorId' field.
-      // Management should be restricted to admin roles or verified staff once the schema is updated.
-      allow create, update, delete: if false; // TODO: Add administrative validation once roles are defined.
+      allow create, update, delete: if false;
     }
 
     /**
-     * @description Rules for Pre-Save items, allowing users to manage their own interests.
-     * @path /users/{userId}/pre_saves/{preSaveItemId}
-     * @allow Owner (get, list, create, update, delete) for items under their own path.
-     * @deny Accessing another user's pre-save list or spoofing the userId field.
-     * @principle Enforces document ownership and relational integrity for subcollections.
+     * @description Rules for User-specific Pre-Save items (wishlist style).
      */
     match /users/{userId}/pre_saves/{preSaveItemId} {
       allow get, list: if isOwner(userId);
