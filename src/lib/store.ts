@@ -1,4 +1,3 @@
-
 "use client";
 
 import { create } from 'zustand';
@@ -11,6 +10,7 @@ export interface Product {
   description: string;
   details: string;
   image: string;
+  imageBack?: string;
   category: string;
 }
 

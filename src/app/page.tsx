@@ -14,7 +14,8 @@ const SAMPLE_PRODUCTS = [
     price: 345,
     description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
     details: "Linho encorpado, corte boxy, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    image: "https://i.imgur.com/QHnytp8.jpeg",
+    imageBack: "https://i.imgur.com/x6JzQYO.jpeg",
     category: "Streetwear"
   },
   {
@@ -24,6 +25,7 @@ const SAMPLE_PRODUCTS = [
     description: "Tênis minimalista em couro premium com solado vulcanizado.",
     details: "Couro legítimo, acabamento manual, durabilidade extrema.",
     image: "https://i.imgur.com/0emZ0Ht.jpeg",
+    imageBack: "https://picsum.photos/seed/street2-back/600/800",
     category: "Calçados"
   },
   {
@@ -33,6 +35,7 @@ const SAMPLE_PRODUCTS = [
     description: "Acessório essencial para quem vive o ritmo da cidade.",
     details: "Lona resistente, alças ajustáveis, detalhes em couro.",
     image: "https://picsum.photos/seed/street3/600/800",
+    imageBack: "https://picsum.photos/seed/street3-back/600/800",
     category: "Acessórios"
   },
   {
@@ -42,6 +45,7 @@ const SAMPLE_PRODUCTS = [
     description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
     details: "100% Algodão, modelagem wide, estética utilitária.",
     image: "https://picsum.photos/seed/street4/600/800",
+    imageBack: "https://picsum.photos/seed/street4-back/600/800",
     category: "Streetwear"
   }
 ];
