@@ -7,7 +7,7 @@ export function Essence() {
   return (
     <section className="bg-primary py-24 px-6 md:px-12 text-primary-foreground overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-        <div className="relative aspect-square md:aspect-[4/5] overflow-hidden">
+        <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-[2.5rem]">
           <Image
             src={essenceImg?.imageUrl || "https://picsum.photos/seed/street-essence/800/1000"}
             alt="Essência Urbana"

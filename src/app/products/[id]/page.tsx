@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useParams } from "next/navigation";
@@ -7,7 +6,7 @@ import { Footer } from "@/components/footer";
 import { useVersareStore, Product } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ChevronLeft, Share2, Heart } from "lucide-react";
 import Link from "next/link";
 import { AIRecommendations } from "@/components/ai-recommendations-client";
@@ -15,39 +14,39 @@ import { AIRecommendations } from "@/components/ai-recommendations-client";
 const SAMPLE_PRODUCTS: Record<string, Product> = {
   "1": {
     id: "1",
-    name: "Camisa de Linho Clássica",
-    price: 185,
-    description: "Camisa de linho leve e respirável, perfeita para noites de verão. Possui colarinho relaxado e botões sustentáveis de madrepérola.",
-    details: "100% Linho Brasileiro. Costurada à mão em São Paulo. Lavagem suave apenas.",
-    image: "https://picsum.photos/seed/product1/600/800",
-    category: "Vestuário"
+    name: "Hoodie de Linho Oversized",
+    price: 345,
+    description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
+    details: "Linho encorpado, corte boxy, feito no Brasil.",
+    image: "https://picsum.photos/seed/street1/600/800",
+    category: "Streetwear"
   },
   "2": {
     id: "2",
-    name: "Sandálias de Couro Artesanal",
-    price: 220,
-    description: "Sandálias feitas à mão usando couro de curtimento vegetal que desenvolve uma pátina linda com o tempo.",
-    details: "Sola de couro italiano, artesanato de artesãos brasileiros.",
-    image: "https://picsum.photos/seed/product2/600/800",
-    category: "Acessórios"
+    name: "Sneaker Versare 01",
+    price: 520,
+    description: "Tênis minimalista em couro premium com solado vulcanizado.",
+    details: "Couro legítimo, acabamento manual, durabilidade extrema.",
+    image: "https://picsum.photos/seed/street2/600/800",
+    category: "Calçados"
   },
   "3": {
     id: "3",
-    name: "Bolsa de Palha Trançada",
-    price: 145,
-    description: "Uma bolsa espaçosa trançada à mão por artesãos locais usando fibras de palha sustentáveis.",
-    details: "Corpo de palha natural, alças de couro orgânico.",
-    image: "https://picsum.photos/seed/product3/600/800",
+    name: "Bag Crossbody Urbana",
+    price: 185,
+    description: "Acessório essencial para quem vive o ritmo da cidade.",
+    details: "Lona resistente, alças ajustáveis, detalhes em couro.",
+    image: "https://picsum.photos/seed/street3/600/800",
     category: "Acessórios"
   },
   "4": {
     id: "4",
-    name: "Calça de Algodão Orgânico",
-    price: 195,
-    description: "Calças de corte relaxado feitas de algodão orgânico de alta qualidade para o máximo conforto.",
-    details: "Algodão certificado GOTS. Produzido via comércio justo.",
-    image: "https://picsum.photos/seed/product4/600/800",
-    category: "Vestuário"
+    name: "Calça Cargo Wide Leg",
+    price: 410,
+    description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
+    details: "100% Algodão, modelagem wide, estética utilitária.",
+    image: "https://picsum.photos/seed/street4/600/800",
+    category: "Streetwear"
   }
 };
 
@@ -62,7 +61,7 @@ export default function ProductDetailPage() {
     }
   }, [product, addToHistory]);
 
-  if (!product) return <div>Produto não encontrado</div>;
+  if (!product) return <div className="pt-40 text-center">Produto não encontrado</div>;
 
   return (
     <main className="min-h-screen bg-background">
@@ -75,7 +74,7 @@ export default function ProductDetailPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20">
           <div className="md:col-span-7">
-            <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] shadow-xl fade-in">
+            <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] shadow-xl rounded-3xl fade-in">
               <Image
                 src={product.image}
                 alt={product.name}
@@ -115,7 +114,7 @@ export default function ProductDetailPage() {
 
             <Button 
               onClick={() => addToCart(product)}
-              className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-none text-xs uppercase tracking-[0.2em] transition-all duration-300"
+              className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-full text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
               Adicionar ao Carrinho
             </Button>

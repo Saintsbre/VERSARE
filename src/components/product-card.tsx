@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -15,7 +14,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative flex flex-col fade-in">
-      <Link href={`/products/${product.id}`} className="block relative aspect-[3/4] overflow-hidden bg-[#F5F1E9]">
+      <Link href={`/products/${product.id}`} className="block relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] rounded-2xl">
         <Image
           src={product.image}
           alt={product.name}
@@ -37,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="mt-4 flex gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
         <Button 
           onClick={() => addToCart(product)}
-          className="flex-1 bg-primary hover:bg-accent text-primary-foreground rounded-none text-[10px] uppercase tracking-widest h-10"
+          className="flex-1 bg-primary hover:bg-accent text-primary-foreground rounded-full text-[10px] uppercase tracking-widest h-10"
         >
           Adicionar ao Carrinho
         </Button>
