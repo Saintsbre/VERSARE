@@ -46,7 +46,6 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-headline text-lg md:text-xl text-primary truncate max-w-[150px] md:max-w-none">{product.name}</h3>
           <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-primary/50 mt-1">{product.category}</p>
         </div>
-        <p className="font-body text-sm md:text-base font-semibold text-primary/80">${product.price}</p>
       </div>
 
       <div className="mt-4 flex gap-2 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 px-1">
