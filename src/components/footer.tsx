@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -45,7 +46,7 @@ export function Footer() {
       
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-primary/5 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-[10px] text-primary/40 uppercase tracking-widest font-medium">
-          &copy; 2024 Versare. Todos os direitos reservados.
+          &copy; 2026 Versare. Todos os direitos reservados.
         </p>
         <div className="flex gap-8 text-[10px] text-primary/40 uppercase tracking-widest font-medium">
           <Link href="/" className="hover:text-primary transition-colors">Política de Privacidade</Link>

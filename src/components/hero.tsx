@@ -11,7 +11,7 @@ export function Hero() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
         <div className="md:col-span-5 z-10 fade-in">
           <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block font-body">
-            Drop 01 // City Vibes 2024
+            Drop 01 // City Vibes 2026
           </span>
           <h2 className="text-6xl md:text-8xl font-brand leading-[0.9] text-primary mb-8">
             Street <br />
