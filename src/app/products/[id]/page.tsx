@@ -48,8 +48,8 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     price: 410,
     description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
     details: "100% Algodão, modelagem wide, estética utilitária.",
-    image: "https://picsum.photos/seed/street4/600/800",
-    imageBack: "https://picsum.photos/seed/street4-back/600/800",
+    image: "https://i.imgur.com/MfpdCpM.jpeg",
+    imageBack: "https://i.imgur.com/nEVUYNk.jpeg",
     category: "Streetwear"
   }
 };

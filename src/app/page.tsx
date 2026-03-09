@@ -44,8 +44,8 @@ const SAMPLE_PRODUCTS = [
     price: 410,
     description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
     details: "100% Algodão, modelagem wide, estética utilitária.",
-    image: "https://picsum.photos/seed/street4/600/800",
-    imageBack: "https://picsum.photos/seed/street4-back/600/800",
+    image: "https://i.imgur.com/MfpdCpM.jpeg",
+    imageBack: "https://i.imgur.com/nEVUYNk.jpeg",
     category: "Streetwear"
   }
 ];
@@ -78,7 +78,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Essence />
+      <Silence />
 
       <section className="py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -108,4 +108,8 @@ export default function Home() {
       <Footer />
     </main>
   );
+}
+
+function Silence() {
+  return <Essence />
 }
