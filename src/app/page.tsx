@@ -1,4 +1,3 @@
-
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Essence } from "@/components/essence";
@@ -11,12 +10,12 @@ import Image from "next/image";
 const SAMPLE_PRODUCTS = [
   {
     id: "1",
-    name: "ERREJOTA OVERSIZE",
-    price: 345,
-    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
-    details: "Algodão premium, corte oversized, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
+    name: "FLY OVERSIZE",
+    price: 185,
+    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    image: "https://i.imgur.com/45AlfcA.jpeg",
+    imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Streetwear"
   },
   {
@@ -31,12 +30,12 @@ const SAMPLE_PRODUCTS = [
   },
   {
     id: "3",
-    name: "FLY OVERSIZE",
-    price: 185,
-    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg",
+    name: "ERREJOTA OVERSIZE",
+    price: 345,
+    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    details: "Algodão premium, corte oversized, feito no Brasil.",
+    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Streetwear"
   },
   {
@@ -95,7 +94,7 @@ export default function Home() {
            <div className="p-8">
               <h3 className="text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
               <p className="text-primary/70 mb-8 leading-relaxed font-body">
-                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
+                Versare é sobre a liberdade de movemento. É o streetwear que entende de alfaiataria. 
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
                 sempre com autenticidade e materiais de verdade.
               </p>

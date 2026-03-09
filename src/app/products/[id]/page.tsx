@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useParams } from "next/navigation";
@@ -15,12 +14,12 @@ import { AIRecommendations } from "@/components/ai-recommendations-client";
 const SAMPLE_PRODUCTS: Record<string, Product> = {
   "1": {
     id: "1",
-    name: "ERREJOTA OVERSIZE",
-    price: 345,
-    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
-    details: "Algodão premium, corte oversized, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
+    name: "FLY OVERSIZE",
+    price: 185,
+    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    image: "https://i.imgur.com/45AlfcA.jpeg",
+    imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Streetwear"
   },
   "2": {
@@ -35,12 +34,12 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
   },
   "3": {
     id: "3",
-    name: "FLY OVERSIZE",
-    price: 185,
-    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg",
+    name: "ERREJOTA OVERSIZE",
+    price: 345,
+    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    details: "Algodão premium, corte oversized, feito no Brasil.",
+    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Streetwear"
   },
   "4": {
