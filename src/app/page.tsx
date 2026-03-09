@@ -4,44 +4,46 @@ import { Hero } from "@/components/hero";
 import { Essence } from "@/components/essence";
 import { ProductCard } from "@/components/product-card";
 import { Footer } from "@/components/footer";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const SAMPLE_PRODUCTS = [
   {
     id: "1",
-    name: "Classic Linen Shirt",
+    name: "Camisa de Linho Clássica",
     price: 185,
-    description: "Breathable, lightweight linen shirt perfect for summer evenings.",
-    details: "100% Brazilian Linen. Hand-stitched in Sao Paulo.",
+    description: "Camisa de linho leve e respirável, perfeita para noites de verão.",
+    details: "100% Linho Brasileiro. Costurada à mão em São Paulo.",
     image: "https://picsum.photos/seed/product1/600/800",
-    category: "Apparel"
+    category: "Vestuário"
   },
   {
     id: "2",
-    name: "Artisan Leather Sandals",
+    name: "Sandálias de Couro Artesanal",
     price: 220,
-    description: "Handcrafted sandals using vegetable-tanned leather.",
-    details: "Italian leather, Brazilian craftsmanship.",
+    description: "Sandálias feitas à mão usando couro de curtimento vegetal.",
+    details: "Solado de couro italiano, artesanato brasileiro.",
     image: "https://picsum.photos/seed/product2/600/800",
-    category: "Accessories"
+    category: "Acessórios"
   },
   {
     id: "3",
-    name: "Woven Straw Tote",
+    name: "Bolsa de Palha Trançada",
     price: 145,
-    description: "A spacious tote hand-woven by local artisans.",
-    details: "Natural straw, leather handles.",
+    description: "Uma bolsa espaçosa trançada à mão por artesãos locais.",
+    details: "Palha natural, alças de couro.",
     image: "https://picsum.photos/seed/product3/600/800",
-    category: "Accessories"
+    category: "Acessórios"
   },
   {
     id: "4",
-    name: "Organic Cotton Trousers",
+    name: "Calça de Algodão Orgânico",
     price: 195,
-    description: "Relaxed fit trousers made from high-grade organic cotton.",
-    details: "GOTS certified cotton.",
+    description: "Calças de corte relaxado feitas de algodão orgânico de alta qualidade.",
+    details: "Algodão certificado GOTS.",
     image: "https://picsum.photos/seed/product4/600/800",
-    category: "Apparel"
+    category: "Vestuário"
   }
 ];
 
@@ -56,12 +58,12 @@ export default function Home() {
           <div className="flex justify-between items-end mb-12">
             <div>
               <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-2 block">
-                The Collection
+                A Coleção
               </span>
-              <h2 className="text-4xl font-headline text-primary">New Arrivals</h2>
+              <h2 className="text-4xl font-headline text-primary">Novidades</h2>
             </div>
-            <Link href="/collections" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
-              View All
+            <Link href="/" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
+              Ver Tudo
             </Link>
           </div>
           
@@ -87,14 +89,14 @@ export default function Home() {
              />
            </div>
            <div className="p-8">
-              <h3 className="text-3xl font-headline text-primary mb-6">Designed for Living</h3>
+              <h3 className="text-3xl font-headline text-primary mb-6">Feito para Viver</h3>
               <p className="text-primary/70 mb-8 leading-relaxed">
-                Versare isn't just about clothing. It's about a lifestyle that values quality, 
-                sustainability, and the beauty of the handmade. Every stitch tells a story of tradition 
-                reimagined for the modern world.
+                Versare não é apenas sobre roupas. É sobre um estilo de vida que valoriza a qualidade, 
+                a sustentabilidade e a beleza do feito à mão. Cada ponto conta uma história de tradição 
+                reimaginada para o mundo moderno.
               </p>
               <Button variant="outline" className="rounded-none uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8">
-                Explore the Lookbook
+                Explorar Lookbook
               </Button>
            </div>
         </div>
@@ -104,7 +106,3 @@ export default function Home() {
     </main>
   );
 }
-
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";

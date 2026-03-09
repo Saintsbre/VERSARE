@@ -11,22 +11,22 @@ export function Hero() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
         <div className="md:col-span-5 z-10 fade-in">
           <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block">
-            Autumn / Winter 2024
+            Outono / Inverno 2024
           </span>
           <h2 className="text-6xl md:text-8xl font-headline leading-[0.9] text-primary mb-8">
-            The Soul of <br />
-            <span className="italic">Linen</span>
+            A Alma do <br />
+            <span className="italic">Linho</span>
           </h2>
           <p className="text-primary/70 font-body text-lg max-w-md mb-10 leading-relaxed">
-            Where European structure meets the warmth of the Brazilian coast. 
-            Artisanal pieces designed to breathe with you.
+            Onde a estrutura europeia encontra o calor da costa brasileira. 
+            Peças artesanais desenhadas para respirar com você.
           </p>
           <div className="flex gap-4">
             <Button className="bg-primary hover:bg-accent text-primary-foreground px-8 py-6 rounded-none text-xs uppercase tracking-widest transition-all duration-300">
-              Discover Collection
+              Descobrir Coleção
             </Button>
             <Button variant="ghost" className="text-primary hover:bg-secondary/20 px-8 py-6 rounded-none text-xs uppercase tracking-widest transition-all duration-300">
-              Our Story
+              Nossa História
             </Button>
           </div>
         </div>

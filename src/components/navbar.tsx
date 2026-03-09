@@ -28,9 +28,9 @@ export function Navbar() {
         <div className="flex gap-8 items-center">
           <Menu className="w-5 h-5 text-primary md:hidden cursor-pointer" />
           <div className="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium text-primary/80">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <Link href="/collections" className="hover:text-primary transition-colors">Collections</Link>
-            <Link href="/about" className="hover:text-primary transition-colors">About</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Início</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Coleções</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Sobre</Link>
           </div>
         </div>
 

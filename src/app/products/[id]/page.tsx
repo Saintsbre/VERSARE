@@ -15,39 +15,39 @@ import { AIRecommendations } from "@/components/ai-recommendations-client";
 const SAMPLE_PRODUCTS: Record<string, Product> = {
   "1": {
     id: "1",
-    name: "Classic Linen Shirt",
+    name: "Camisa de Linho Clássica",
     price: 185,
-    description: "Breathable, lightweight linen shirt perfect for summer evenings. Features a relaxed collar and sustainable mother-of-pearl buttons.",
-    details: "100% Brazilian Linen. Hand-stitched in Sao Paulo. Gentle wash only.",
+    description: "Camisa de linho leve e respirável, perfeita para noites de verão. Possui colarinho relaxado e botões sustentáveis de madrepérola.",
+    details: "100% Linho Brasileiro. Costurada à mão em São Paulo. Lavagem suave apenas.",
     image: "https://picsum.photos/seed/product1/600/800",
-    category: "Apparel"
+    category: "Vestuário"
   },
   "2": {
     id: "2",
-    name: "Artisan Leather Sandals",
+    name: "Sandálias de Couro Artesanal",
     price: 220,
-    description: "Handcrafted sandals using vegetable-tanned leather that develops a beautiful patina over time.",
-    details: "Italian leather soles, Brazilian artisan upper craftsmanship.",
+    description: "Sandálias feitas à mão usando couro de curtimento vegetal que desenvolve uma pátina linda com o tempo.",
+    details: "Sola de couro italiano, artesanato de artesãos brasileiros.",
     image: "https://picsum.photos/seed/product2/600/800",
-    category: "Accessories"
+    category: "Acessórios"
   },
   "3": {
     id: "3",
-    name: "Woven Straw Tote",
+    name: "Bolsa de Palha Trançada",
     price: 145,
-    description: "A spacious tote hand-woven by local artisans using sustainable straw fibres.",
-    details: "Natural straw body, organic tanned leather handles.",
+    description: "Uma bolsa espaçosa trançada à mão por artesãos locais usando fibras de palha sustentáveis.",
+    details: "Corpo de palha natural, alças de couro orgânico.",
     image: "https://picsum.photos/seed/product3/600/800",
-    category: "Accessories"
+    category: "Acessórios"
   },
   "4": {
     id: "4",
-    name: "Organic Cotton Trousers",
+    name: "Calça de Algodão Orgânico",
     price: 195,
-    description: "Relaxed fit trousers made from high-grade organic cotton for ultimate comfort.",
-    details: "GOTS certified cotton. Fair trade produced.",
+    description: "Calças de corte relaxado feitas de algodão orgânico de alta qualidade para o máximo conforto.",
+    details: "Algodão certificado GOTS. Produzido via comércio justo.",
     image: "https://picsum.photos/seed/product4/600/800",
-    category: "Apparel"
+    category: "Vestuário"
   }
 };
 
@@ -55,7 +55,6 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const product = SAMPLE_PRODUCTS[id as string];
   const { addToCart, addToHistory } = useVersareStore();
-  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
     if (product) {
@@ -63,7 +62,7 @@ export default function ProductDetailPage() {
     }
   }, [product, addToHistory]);
 
-  if (!product) return <div>Product not found</div>;
+  if (!product) return <div>Produto não encontrado</div>;
 
   return (
     <main className="min-h-screen bg-background">
@@ -71,7 +70,7 @@ export default function ProductDetailPage() {
       
       <div className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
         <Link href="/" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-primary/40 hover:text-primary transition-colors mb-8">
-          <ChevronLeft className="w-3 h-3" /> Back to Collection
+          <ChevronLeft className="w-3 h-3" /> Voltar para a Coleção
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-20">
@@ -108,7 +107,7 @@ export default function ProductDetailPage() {
             </p>
 
             <div className="space-y-4 mb-10">
-              <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary">Details</h4>
+              <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-primary">Detalhes</h4>
               <p className="text-sm text-primary/60 font-body italic leading-relaxed">
                 {product.details}
               </p>
@@ -118,15 +117,15 @@ export default function ProductDetailPage() {
               onClick={() => addToCart(product)}
               className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-none text-xs uppercase tracking-[0.2em] transition-all duration-300"
             >
-              Add to Shopping Bag
+              Adicionar ao Carrinho
             </Button>
 
             <div className="mt-8 flex items-center justify-center gap-6 text-[10px] uppercase tracking-widest text-primary/40">
-              <p>Free Shipping</p>
+              <p>Frete Grátis</p>
               <div className="w-1 h-1 rounded-full bg-primary/20"></div>
-              <p>Sustainable Materials</p>
+              <p>Materiais Sustentáveis</p>
               <div className="w-1 h-1 rounded-full bg-primary/20"></div>
-              <p>Artisanal Craft</p>
+              <p>Trabalho Artesanal</p>
             </div>
           </div>
         </div>

@@ -4,7 +4,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Product, useVersareStore } from "@/lib/store";
-import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ProductCardProps {
@@ -40,7 +39,7 @@ export function ProductCard({ product }: ProductCardProps) {
           onClick={() => addToCart(product)}
           className="flex-1 bg-primary hover:bg-accent text-primary-foreground rounded-none text-[10px] uppercase tracking-widest h-10"
         >
-          Add to Cart
+          Adicionar ao Carrinho
         </Button>
       </div>
     </div>

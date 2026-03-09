@@ -1,10 +1,11 @@
+
 'use server';
 /**
- * @fileOverview An AI agent that provides personalized style recommendations and product pairings.
+ * @fileOverview Um agente de IA que fornece recomendações de estilo personalizadas e combinações de produtos.
  *
- * - aiStyleRecommendation - A function that generates style recommendations.
- * - AIStyleRecommendationInput - The input type for the aiStyleRecommendation function.
- * - AIStyleRecommendationOutput - The return type for the aiStyleRecommendation function.
+ * - aiStyleRecommendation - Uma função que gera recomendações de estilo.
+ * - AIStyleRecommendationInput - O tipo de entrada para a função aiStyleRecommendation.
+ * - AIStyleRecommendationOutput - O tipo de retorno para a função aiStyleRecommendation.
  */
 
 import {ai} from '@/ai/genkit';
@@ -13,10 +14,10 @@ import {z} from 'genkit';
 const AIStyleRecommendationInputSchema = z.object({
   browsingHistory: z
     .array(z.string())
-    .describe('A list of descriptions or names of products the user has previously viewed.'),
+    .describe('Uma lista de descrições ou nomes de produtos que o usuário visualizou anteriormente.'),
   currentItemDetails: z
     .string()
-    .describe('Detailed information about the current product the user is viewing.'),
+    .describe('Informações detalhadas sobre o produto atual que o usuário está visualizando.'),
 });
 export type AIStyleRecommendationInput = z.infer<
   typeof AIStyleRecommendationInputSchema
@@ -25,10 +26,10 @@ export type AIStyleRecommendationInput = z.infer<
 const AIStyleRecommendationOutputSchema = z.object({
   recommendations: z.array(
     z.object({
-      productName: z.string().describe('The name of the recommended product.'),
+      productName: z.string().describe('O nome do produto recomendado.'),
       description: z
         .string()
-        .describe('A brief explanation of why this product is recommended and how it pairs.'),
+        .describe('Uma breve explicação de por que este produto é recomendado e como ele combina.'),
     })
   ),
 });
@@ -46,15 +47,16 @@ const prompt = ai.definePrompt({
   name: 'aiStyleRecommendationPrompt',
   input: {schema: AIStyleRecommendationInputSchema},
   output: {schema: AIStyleRecommendationOutputSchema},
-  prompt: `You are an expert luxury fashion stylist for 'Versare', an e-commerce brand blending classic European minimalism with warm 'Brasil-core' aesthetics.
+  prompt: `Você é um estilista de moda de luxo especialista para a 'Versare', uma marca de e-commerce que mistura o minimalismo europeu clássico com a estética calorosa 'Brasil-core'.
 
-Your task is to provide personalized style recommendations and product pairings based on the user's browsing history and the current item they are viewing.
+Sua tarefa é fornecer recomendações de estilo personalizadas e combinações de produtos com base no histórico de navegação do usuário e no item atual que ele está visualizando.
 
-Consider the following:
-- **User's Browsing History**: {{{browsingHistory}}}
-- **Current Item Details**: {{{currentItemDetails}}}
+Considere o seguinte:
+- **Histórico de Navegação do Usuário**: {{{browsingHistory}}}
+- **Detalhes do Item Atual**: {{{currentItemDetails}}}
 
-Suggest 3-5 complementary products that align with 'Versare's unique aesthetic, explaining clearly why each recommendation is suitable and how it pairs with the user's inferred taste or the current item. Focus on highlighting natural fabrics, artisan craftsmanship, and a sophisticated yet comfortable style.`,
+Sua resposta DEVE ser em PORTUGUÊS (Brasil).
+Sugira 3 produtos complementares que se alinhem com a estética única da 'Versare', explicando claramente por que cada recomendação é adequada e como ela combina com o gosto inferido do usuário ou com o item atual. Foque em destacar tecidos naturais, artesanato e um estilo sofisticado, porém confortável.`,
 });
 
 const aiStyleRecommendationFlow = ai.defineFlow(

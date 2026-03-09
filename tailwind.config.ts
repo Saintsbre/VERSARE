@@ -12,7 +12,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Montserrat', 'sans-serif'],
-        headline: ['Playfair Display', 'serif'],
+        headline: ['Poppins', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

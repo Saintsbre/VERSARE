@@ -18,6 +18,7 @@ export function AIRecommendations({ currentItemDetails }: AIRecommendationsProps
 
   useEffect(() => {
     async function fetchRecs() {
+      if (history.length === 0 && !currentItemDetails) return;
       setLoading(true);
       try {
         const result = await aiStyleRecommendation({
@@ -26,7 +27,7 @@ export function AIRecommendations({ currentItemDetails }: AIRecommendationsProps
         });
         setRecommendations(result.recommendations);
       } catch (error) {
-        console.error("AI Error:", error);
+        console.error("Erro na IA:", error);
       } finally {
         setLoading(false);
       }
@@ -39,7 +40,7 @@ export function AIRecommendations({ currentItemDetails }: AIRecommendationsProps
     return (
       <div className="flex flex-col items-center justify-center py-12 gap-4">
         <Loader2 className="w-6 h-6 animate-spin text-secondary" />
-        <p className="text-[10px] uppercase tracking-widest text-primary/60">Styling with AI...</p>
+        <p className="text-[10px] uppercase tracking-widest text-primary/60">Criando estilo com IA...</p>
       </div>
     );
   }
@@ -50,7 +51,7 @@ export function AIRecommendations({ currentItemDetails }: AIRecommendationsProps
     <div className="mt-20 fade-in">
       <div className="flex items-center gap-3 mb-8">
         <Sparkles className="w-5 h-5 text-secondary" />
-        <h3 className="text-2xl font-headline text-primary">Styled For You</h3>
+        <h3 className="text-2xl font-headline text-primary">Estilo para Você</h3>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

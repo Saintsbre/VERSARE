@@ -11,7 +11,7 @@ export function Essence() {
         <div className="relative aspect-square md:aspect-[4/5] overflow-hidden">
           <Image
             src={essenceImg?.imageUrl || "https://picsum.photos/seed/essence/800/1000"}
-            alt="Artisanal Texture"
+            alt="Textura Artesanal"
             fill
             className="object-cover opacity-80"
           />
@@ -27,14 +27,14 @@ export function Essence() {
           </h2>
           <div className="space-y-6 text-primary-foreground/80 font-body text-lg leading-relaxed max-w-xl">
             <p>
-              Versare was born from a desire to bridge two worlds. The structural elegance of European tailoring and the vibrant, organic pulse of the Brazilian soul.
+              Versare nasceu do desejo de unir dois mundos: a elegância estrutural da alfaiataria europeia e o pulso vibrante e orgânico da alma brasileira.
             </p>
             <p>
-              Each piece is a testament to slow fashion, crafted using 100% natural materials—linens, organic cottons, and hand-tanned leathers—designed to age with grace and tell a story of craftsmanship.
+              Cada peça é um testemunho do slow fashion, criada com materiais 100% naturais — linhos, algodões orgânicos e couros curtidos à mão — desenhados para envelhecer com graça e contar uma história de artesanato.
             </p>
             <div className="pt-8 border-t border-primary-foreground/10 flex items-center gap-4">
               <div className="w-12 h-px bg-secondary"></div>
-              <p className="italic font-headline text-xl">The Versare Philosophy</p>
+              <p className="italic font-headline text-xl">A Filosofia Versare</p>
             </div>
           </div>
         </div>
