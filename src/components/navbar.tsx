@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useVersareStore } from "@/lib/store";
-import { ShoppingBag, Search, Menu } from "lucide-react";
+import { Search, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
-  const cart = useVersareStore((state) => state.cart);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -48,13 +47,10 @@ export function Navbar() {
 
         <div className="flex gap-4 md:gap-6 items-center flex-1 justify-end text-primary/80">
           <Search className="w-5 h-5 cursor-pointer hover:text-primary transition-colors hidden sm:block" />
-          <Link href="/cart" className="relative hover:text-primary transition-colors">
-            <ShoppingBag className="w-5 h-5" />
-            {cart.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-secondary text-primary-foreground text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                {cart.length}
-              </span>
-            )}
+          <Link href="/pre-save">
+            <Button variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white text-[9px] uppercase tracking-widest px-6 h-9 transition-all duration-300">
+              Pré-Save
+            </Button>
           </Link>
         </div>
       </div>

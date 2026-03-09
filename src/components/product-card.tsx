@@ -1,9 +1,8 @@
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
-import { Product, useVersareStore } from "@/lib/store";
+import { Product } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -12,7 +11,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const addToCart = useVersareStore((state) => state.addToCart);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -52,15 +50,13 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="mt-4 flex gap-2 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 px-1">
-        <Button 
-          onClick={(e) => {
-            e.preventDefault();
-            addToCart(product);
-          }}
-          className="flex-1 bg-primary hover:bg-accent text-primary-foreground rounded-full text-[9px] md:text-[10px] uppercase tracking-widest h-10 md:h-12 shadow-sm active:scale-95 transition-transform"
-        >
-          Adicionar ao Carrinho
-        </Button>
+        <Link href="/pre-save" className="w-full">
+          <Button 
+            className="w-full bg-primary hover:bg-accent text-primary-foreground rounded-full text-[9px] md:text-[10px] uppercase tracking-widest h-10 md:h-12 shadow-sm active:scale-95 transition-transform"
+          >
+            Garantir Pré-Save
+          </Button>
+        </Link>
       </div>
     </div>
   );

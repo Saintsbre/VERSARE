@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { useVersareStore, Product } from "@/lib/store";
+import { Product } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -57,15 +57,13 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
 export default function ProductDetailPage() {
   const { id } = useParams();
   const product = SAMPLE_PRODUCTS[id as string];
-  const { addToCart, addToHistory } = useVersareStore();
   const [activeImage, setActiveImage] = useState<string>("");
 
   useEffect(() => {
     if (product) {
-      addToHistory(product.name);
       setActiveImage(product.image);
     }
-  }, [product, addToHistory]);
+  }, [product]);
 
   if (!product) return <div className="pt-40 text-center">Produto não encontrado</div>;
 
@@ -141,17 +139,18 @@ export default function ProductDetailPage() {
               </p>
             </div>
 
-            <Button 
-              onClick={() => addToCart(product)}
-              className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-full text-xs uppercase tracking-[0.2em] transition-all duration-300"
-            >
-              Adicionar ao Carrinho
-            </Button>
+            <Link href="/pre-save">
+              <Button 
+                className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-full text-xs uppercase tracking-[0.2em] transition-all duration-300"
+              >
+                Cadastrar Pré-Save
+              </Button>
+            </Link>
 
             <div className="mt-8 grid grid-cols-3 gap-2 text-center text-[7px] md:text-[9px] uppercase tracking-widest text-primary/40">
-              <p>Frete Grátis</p>
-              <p>Materiais Sustentáveis</p>
-              <p>Trabalho Artesanal</p>
+              <p>Edição Limitada</p>
+              <p>Acesso Antecipado</p>
+              <p>Drop 2026</p>
             </div>
           </div>
         </div>
