@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { db } from "@/lib/firebase-client";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore, addDocumentNonBlocking } from "@/firebase";
+import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function PreSavePage() {
+  const firestore = useFirestore();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [noNumber, setNoNumber] = useState(false);
@@ -57,50 +58,36 @@ export default function PreSavePage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
     
     setLoading(true);
 
-    try {
-      const formData = new FormData(e.currentTarget);
-      const payload = {
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: formData.get("email") as string,
-        whatsapp: formData.get("whatsapp") as string,
-        cep: formData.get("cep") as string,
-        address: addressData.logradouro || (formData.get("address") as string),
-        number: noNumber ? "S/N" : (formData.get("number") as string),
-        noNumber: noNumber,
-        complement: formData.get("complement") as string,
-        document: formData.get("document") as string,
-        newsletter: formData.get("newsletter") === "on",
-        createdAt: serverTimestamp(),
-      };
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      whatsapp: formData.get("whatsapp") as string,
+      cep: formData.get("cep") as string,
+      address: addressData.logradouro || (formData.get("address") as string),
+      number: noNumber ? "S/N" : (formData.get("number") as string),
+      noNumber: noNumber,
+      complement: formData.get("complement") as string,
+      document: formData.get("document") as string,
+      newsletter: formData.get("newsletter") === "on",
+      createdAt: serverTimestamp(),
+    };
 
-      if (!db) {
-        throw new Error("Banco de dados não inicializado. Verifique as configurações do Firebase.");
-      }
-
-      // Salva no Firestore
-      const docRef = await addDoc(collection(db, "pre-saves"), payload);
-      console.log("Documento salvo com ID: ", docRef.id);
-      
-      setSuccess(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (error: any) {
-      console.error("Erro detalhado ao salvar:", error);
-      toast({
-        variant: "destructive",
-        title: "Erro no Cadastro",
-        description: error.message || "Não foi possível conectar ao banco de dados. Certifique-se de que o Firebase está configurado corretamente.",
-      });
-    } finally {
-      setLoading(false);
-    }
+    // Usamos addDocumentNonBlocking para uma experiência instantânea
+    const preSaveRef = collection(firestore, "pre-save");
+    addDocumentNonBlocking(preSaveRef, payload);
+    
+    // Mostramos sucesso imediatamente (UI Otimista)
+    setSuccess(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(false);
   };
 
   return (

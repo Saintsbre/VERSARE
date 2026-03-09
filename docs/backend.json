@@ -1,212 +1,34 @@
+
 {
   "entities": {
-    "UserProfile": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserProfile",
+    "PreSave": {
+      "title": "PreSave",
+      "description": "Informações completas para reserva e futura entrega do drop exclusivo",
       "type": "object",
-      "description": "Represents a user's profile within the Versare application, storing app-specific user details and preferences. This entity assumes an external authentication system manages core user identity.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the UserProfile entity."
-        },
-        "externalAuthId": {
-          "type": "string",
-          "description": "Unique identifier for the user from the external authentication system. Used to link the internal UserProfile to an external identity."
-        },
-        "firstName": {
-          "type": "string",
-          "description": "The user's first name."
-        },
-        "lastName": {
-          "type": "string",
-          "description": "The user's last name."
-        },
-        "email": {
-          "type": "string",
-          "description": "The user's email address.",
-          "format": "email"
-        },
-        "createdAt": {
-          "type": "string",
-          "description": "Timestamp when the user profile was created.",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "description": "Timestamp when the user profile was last updated.",
-          "format": "date-time"
-        }
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "whatsapp": { "type": "string" },
+        "cep": { "type": "string" },
+        "address": { "type": "string" },
+        "number": { "type": "string" },
+        "noNumber": { "type": "boolean" },
+        "complement": { "type": "string" },
+        "document": { "type": "string" },
+        "newsletter": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": [
-        "id",
-        "externalAuthId",
-        "createdAt",
-        "updatedAt"
-      ]
-    },
-    "Product": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Product",
-      "type": "object",
-      "description": "Represents a luxury artisanal fashion product available in the Versare e-commerce store, featuring details like descriptions, pricing, and imagery.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the Product entity."
-        },
-        "name": {
-          "type": "string",
-          "description": "The name of the product."
-        },
-        "description": {
-          "type": "string",
-          "description": "A detailed description of the product, including its design inspiration, craftsmanship, and materials."
-        },
-        "price": {
-          "type": "number",
-          "description": "The price of the product."
-        },
-        "currency": {
-          "type": "string",
-          "description": "The currency in which the product is priced (e.g., 'BRL', 'EUR', 'USD')."
-        },
-        "imageUrls": {
-          "type": "array",
-          "description": "An array of URLs pointing to high-quality images of the product. The first URL in the array is typically the primary product image.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "material": {
-          "type": "string",
-          "description": "The primary material(s) used in the product (e.g., 'linen', 'silk', 'organic cotton')."
-        },
-        "category": {
-          "type": "string",
-          "description": "The primary category of the product (e.g., 'Dresses', 'Accessories', 'Outerwear')."
-        },
-        "availabilityStatus": {
-          "type": "string",
-          "description": "The current availability status of the product (e.g., 'in_stock', 'pre_order', 'sold_out')."
-        },
-        "createdAt": {
-          "type": "string",
-          "description": "Timestamp when the product was first added to the catalog.",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "description": "Timestamp when the product details were last updated.",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "id",
-        "name",
-        "description",
-        "price",
-        "currency",
-        "imageUrls",
-        "material",
-        "category",
-        "availabilityStatus",
-        "createdAt",
-        "updatedAt"
-      ]
-    },
-    "PreSaveItem": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "PreSaveItem",
-      "type": "object",
-      "description": "Records a user's expressed interest in a specific product, functioning as a 'pre-save' or early access wishlist item for products not yet fully available or for future purchase intent.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the PreSaveItem entity."
-        },
-        "userId": {
-          "type": "string",
-          "description": "Reference to the UserProfile entity. (Relationship: UserProfile 1:N PreSaveItem)"
-        },
-        "productId": {
-          "type": "string",
-          "description": "Reference to the Product entity. (Relationship: Product 1:N PreSaveItem)"
-        },
-        "preSaveDate": {
-          "type": "string",
-          "description": "Timestamp when the user pre-saved this product.",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string",
-          "description": "The current status of the pre-save item (e.g., 'pending', 'notified', 'purchased', 'removed')."
-        }
-      },
-      "required": [
-        "id",
-        "userId",
-        "productId",
-        "preSaveDate",
-        "status"
-      ]
+      "required": ["firstName", "lastName", "email", "whatsapp", "cep", "address", "document"]
     }
   },
   "auth": {
-    "providers": [
-      "password",
-      "anonymous"
-    ]
+    "providers": ["anonymous"]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/user_profiles/{userId}",
-        "definition": {
-          "entityName": "UserProfile",
-          "schema": {
-            "$ref": "#/backend/entities/UserProfile"
-          },
-          "description": "Stores user profile information. Each document's ID corresponds to the Firebase Auth UID of the user. This path-based ownership ensures that 'request.auth.uid' directly matches '{userId}', providing inherent authorization independence for private user data.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user, matching their Firebase Authentication UID."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/products/{productId}",
-        "definition": {
-          "entityName": "Product",
-          "schema": {
-            "$ref": "#/backend/entities/Product"
-          },
-          "description": "Contains the catalog of all artisanal luxury fashion products. This collection is intended for public read access, with restricted write access (e.g., to administrators)."
-        }
-      },
-      {
-        "path": "/users/{userId}/pre_saves/{preSaveItemId}",
-        "definition": {
-          "entityName": "PreSaveItem",
-          "schema": {
-            "$ref": "#/backend/entities/PreSaveItem"
-          },
-          "description": "Stores user-specific pre-save items (early access wishlist). The 'userId' from the path is denormalized, matching the 'userId' field within the document, ensuring authorization independence and secure list operations for a user's own pre-save items.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user who pre-saved the item, matching their Firebase Authentication UID."
-            },
-            {
-              "name": "preSaveItemId",
-              "description": "The unique identifier for a specific pre-save entry."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The recommended Firestore structure prioritizes security, scalability, and debuggability by adhering to the core design principles and mandates. \n\n**Authorization Independence via Denormalization:**\n- For `UserProfile` (`/user_profiles/{userId}`), the document ID (`userId`) is directly derived from `request.auth.uid`. This makes authorization trivial and atomical, as the user's ID is part of the path, eliminating any need for `get()` calls in security rules to determine ownership.\n- For `PreSaveItem` (`/users/{userId}/pre_saves/{preSaveItemId}`), the `userId` from the path (`{userId}`) is denormalized and implicitly matches the `userId` field within the `PreSaveItem` document. This ensures that a user can only access their own pre-save items without the rules needing to fetch parent user data or the `PreSaveItem` document itself to check `userId` ownership. The creation of a new `PreSaveItem` can be a single atomic write without complex rule dependencies.\n\n**Support for QAPs (Queries Are Not Filters):**\n- **`/products/{productId}`:** This collection is designed for public read access (or admin write access). Queries for products do not require any user-specific authorization logic, allowing all products to be listed efficiently without filtering issues.\n- **`/user_profiles/{userId}`:** Access to a user profile is strictly private, tied to the authenticated user's UID. A query to retrieve a user's profile (`/user_profiles/{request.auth.uid}`) is inherently secure because the path itself enforces the `request.auth.uid == userId` condition. The client is only allowed to request their own profile, eliminating the need for server-side filtering.\n- **`/users/{userId}/pre_saves/{preSaveItemId}`:** This subcollection is explicitly structured to support QAPs. When a user requests their list of pre-saved items (`/users/{request.auth.uid}/pre_saves`), the Firestore security rules can directly compare `request.auth.uid` with `userId` from the path. This allows clients to fetch all pre-save items for the currently authenticated user (`request.auth.uid`) without the server needing to filter results. Any attempt to query another user's pre-saves will be blocked by the rules before any data is returned, ensuring that queries are always secure and performant."
+    "/pre-save/{preSaveId}": {
+      "schema": "PreSave",
+      "description": "Coleção de cadastros de pré-save detalhados"
+    }
   }
 }

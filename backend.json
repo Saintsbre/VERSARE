@@ -63,7 +63,7 @@
     "providers": []
   },
   "firestore": {
-    "/pre-saves/{preSaveId}": {
+    "/pre-save/{preSaveId}": {
       "schema": "PreSave",
       "description": "Coleção de cadastros de pré-save detalhados"
     }
