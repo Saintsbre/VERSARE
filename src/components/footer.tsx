@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -8,7 +7,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
           <Link href="/">
-            <div className="relative w-64 h-24 mb-6">
+            <div className="relative w-48 h-18 mb-6">
               <Image 
                 src="https://i.imgur.com/Y0ZQbVN.png" 
                 alt="Versare Logo" 

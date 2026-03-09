@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -36,7 +35,7 @@ export function Navbar() {
         </div>
 
         <Link href="/" className="justify-self-center">
-          <div className="relative w-64 h-20 md:w-80 md:h-28">
+          <div className="relative w-40 h-14 md:w-56 md:h-20">
             <Image 
               src="https://i.imgur.com/Y0ZQbVN.png" 
               alt="Versare Logo" 
