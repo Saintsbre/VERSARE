@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { db } from "@/lib/firebase-client";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +27,7 @@ export default function PreSavePage() {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       whatsapp: formData.get("whatsapp") as string,
+      newsletter: formData.get("newsletter") === "on",
       createdAt: serverTimestamp(),
     };
 
@@ -81,48 +83,64 @@ export default function PreSavePage() {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">Nome Completo</Label>
-                  <Input 
-                    id="name" 
-                    name="name" 
-                    required 
-                    placeholder="Seu nome"
-                    className="rounded-full bg-white/50 border-primary/10 h-12 px-6"
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="space-y-6">
+                  <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
+                    Dados de Contato
+                  </h3>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">Nome Completo</Label>
+                    <Input 
+                      id="name" 
+                      name="name" 
+                      required 
+                      placeholder="Seu nome"
+                      className="rounded-full bg-white/50 border-primary/10 h-12 px-6 focus:ring-secondary/20"
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">Email</Label>
-                  <Input 
-                    id="email" 
-                    name="email" 
-                    type="email" 
-                    required 
-                    placeholder="email@exemplo.com"
-                    className="rounded-full bg-white/50 border-primary/10 h-12 px-6"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">Email</Label>
+                    <Input 
+                      id="email" 
+                      name="email" 
+                      type="email" 
+                      required 
+                      placeholder="email@exemplo.com"
+                      className="rounded-full bg-white/50 border-primary/10 h-12 px-6 focus:ring-secondary/20"
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="whatsapp" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">WhatsApp</Label>
-                  <Input 
-                    id="whatsapp" 
-                    name="whatsapp" 
-                    type="tel" 
-                    required 
-                    placeholder="(00) 00000-0000"
-                    className="rounded-full bg-white/50 border-primary/10 h-12 px-6"
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp" className="text-[10px] uppercase tracking-widest text-primary/40 font-bold ml-1">WhatsApp</Label>
+                    <Input 
+                      id="whatsapp" 
+                      name="whatsapp" 
+                      type="tel" 
+                      required 
+                      placeholder="(00) 00000-0000"
+                      className="rounded-full bg-white/50 border-primary/10 h-12 px-6 focus:ring-secondary/20"
+                    />
+                  </div>
+
+                  <div className="flex items-start space-x-3 pt-2">
+                    <Checkbox id="newsletter" name="newsletter" className="mt-0.5 border-primary/30 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                    <Label 
+                      htmlFor="newsletter" 
+                      className="text-[11px] text-primary/60 leading-tight font-medium cursor-pointer"
+                    >
+                      Receber ofertas e novidades por e-mail
+                    </Label>
+                  </div>
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-14 rounded-full uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-lg"
+                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-14 rounded-full uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-lg mt-4"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Cadastrar Pre-Save"}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Garantir meu Acesso"}
                 </Button>
               </form>
             </>

@@ -2,5 +2,44 @@
 {
   "requiredFirebaseServices": [
     "firestore"
-  ]
+  ],
+  "entities": {
+    "PreSave": {
+      "title": "PreSave",
+      "description": "Informações de contato para reserva de drop exclusivo",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "whatsapp": {
+          "type": "string"
+        },
+        "newsletter": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "whatsapp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": []
+  },
+  "firestore": {
+    "/pre-saves/{preSaveId}": {
+      "schema": "PreSave",
+      "description": "Coleção de cadastros de pré-save"
+    }
+  }
 }
