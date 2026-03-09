@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useParams } from "next/navigation";
@@ -14,40 +15,40 @@ import { AIRecommendations } from "@/components/ai-recommendations-client";
 const SAMPLE_PRODUCTS: Record<string, Product> = {
   "1": {
     id: "1",
-    name: "Hoodie de Linho Oversized",
+    name: "ERREJOTA OVERSIZE",
     price: 345,
-    description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
-    details: "Linho encorpado, corte boxy, feito no Brasil.",
+    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    details: "Algodão premium, corte oversized, feito no Brasil.",
     image: "https://i.imgur.com/x6JzQYO.jpeg",
     imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Streetwear"
   },
   "2": {
     id: "2",
-    name: "Sneaker Versare 01",
+    name: "GLASSES OVERSIZE",
     price: 520,
-    description: "Tênis minimalista em couro premium com solado vulcanizado.",
-    details: "Couro legítimo, acabamento manual, durabilidade extrema.",
+    description: "Peça essencial com estética urbana e minimalista. Tecido de alta gramatura.",
+    details: "Algodão premium, acabamento manual, durabilidade extrema.",
     image: "https://i.imgur.com/0emZ0Ht.jpeg",
     imageBack: "https://i.imgur.com/mRAZvlJ.jpeg",
-    category: "Calçados"
+    category: "Streetwear"
   },
   "3": {
     id: "3",
-    name: "Bag Crossbody Urbana",
+    name: "FLY OVERSIZE",
     price: 185,
-    description: "Acessório essencial para quem vive o ritmo da cidade.",
-    details: "Lona resistente, alças ajustáveis, detalhes em couro.",
+    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/45AlfcA.jpeg",
     imageBack: "https://i.imgur.com/379gAh7.jpeg",
-    category: "Acessórios"
+    category: "Streetwear"
   },
   "4": {
     id: "4",
-    name: "Calça Cargo Wide Leg",
+    name: "ROMA OVERSIZE",
     price: 410,
-    description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
-    details: "100% Algodão, modelagem wide, estética utilitária.",
+    description: "Silhueta ampla e moderna. O equilíbrio perfeito entre o luxo e a rua.",
+    details: "100% Algodão, modelagem wide, estética streetwear.",
     image: "https://i.imgur.com/MfpdCpM.jpeg",
     imageBack: "https://i.imgur.com/nEVUYNk.jpeg",
     category: "Streetwear"
