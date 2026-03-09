@@ -1,4 +1,3 @@
-
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Essence } from "@/components/essence";
@@ -11,39 +10,39 @@ import Image from "next/image";
 const SAMPLE_PRODUCTS = [
   {
     id: "1",
-    name: "Camisa de Linho Clássica",
-    price: 185,
-    description: "Camisa de linho leve e respirável, perfeita para noites de verão.",
-    details: "100% Linho Brasileiro. Costurada à mão em São Paulo.",
-    image: "https://picsum.photos/seed/product1/600/800",
-    category: "Vestuário"
+    name: "Hoodie de Linho Oversized",
+    price: 345,
+    description: "Modelagem street com o frescor do linho. Conforto absoluto para o dia a dia urbano.",
+    details: "Linho encorpado, corte boxy, feito no Brasil.",
+    image: "https://picsum.photos/seed/street1/600/800",
+    category: "Streetwear"
   },
   {
     id: "2",
-    name: "Sandálias de Couro Artesanal",
-    price: 220,
-    description: "Sandálias feitas à mão usando couro de curtimento vegetal.",
-    details: "Solado de couro italiano, artesanato brasileiro.",
-    image: "https://picsum.photos/seed/product2/600/800",
-    category: "Acessórios"
+    name: "Sneaker Versare 01",
+    price: 520,
+    description: "Tênis minimalista em couro premium com solado vulcanizado.",
+    details: "Couro legítimo, acabamento manual, durabilidade extrema.",
+    image: "https://picsum.photos/seed/street2/600/800",
+    category: "Calçados"
   },
   {
     id: "3",
-    name: "Bolsa de Palha Trançada",
-    price: 145,
-    description: "Uma bolsa espaçosa trançada à mão por artesãos locais.",
-    details: "Palha natural, alças de couro.",
-    image: "https://picsum.photos/seed/product3/600/800",
+    name: "Bag Crossbody Urbana",
+    price: 185,
+    description: "Acessório essencial para quem vive o ritmo da cidade.",
+    details: "Lona resistente, alças ajustáveis, detalhes em couro.",
+    image: "https://picsum.photos/seed/street3/600/800",
     category: "Acessórios"
   },
   {
     id: "4",
-    name: "Calça de Algodão Orgânico",
-    price: 195,
-    description: "Calças de corte relaxado feitas de algodão orgânico de alta qualidade.",
-    details: "Algodão certificado GOTS.",
-    image: "https://picsum.photos/seed/product4/600/800",
-    category: "Vestuário"
+    name: "Calça Cargo Wide Leg",
+    price: 410,
+    description: "Silhueta ampla e bolsos utilitários em sarja de alta gramatura.",
+    details: "100% Algodão, modelagem wide, estética utilitária.",
+    image: "https://picsum.photos/seed/street4/600/800",
+    category: "Streetwear"
   }
 ];
 
@@ -58,12 +57,12 @@ export default function Home() {
           <div className="flex justify-between items-end mb-12">
             <div>
               <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-2 block">
-                A Coleção
+                O Drop
               </span>
-              <h2 className="text-4xl font-headline text-primary">Novidades</h2>
+              <h2 className="text-4xl font-headline text-primary">Lançamentos</h2>
             </div>
             <Link href="/" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
-              Ver Tudo
+              Ver Coleção Completa
             </Link>
           </div>
           
@@ -81,22 +80,22 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
            <div className="relative h-[400px] overflow-hidden">
              <Image 
-              src="https://picsum.photos/seed/editor1/800/600" 
-              alt="Editorial" 
+              src="https://picsum.photos/seed/urban-editorial/800/600" 
+              alt="Street Editorial" 
               fill 
               className="object-cover" 
-              data-ai-hint="fashion lifestyle"
+              data-ai-hint="urban streetwear fashion"
              />
            </div>
            <div className="p-8">
-              <h3 className="text-3xl font-headline text-primary mb-6">Feito para Viver</h3>
-              <p className="text-primary/70 mb-8 leading-relaxed">
-                Versare não é apenas sobre roupas. É sobre um estilo de vida que valoriza a qualidade, 
-                a sustentabilidade e a beleza do feito à mão. Cada ponto conta uma história de tradição 
-                reimaginada para o mundo moderno.
+              <h3 className="text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
+              <p className="text-primary/70 mb-8 leading-relaxed font-body">
+                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
+                Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
+                sempre com autenticidade e materiais de verdade.
               </p>
-              <Button variant="outline" className="rounded-none uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8">
-                Explorar Lookbook
+              <Button variant="outline" className="rounded-none uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12">
+                Ver Lookbook Urban
               </Button>
            </div>
         </div>

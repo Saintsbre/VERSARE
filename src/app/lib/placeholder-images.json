@@ -1,41 +1,40 @@
-
 {
   "placeholderImages": [
     {
       "id": "hero-editorial",
-      "description": "Luxury linen fashion editorial in sunset light",
-      "imageUrl": "https://picsum.photos/seed/versare-hero/1200/800",
-      "imageHint": "luxury linen fashion sunset"
+      "description": "Urban luxury streetwear editorial in concrete city setting",
+      "imageUrl": "https://picsum.photos/seed/versare-street/1200/800",
+      "imageHint": "luxury streetwear urban"
     },
     {
       "id": "product-1",
-      "description": "Handcrafted Linen Shirt",
-      "imageUrl": "https://picsum.photos/seed/product1/600/800",
-      "imageHint": "linen shirt fashion"
+      "description": "Oversized Linen Hoodie",
+      "imageUrl": "https://picsum.photos/seed/street1/600/800",
+      "imageHint": "oversized hoodie fashion"
     },
     {
       "id": "product-2",
-      "description": "Artisanal Leather Sandals",
-      "imageUrl": "https://picsum.photos/seed/product2/600/800",
-      "imageHint": "leather sandals luxury"
+      "description": "Premium Leather Sneakers",
+      "imageUrl": "https://picsum.photos/seed/street2/600/800",
+      "imageHint": "minimalist sneakers leather"
     },
     {
       "id": "product-3",
-      "description": "Woven Straw Tote",
-      "imageUrl": "https://picsum.photos/seed/product3/600/800",
-      "imageHint": "straw bag fashion"
+      "description": "Urban Canvas Crossbody Bag",
+      "imageUrl": "https://picsum.photos/seed/street3/600/800",
+      "imageHint": "streetwear bag urban"
     },
     {
       "id": "product-4",
-      "description": "Organic Cotton Trousers",
-      "imageUrl": "https://picsum.photos/seed/product4/600/800",
-      "imageHint": "cotton trousers beige"
+      "description": "Wide Leg Cargo Trousers",
+      "imageUrl": "https://picsum.photos/seed/street4/600/800",
+      "imageHint": "cargo pants streetwear"
     },
     {
       "id": "essence-bg",
-      "description": "Close up of natural fabric textures",
-      "imageUrl": "https://picsum.photos/seed/essence/800/600",
-      "imageHint": "natural fabric texture"
+      "description": "Close up of urban textures and fabric",
+      "imageUrl": "https://picsum.photos/seed/street-essence/800/1000",
+      "imageHint": "concrete fabric texture"
     }
   ]
 }

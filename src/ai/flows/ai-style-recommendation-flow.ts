@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Um agente de IA que fornece recomendações de estilo personalizadas e combinações de produtos.
@@ -47,16 +46,16 @@ const prompt = ai.definePrompt({
   name: 'aiStyleRecommendationPrompt',
   input: {schema: AIStyleRecommendationInputSchema},
   output: {schema: AIStyleRecommendationOutputSchema},
-  prompt: `Você é um estilista de moda de luxo especialista para a 'Versare', uma marca de e-commerce que mistura o minimalismo europeu clássico com a estética calorosa 'Brasil-core'.
+  prompt: `Você é um estilista especialista da 'Versare', uma marca de e-commerce que funde o minimalismo europeu clássico, a estética 'Brasil-core' e a atitude do STREETWEAR de luxo.
 
-Sua tarefa é fornecer recomendações de estilo personalizadas e combinações de produtos com base no histórico de navegação do usuário e no item atual que ele está visualizando.
+Sua tarefa é fornecer recomendações de estilo personalizadas e combinações de produtos com base no histórico de navegação do usuário e no item atual.
 
 Considere o seguinte:
-- **Histórico de Navegação do Usuário**: {{{browsingHistory}}}
-- **Detalhes do Item Atual**: {{{currentItemDetails}}}
+- **Histórico de Navegação**: {{{browsingHistory}}}
+- **Item Atual**: {{{currentItemDetails}}}
 
 Sua resposta DEVE ser em PORTUGUÊS (Brasil).
-Sugira 3 produtos complementares que se alinhem com a estética única da 'Versare', explicando claramente por que cada recomendação é adequada e como ela combina com o gosto inferido do usuário ou com o item atual. Foque em destacar tecidos naturais, artesanato e um estilo sofisticado, porém confortável.`,
+Sugira 3 produtos complementares que alinhem com a estética 'Streetwear Sofisticado' da Versare. Pense em modelagens oversized, tecidos nobres, acessórios urbanos e um visual que transita entre a galeria de arte e a rua. Explique como a peça traz um toque urbano e cool para o look.`,
 });
 
 const aiStyleRecommendationFlow = ai.defineFlow(
