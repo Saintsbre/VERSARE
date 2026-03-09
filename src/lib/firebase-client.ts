@@ -11,7 +11,20 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Verifica se as configurações básicas existem para evitar que o SDK "trave"
+const isConfigValid = !!firebaseConfig.apiKey && !!firebaseConfig.projectId;
+
+let db: any = null;
+
+try {
+  if (isConfigValid) {
+    const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } else {
+    console.warn("Firebase Config não encontrada. Os dados não serão salvos até que o projeto seja conectado no console.");
+  }
+} catch (error) {
+  console.error("Erro ao inicializar Firebase:", error);
+}
 
 export { db };

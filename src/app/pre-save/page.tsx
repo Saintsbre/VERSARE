@@ -37,10 +37,10 @@ export default function PreSavePage() {
         const data = await response.json();
         if (!data.erro) {
           setAddressData({
-            logradouro: data.logradouro,
-            bairro: data.bairro,
-            localidade: data.localidade,
-            uf: data.uf,
+            logradouro: data.logradouro || "",
+            bairro: data.bairro || "",
+            localidade: data.localidade || "",
+            uf: data.uf || "",
           });
         } else {
           toast({
@@ -59,37 +59,44 @@ export default function PreSavePage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (loading) return;
+    
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      email: formData.get("email") as string,
-      whatsapp: formData.get("whatsapp") as string,
-      cep: formData.get("cep") as string,
-      address: formData.get("address") as string,
-      number: noNumber ? "S/N" : (formData.get("number") as string),
-      noNumber: noNumber,
-      complement: formData.get("complement") as string,
-      document: formData.get("document") as string,
-      newsletter: formData.get("newsletter") === "on",
-      createdAt: serverTimestamp(),
-    };
-
     try {
-      // Tenta salvar no Firestore na coleção 'pre-saves'
-      await addDoc(collection(db, "pre-saves"), data);
-      setSuccess(true);
+      const formData = new FormData(e.currentTarget);
+      const payload = {
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        email: formData.get("email") as string,
+        whatsapp: formData.get("whatsapp") as string,
+        cep: formData.get("cep") as string,
+        address: addressData.logradouro || (formData.get("address") as string),
+        number: noNumber ? "S/N" : (formData.get("number") as string),
+        noNumber: noNumber,
+        complement: formData.get("complement") as string,
+        document: formData.get("document") as string,
+        newsletter: formData.get("newsletter") === "on",
+        createdAt: serverTimestamp(),
+      };
+
+      if (!db) {
+        throw new Error("Banco de dados não inicializado. Verifique as configurações do Firebase.");
+      }
+
+      // Salva no Firestore
+      const docRef = await addDoc(collection(db, "pre-saves"), payload);
+      console.log("Documento salvo com ID: ", docRef.id);
       
-      // Rola para o topo para mostrar a mensagem de sucesso
+      setSuccess(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
+
+    } catch (error: any) {
+      console.error("Erro detalhado ao salvar:", error);
       toast({
         variant: "destructive",
         title: "Erro no Cadastro",
-        description: "Não foi possível conectar ao banco de dados. Verifique sua conexão.",
+        description: error.message || "Não foi possível conectar ao banco de dados. Certifique-se de que o Firebase está configurado corretamente.",
       });
     } finally {
       setLoading(false);
@@ -114,7 +121,7 @@ export default function PreSavePage() {
               <div className="space-y-4">
                 <h1 className="text-4xl font-headline text-primary">Reserva Confirmada.</h1>
                 <p className="text-primary/60 font-body leading-relaxed max-w-sm mx-auto">
-                  Você agora faz parte da lista exclusiva da Versare. Avisaremos você por WhatsApp assim que o Drop 01 for liberado.
+                  Você agora faz parte da lista exclusiva da Versare. Avisaremos você por WhatsApp assim que o Drop 01 for liberado em 2026.
                 </p>
               </div>
 
@@ -141,12 +148,11 @@ export default function PreSavePage() {
                 </span>
                 <h1 className="text-4xl font-headline text-primary mb-4">Pré-Save Drop 01</h1>
                 <p className="text-primary/60 font-body text-sm leading-relaxed max-w-md mx-auto">
-                  Garanta sua peça exclusiva preenchendo as informações de reserva para o próximo lançamento.
+                  Garanta sua peça exclusiva preenchendo as informações de reserva para o próximo lançamento de 2026.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-10">
-                {/* DADOS PARA ENTREGA */}
                 <div className="space-y-6">
                   <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
                     Dados para Entrega
@@ -222,6 +228,7 @@ export default function PreSavePage() {
                         <Input 
                           name="number" 
                           disabled={noNumber}
+                          required={!noNumber}
                           placeholder="Número"
                           className="rounded-lg bg-white/50 border-primary/10 h-12 px-6 flex-grow"
                         />
@@ -243,7 +250,6 @@ export default function PreSavePage() {
                   </div>
                 </div>
 
-                {/* DADOS PARA NOTA FISCAL */}
                 <div className="space-y-6">
                   <div className="flex items-center justify-between border-b border-primary/10 pb-2">
                     <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80">
