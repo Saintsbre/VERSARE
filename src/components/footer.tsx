@@ -1,14 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   return (
     <footer className="bg-background py-20 px-6 md:px-12 border-t border-primary/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
-          <h2 className="text-2xl font-brand tracking-widest text-primary mb-6 uppercase">Versare</h2>
+          <Link href="/">
+            <div className="relative w-32 h-10 mb-6">
+              <Image 
+                src="https://i.imgur.com/89ZvbOW.png" 
+                alt="Versare Logo" 
+                fill 
+                className="object-contain object-left"
+              />
+            </div>
+          </Link>
           <p className="text-primary/60 font-body text-sm max-w-xs leading-relaxed">
-            Redefinindo o luxo através do artesanato e materiais sustentáveis. 
-            Inspirado pela costa, feito para o mundo.
+            Redefinindo o luxo urbano através do artesanato e materiais sustentáveis. 
+            Inspirado pela essência do Brasil, feito para o mundo.
           </p>
         </div>
         

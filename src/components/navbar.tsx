@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useVersareStore } from "@/lib/store";
 import { ShoppingBag, Search, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -27,14 +28,22 @@ export function Navbar() {
         <div className="flex gap-8 items-center">
           <Menu className="w-5 h-5 text-primary md:hidden cursor-pointer" />
           <div className="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium text-primary/80">
-            <Link href="/" className="hover:text-primary transition-colors">Início</Link>
-            <Link href="/" className="hover:text-primary transition-colors">Coleções</Link>
-            <Link href="/" className="hover:text-primary transition-colors">Sobre</Link>
+            <Link href="/" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary/20 pb-0.5">Início</Link>
+            <Link href="/" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary/20 pb-0.5">Coleções</Link>
+            <Link href="/" className="hover:text-primary transition-colors border-b border-transparent hover:border-primary/20 pb-0.5">Sobre</Link>
           </div>
         </div>
 
         <Link href="/" className="justify-self-center">
-          <h1 className="text-3xl font-brand tracking-widest text-primary uppercase">Versare</h1>
+          <div className="relative w-32 h-10 md:w-40 md:h-12">
+            <Image 
+              src="https://i.imgur.com/89ZvbOW.png" 
+              alt="Versare Logo" 
+              fill 
+              className="object-contain"
+              priority
+            />
+          </div>
         </Link>
 
         <div className="flex gap-6 items-center justify-self-end text-primary/80">
