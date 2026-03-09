@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -5,41 +6,58 @@ import Link from "next/link";
 import { Product } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { RotateCcw } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const [showBack, setShowBack] = useState(false);
 
   return (
     <div 
       className="group relative flex flex-col fade-in"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setShowBack(true)}
+      onMouseLeave={() => setShowBack(false)}
     >
-      <Link href={`/products/${product.id}`} className="block relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] rounded-2xl shadow-sm transition-shadow hover:shadow-md">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className={`object-cover transition-all duration-700 ${isHovered && product.imageBack ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          data-ai-hint="luxury fashion product"
-        />
-        {product.imageBack && (
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F5F1E9] rounded-2xl shadow-sm transition-shadow hover:shadow-md">
+        <Link href={`/products/${product.id}`} className="block h-full w-full">
           <Image
-            src={product.imageBack}
-            alt={`${product.name} back view`}
+            src={product.image}
+            alt={product.name}
             fill
-            className={`object-cover transition-all duration-700 absolute inset-0 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+            className={`object-cover transition-all duration-700 ${showBack && product.imageBack ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            data-ai-hint="luxury fashion back"
+            data-ai-hint="luxury fashion product"
           />
+          {product.imageBack && (
+            <Image
+              src={product.imageBack}
+              alt={`${product.name} back view`}
+              fill
+              className={`object-cover transition-all duration-700 absolute inset-0 ${showBack ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              data-ai-hint="luxury fashion back"
+            />
+          )}
+          <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+        </Link>
+
+        {/* Botão de troca de imagem para Mobile/Tablet */}
+        {product.imageBack && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setShowBack(!showBack);
+            }}
+            className="md:hidden absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg border border-primary/10 active:scale-90 transition-transform"
+            aria-label="Trocar imagem"
+          >
+            <RotateCcw className="w-4 h-4 text-primary" />
+          </button>
         )}
-        <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
-      </Link>
+      </div>
       
       <div className="mt-4 md:mt-6 flex justify-between items-start px-1">
         <div>
