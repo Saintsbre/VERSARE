@@ -1,4 +1,3 @@
-
 "use client";
 
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -12,7 +11,7 @@ export function Essence() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
         <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
           <Image
-            src={essenceImg?.imageUrl || "https://i.imgur.com/x6JzQYO.jpeg"}
+            src={essenceImg?.imageUrl || "https://i.imgur.com/QHnytp8.jpeg"}
             alt="Essência Urbana"
             fill
             className="object-cover opacity-90 transition-transform duration-700 hover:scale-105"
