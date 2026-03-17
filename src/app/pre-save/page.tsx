@@ -138,7 +138,7 @@ export default function PreSavePage() {
       <Navbar />
       
       <div className="flex-grow flex items-center justify-center pt-32 pb-20 px-4 md:px-12">
-        <div className="max-w-4xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
+        <div className="max-w-5xl w-full bg-white/40 p-8 md:p-16 rounded-[2.5rem] shadow-xl fade-in border border-primary/5">
           {success ? (
             <div className="text-center space-y-8 py-10 animate-in fade-in zoom-in duration-500">
               <div className="relative mx-auto w-24 h-24">
@@ -168,23 +168,27 @@ export default function PreSavePage() {
             </div>
           ) : (
             <>
-              <div className="mb-12 text-center">
+              <div className="mb-16 text-center">
                 <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block">
                   Acesso Exclusivo
                 </span>
-                <h1 className="text-4xl font-headline text-primary mb-4">Pré-Save Drop 01</h1>
-                <p className="text-primary/60 font-body text-sm leading-relaxed max-w-md mx-auto">
-                  Selecione as peças, cores e tamanhos desejados para o lançamento de 2026.
+                <h1 className="text-4xl md:text-5xl font-headline text-primary mb-6">Pré-Save Drop 01</h1>
+                <p className="text-primary/60 font-body text-base leading-relaxed max-w-lg mx-auto">
+                  Selecione abaixo as peças, cores e tamanhos que você deseja garantir no lançamento de 2026.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-12">
-                {/* Seleção de Peças */}
-                <div className="space-y-8">
-                  <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
-                    Escolha suas Peças
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-20">
+                {/* Seleção de Peças - Aumentada */}
+                <div className="space-y-10">
+                  <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
+                    <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
+                      Escolha suas Peças
+                    </h3>
+                    <div className="flex-grow h-px bg-primary/5"></div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12">
                     {AVAILABLE_TSHIRTS.map((shirt) => {
                       const selection = selections.find(s => s.id === shirt.id);
                       const isSelected = !!selection;
@@ -193,62 +197,64 @@ export default function PreSavePage() {
                         <div 
                           key={shirt.id}
                           className={cn(
-                            "group flex flex-col rounded-xl overflow-hidden border-2 transition-all duration-300 bg-white/30",
-                            isSelected ? "border-secondary scale-[1.02]" : "border-transparent opacity-90 hover:opacity-100"
+                            "group flex flex-col rounded-[2rem] overflow-hidden border-2 transition-all duration-500 bg-white/30",
+                            isSelected ? "border-secondary shadow-2xl scale-[1.02]" : "border-transparent opacity-85 hover:opacity-100 shadow-md hover:shadow-lg"
                           )}
                         >
                           <div 
-                            className="aspect-[3/4] relative cursor-pointer"
+                            className="aspect-[4/5] relative cursor-pointer"
                             onClick={() => toggleShirt(shirt)}
                           >
-                            <Image src={shirt.image} alt={shirt.name} fill className="object-cover" />
+                            <Image src={shirt.image} alt={shirt.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                             {isSelected && (
-                              <div className="absolute inset-0 bg-secondary/10 flex items-center justify-center">
-                                <div className="bg-secondary text-white rounded-full p-2 shadow-lg">
-                                  <Check className="w-5 h-5" />
+                              <div className="absolute inset-0 bg-secondary/5 flex items-center justify-center backdrop-blur-[2px]">
+                                <div className="bg-secondary text-white rounded-full p-4 shadow-2xl animate-in zoom-in-50 duration-300">
+                                  <Check className="w-8 h-8" />
                                 </div>
                               </div>
                             )}
-                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-white/90 backdrop-blur-sm border-t border-primary/5">
-                              <p className="text-[9px] font-bold text-primary truncate text-center uppercase tracking-tighter">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-md border-t border-primary/5">
+                              <p className="text-xs font-bold text-primary text-center uppercase tracking-widest">
                                 {shirt.name}
                               </p>
                             </div>
                           </div>
                           
                           {isSelected && (
-                            <div className="p-3 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                              <div className="space-y-1.5">
-                                <Label className="text-[8px] uppercase tracking-widest text-primary/60">Cor</Label>
-                                <Select 
-                                  value={selection.color} 
-                                  onValueChange={(v) => updateSelection(shirt.id, 'color', v)}
-                                >
-                                  <SelectTrigger className="h-8 text-[10px] rounded-md bg-white/80 border-primary/10">
-                                    <SelectValue placeholder="Cor" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {COLORS.map(c => (
-                                      <SelectItem key={c} value={c} className="text-[10px]">{c}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                              <div className="space-y-1.5">
-                                <Label className="text-[8px] uppercase tracking-widest text-primary/60">Tamanho</Label>
-                                <Select 
-                                  value={selection.size} 
-                                  onValueChange={(v) => updateSelection(shirt.id, 'size', v)}
-                                >
-                                  <SelectTrigger className="h-8 text-[10px] rounded-md bg-white/80 border-primary/10">
-                                    <SelectValue placeholder="Tamanho" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {SIZES.map(s => (
-                                      <SelectItem key={s} value={s} className="text-[10px]">{s}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                            <div className="p-6 space-y-5 animate-in fade-in slide-in-from-top-4 duration-500 bg-white/50">
+                              <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                  <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Cor</Label>
+                                  <Select 
+                                    value={selection.color} 
+                                    onValueChange={(v) => updateSelection(shirt.id, 'color', v)}
+                                  >
+                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
+                                      <SelectValue placeholder="Cor" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {COLORS.map(c => (
+                                        <SelectItem key={c} value={c} className="text-[11px]">{c}</SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                                <div className="space-y-2">
+                                  <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Tamanho</Label>
+                                  <Select 
+                                    value={selection.size} 
+                                    onValueChange={(v) => updateSelection(shirt.id, 'size', v)}
+                                  >
+                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
+                                      <SelectValue placeholder="Tamanho" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {SIZES.map(s => (
+                                        <SelectItem key={s} value={s} className="text-[11px]">{s}</SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
                               </div>
                             </div>
                           )}
@@ -259,44 +265,47 @@ export default function PreSavePage() {
                 </div>
 
                 {/* Dados para Entrega */}
-                <div className="space-y-6">
-                  <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
-                    Dados para Entrega
-                  </h3>
+                <div className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
+                    <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
+                      Dados para Entrega
+                    </h3>
+                    <div className="flex-grow h-px bg-primary/5"></div>
+                  </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Input 
                       name="firstName" 
                       required 
                       placeholder="Nome"
-                      className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                     />
                     <Input 
                       name="lastName" 
                       required 
                       placeholder="Sobrenome"
-                      className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <Input 
                       name="email" 
                       type="email" 
                       required 
                       placeholder="Email"
-                      className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                     />
                     <Input 
                       name="whatsapp" 
                       type="tel" 
                       required 
                       placeholder="Telefone com DDD"
-                      className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                     />
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div className="relative">
                       <Input 
                         name="cep" 
@@ -304,16 +313,16 @@ export default function PreSavePage() {
                         placeholder="CEP (Digite para localizar)"
                         onChange={handleCepChange}
                         maxLength={9}
-                        className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                        className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                       />
-                      {cepLoading && <Loader2 className="absolute right-4 top-3.5 w-5 h-5 animate-spin text-primary/40" />}
+                      {cepLoading && <Loader2 className="absolute right-5 top-4.5 w-5 h-5 animate-spin text-primary/40" />}
                     </div>
 
                     {addressData.localidade && (
-                      <div className="bg-primary/5 p-4 rounded-lg flex items-start gap-3 border border-primary/10 animate-in fade-in slide-in-from-top-2 duration-300">
-                        <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                        <div className="text-xs text-primary/70">
-                          <p className="font-bold text-primary">CEP Localizado</p>
+                      <div className="bg-primary/5 p-6 rounded-[1.5rem] flex items-start gap-4 border border-primary/10 animate-in fade-in slide-in-from-top-4 duration-500">
+                        <MapPin className="w-6 h-6 text-primary mt-0.5" />
+                        <div className="text-sm text-primary/70">
+                          <p className="font-bold text-primary mb-1">Endereço Encontrado</p>
                           <p>{addressData.logradouro} - {addressData.bairro}</p>
                           <p>{addressData.localidade} - {addressData.uf}</p>
                         </div>
@@ -326,59 +335,61 @@ export default function PreSavePage() {
                       value={addressData.logradouro}
                       onChange={(e) => setAddressData({...addressData, logradouro: e.target.value})}
                       placeholder="Endereço"
-                      className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex gap-2 items-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="flex gap-3 items-center">
                         <Input 
                           name="number" 
                           disabled={noNumber}
                           required={!noNumber}
                           placeholder="Número"
-                          className="rounded-lg bg-white/50 border-primary/10 h-12 px-6 flex-grow"
+                          className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm flex-grow focus:border-secondary/40 transition-all"
                         />
-                        <div className="flex items-center space-x-2 min-w-fit pr-2">
+                        <div className="flex items-center space-x-3 min-w-fit pr-4">
                           <Checkbox 
                             id="noNumber" 
                             checked={noNumber}
                             onCheckedChange={(checked) => setNoNumber(!!checked)}
+                            className="w-5 h-5 rounded-md"
                           />
-                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-medium cursor-pointer">S/N</Label>
+                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-bold cursor-pointer tracking-widest">S/N</Label>
                         </div>
                       </div>
                       <Input 
                         name="complement" 
-                        placeholder="Apto, Bloco, etc. (opcional)"
-                        className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                        placeholder="Complemento (opcional)"
+                        className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Dados Fiscais */}
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between border-b border-primary/10 pb-2">
-                    <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80">
+                <div className="space-y-8">
+                  <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
+                    <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
                       Dados para Nota Fiscal
                     </h3>
-                    <HelpCircle className="w-4 h-4 text-primary/20 cursor-help" />
+                    <HelpCircle className="w-5 h-5 text-primary/20 cursor-help" />
                   </div>
                   
                   <Input 
                     name="document" 
                     required 
                     placeholder="CPF ou CNPJ"
-                    className="rounded-lg bg-white/50 border-primary/10 h-12 px-6"
+                    className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
                   />
 
-                  <div className="flex items-start space-x-3 pt-2">
-                    <Checkbox id="newsletter" name="newsletter" className="mt-0.5" defaultChecked />
+                  <div className="flex items-start space-x-4 pt-4">
+                    <Checkbox id="newsletter" name="newsletter" className="mt-1 w-5 h-5 rounded-md" defaultChecked />
                     <Label 
                       htmlFor="newsletter" 
-                      className="text-[11px] text-primary/60 leading-tight font-medium cursor-pointer"
+                      className="text-[12px] text-primary/60 leading-relaxed font-medium cursor-pointer"
                     >
-                      Quero receber novidades e avisos antecipados da Versare por e-mail e WhatsApp.
+                      Quero receber novidades e avisos antecipados da Versare por e-mail e WhatsApp. 
+                      <span className="block text-[10px] opacity-70 mt-1 uppercase tracking-tighter italic">Seja o primeiro a saber do Drop 01.</span>
                     </Label>
                   </div>
                 </div>
@@ -386,14 +397,14 @@ export default function PreSavePage() {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-16 rounded-full uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-lg mt-4 group"
+                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-20 rounded-full uppercase tracking-[0.3em] text-[11px] transition-all duration-500 shadow-2xl mt-8 group active:scale-95"
                 >
                   {loading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-6 h-6 animate-spin" />
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-3">
                       Garantir meu Acesso Antecipado
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                     </span>
                   )}
                 </Button>
