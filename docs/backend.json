@@ -19,8 +19,16 @@
         "newsletter": { "type": "boolean" },
         "selectedProducts": {
           "type": "array",
-          "items": { "type": "string" },
-          "description": "Lista de nomes das peças selecionadas para o pré-save"
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "color": { "type": "string" },
+              "size": { "type": "string" }
+            },
+            "required": ["name", "color", "size"]
+          },
+          "description": "Lista de peças selecionadas com cor e tamanho"
         },
         "createdAt": { "type": "string", "format": "date-time" }
       },

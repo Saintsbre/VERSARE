@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useFirestore, addDocumentNonBlocking } from "@/firebase";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
@@ -23,13 +24,23 @@ const AVAILABLE_TSHIRTS = [
   { id: "4", name: "ROMA OVERSIZE", image: "https://i.imgur.com/MfpdCpM.jpeg" }
 ];
 
+const COLORS = ["Preto", "Off-White", "Cinza Mescla"];
+const SIZES = ["P", "M", "G", "GG"];
+
+interface Selection {
+  id: string;
+  name: string;
+  color: string;
+  size: string;
+}
+
 export default function PreSavePage() {
   const firestore = useFirestore();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [noNumber, setNoNumber] = useState(false);
   const [cepLoading, setCepLoading] = useState(false);
-  const [selectedShirts, setSelectedShirts] = useState<string[]>([]);
+  const [selections, setSelections] = useState<Selection[]>([]);
   const [addressData, setAddressData] = useState({
     logradouro: "",
     bairro: "",
@@ -68,19 +79,25 @@ export default function PreSavePage() {
     }
   };
 
-  const toggleShirt = (shirtName: string) => {
-    setSelectedShirts(prev => 
-      prev.includes(shirtName) 
-        ? prev.filter(s => s !== shirtName) 
-        : [...prev, shirtName]
-    );
+  const toggleShirt = (shirt: typeof AVAILABLE_TSHIRTS[0]) => {
+    setSelections(prev => {
+      const exists = prev.find(s => s.id === shirt.id);
+      if (exists) {
+        return prev.filter(s => s.id !== shirt.id);
+      }
+      return [...prev, { id: shirt.id, name: shirt.name, color: COLORS[0], size: SIZES[1] }];
+    });
+  };
+
+  const updateSelection = (id: string, field: 'color' | 'size', value: string) => {
+    setSelections(prev => prev.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
 
-    if (selectedShirts.length === 0) {
+    if (selections.length === 0) {
       toast({
         variant: "destructive",
         title: "Seleção necessária",
@@ -104,7 +121,7 @@ export default function PreSavePage() {
       complement: formData.get("complement") as string,
       document: formData.get("document") as string,
       newsletter: formData.get("newsletter") === "on",
-      selectedProducts: selectedShirts,
+      selectedProducts: selections.map(({ name, color, size }) => ({ name, color, size })),
       createdAt: serverTimestamp(),
     };
 
@@ -121,7 +138,7 @@ export default function PreSavePage() {
       <Navbar />
       
       <div className="flex-grow flex items-center justify-center pt-32 pb-20 px-4 md:px-12">
-        <div className="max-w-3xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
+        <div className="max-w-4xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
           {success ? (
             <div className="text-center space-y-8 py-10 animate-in fade-in zoom-in duration-500">
               <div className="relative mx-auto w-24 h-24">
@@ -157,43 +174,87 @@ export default function PreSavePage() {
                 </span>
                 <h1 className="text-4xl font-headline text-primary mb-4">Pré-Save Drop 01</h1>
                 <p className="text-primary/60 font-body text-sm leading-relaxed max-w-md mx-auto">
-                  Selecione as peças que você deseja e preencha as informações de reserva para o próximo lançamento de 2026.
+                  Selecione as peças, cores e tamanhos desejados para o lançamento de 2026.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-12">
                 {/* Seleção de Peças */}
-                <div className="space-y-6">
+                <div className="space-y-8">
                   <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
                     Escolha suas Peças
                   </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {AVAILABLE_TSHIRTS.map((shirt) => (
-                      <div 
-                        key={shirt.id}
-                        onClick={() => toggleShirt(shirt.name)}
-                        className={cn(
-                          "group relative cursor-pointer rounded-xl overflow-hidden border-2 transition-all duration-300",
-                          selectedShirts.includes(shirt.name) ? "border-secondary scale-[1.02]" : "border-transparent opacity-80 grayscale-[40%] hover:opacity-100 hover:grayscale-0"
-                        )}
-                      >
-                        <div className="aspect-[3/4] relative">
-                          <Image src={shirt.image} alt={shirt.name} fill className="object-cover" />
-                          {selectedShirts.includes(shirt.name) && (
-                            <div className="absolute inset-0 bg-secondary/20 flex items-center justify-center">
-                              <div className="bg-secondary text-white rounded-full p-1.5 shadow-lg">
-                                <Check className="w-4 h-4" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {AVAILABLE_TSHIRTS.map((shirt) => {
+                      const selection = selections.find(s => s.id === shirt.id);
+                      const isSelected = !!selection;
+
+                      return (
+                        <div 
+                          key={shirt.id}
+                          className={cn(
+                            "group flex flex-col rounded-xl overflow-hidden border-2 transition-all duration-300 bg-white/30",
+                            isSelected ? "border-secondary scale-[1.02]" : "border-transparent opacity-90 hover:opacity-100"
+                          )}
+                        >
+                          <div 
+                            className="aspect-[3/4] relative cursor-pointer"
+                            onClick={() => toggleShirt(shirt)}
+                          >
+                            <Image src={shirt.image} alt={shirt.name} fill className="object-cover" />
+                            {isSelected && (
+                              <div className="absolute inset-0 bg-secondary/10 flex items-center justify-center">
+                                <div className="bg-secondary text-white rounded-full p-2 shadow-lg">
+                                  <Check className="w-5 h-5" />
+                                </div>
+                              </div>
+                            )}
+                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-white/90 backdrop-blur-sm border-t border-primary/5">
+                              <p className="text-[9px] font-bold text-primary truncate text-center uppercase tracking-tighter">
+                                {shirt.name}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {isSelected && (
+                            <div className="p-3 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                              <div className="space-y-1.5">
+                                <Label className="text-[8px] uppercase tracking-widest text-primary/60">Cor</Label>
+                                <Select 
+                                  value={selection.color} 
+                                  onValueChange={(v) => updateSelection(shirt.id, 'color', v)}
+                                >
+                                  <SelectTrigger className="h-8 text-[10px] rounded-md bg-white/80 border-primary/10">
+                                    <SelectValue placeholder="Cor" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {COLORS.map(c => (
+                                      <SelectItem key={c} value={c} className="text-[10px]">{c}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="space-y-1.5">
+                                <Label className="text-[8px] uppercase tracking-widest text-primary/60">Tamanho</Label>
+                                <Select 
+                                  value={selection.size} 
+                                  onValueChange={(v) => updateSelection(shirt.id, 'size', v)}
+                                >
+                                  <SelectTrigger className="h-8 text-[10px] rounded-md bg-white/80 border-primary/10">
+                                    <SelectValue placeholder="Tamanho" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {SIZES.map(s => (
+                                      <SelectItem key={s} value={s} className="text-[10px]">{s}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
                               </div>
                             </div>
                           )}
                         </div>
-                        <div className="p-2 bg-white/80 backdrop-blur-sm">
-                          <p className="text-[9px] font-bold text-primary truncate text-center uppercase tracking-tighter">
-                            {shirt.name}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
