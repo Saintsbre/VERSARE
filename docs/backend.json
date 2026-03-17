@@ -17,9 +17,14 @@
         "complement": { "type": "string" },
         "document": { "type": "string" },
         "newsletter": { "type": "boolean" },
+        "selectedProducts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Lista de nomes das peças selecionadas para o pré-save"
+        },
         "createdAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["firstName", "lastName", "email", "whatsapp", "cep", "address", "document"]
+      "required": ["firstName", "lastName", "email", "whatsapp", "cep", "address", "document", "selectedProducts"]
     }
   },
   "auth": {

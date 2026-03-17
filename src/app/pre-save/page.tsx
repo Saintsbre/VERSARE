@@ -11,8 +11,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useFirestore, addDocumentNonBlocking } from "@/firebase";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+const AVAILABLE_TSHIRTS = [
+  { id: "3", name: "ERREJOTA OVERSIZE", image: "https://i.imgur.com/x6JzQYO.jpeg" },
+  { id: "2", name: "GLASSES OVERSIZE", image: "https://i.imgur.com/0emZ0Ht.jpeg" },
+  { id: "1", name: "FLY OVERSIZE", image: "https://i.imgur.com/45AlfcA.jpeg" },
+  { id: "4", name: "ROMA OVERSIZE", image: "https://i.imgur.com/MfpdCpM.jpeg" }
+];
 
 export default function PreSavePage() {
   const firestore = useFirestore();
@@ -20,6 +29,7 @@ export default function PreSavePage() {
   const [success, setSuccess] = useState(false);
   const [noNumber, setNoNumber] = useState(false);
   const [cepLoading, setCepLoading] = useState(false);
+  const [selectedShirts, setSelectedShirts] = useState<string[]>([]);
   const [addressData, setAddressData] = useState({
     logradouro: "",
     bairro: "",
@@ -58,9 +68,26 @@ export default function PreSavePage() {
     }
   };
 
+  const toggleShirt = (shirtName: string) => {
+    setSelectedShirts(prev => 
+      prev.includes(shirtName) 
+        ? prev.filter(s => s !== shirtName) 
+        : [...prev, shirtName]
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
+
+    if (selectedShirts.length === 0) {
+      toast({
+        variant: "destructive",
+        title: "Seleção necessária",
+        description: "Selecione pelo menos uma peça para o pré-save.",
+      });
+      return;
+    }
     
     setLoading(true);
 
@@ -77,14 +104,13 @@ export default function PreSavePage() {
       complement: formData.get("complement") as string,
       document: formData.get("document") as string,
       newsletter: formData.get("newsletter") === "on",
+      selectedProducts: selectedShirts,
       createdAt: serverTimestamp(),
     };
 
-    // Usamos addDocumentNonBlocking para uma experiência instantânea
     const preSaveRef = collection(firestore, "pre-save");
     addDocumentNonBlocking(preSaveRef, payload);
     
-    // Mostramos sucesso imediatamente (UI Otimista)
     setSuccess(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setLoading(false);
@@ -95,7 +121,7 @@ export default function PreSavePage() {
       <Navbar />
       
       <div className="flex-grow flex items-center justify-center pt-32 pb-20 px-4 md:px-12">
-        <div className="max-w-2xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
+        <div className="max-w-3xl w-full bg-white/40 p-8 md:p-12 rounded-[2rem] shadow-xl fade-in border border-primary/5">
           {success ? (
             <div className="text-center space-y-8 py-10 animate-in fade-in zoom-in duration-500">
               <div className="relative mx-auto w-24 h-24">
@@ -108,7 +134,7 @@ export default function PreSavePage() {
               <div className="space-y-4">
                 <h1 className="text-4xl font-headline text-primary">Reserva Confirmada.</h1>
                 <p className="text-primary/60 font-body leading-relaxed max-w-sm mx-auto">
-                  Você agora faz parte da lista exclusiva da Versare. Avisaremos você por WhatsApp assim que o Drop 01 for liberado em 2026.
+                  Sua seleção foi registrada com sucesso. Avisaremos você por WhatsApp assim que o Drop 01 for liberado em 2026.
                 </p>
               </div>
 
@@ -122,10 +148,6 @@ export default function PreSavePage() {
                   </Button>
                 </Link>
               </div>
-
-              <p className="text-[9px] uppercase tracking-[0.3em] text-primary/30 font-bold">
-                The Future of Streetwear
-              </p>
             </div>
           ) : (
             <>
@@ -135,11 +157,47 @@ export default function PreSavePage() {
                 </span>
                 <h1 className="text-4xl font-headline text-primary mb-4">Pré-Save Drop 01</h1>
                 <p className="text-primary/60 font-body text-sm leading-relaxed max-w-md mx-auto">
-                  Garanta sua peça exclusiva preenchendo as informações de reserva para o próximo lançamento de 2026.
+                  Selecione as peças que você deseja e preencha as informações de reserva para o próximo lançamento de 2026.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-10">
+              <form onSubmit={handleSubmit} className="space-y-12">
+                {/* Seleção de Peças */}
+                <div className="space-y-6">
+                  <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
+                    Escolha suas Peças
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {AVAILABLE_TSHIRTS.map((shirt) => (
+                      <div 
+                        key={shirt.id}
+                        onClick={() => toggleShirt(shirt.name)}
+                        className={cn(
+                          "group relative cursor-pointer rounded-xl overflow-hidden border-2 transition-all duration-300",
+                          selectedShirts.includes(shirt.name) ? "border-secondary scale-[1.02]" : "border-transparent opacity-80 grayscale-[40%] hover:opacity-100 hover:grayscale-0"
+                        )}
+                      >
+                        <div className="aspect-[3/4] relative">
+                          <Image src={shirt.image} alt={shirt.name} fill className="object-cover" />
+                          {selectedShirts.includes(shirt.name) && (
+                            <div className="absolute inset-0 bg-secondary/20 flex items-center justify-center">
+                              <div className="bg-secondary text-white rounded-full p-1.5 shadow-lg">
+                                <Check className="w-4 h-4" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-2 bg-white/80 backdrop-blur-sm">
+                          <p className="text-[9px] font-bold text-primary truncate text-center uppercase tracking-tighter">
+                            {shirt.name}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Dados para Entrega */}
                 <div className="space-y-6">
                   <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80 border-b border-primary/10 pb-2">
                     Dados para Entrega
@@ -237,6 +295,7 @@ export default function PreSavePage() {
                   </div>
                 </div>
 
+                {/* Dados Fiscais */}
                 <div className="space-y-6">
                   <div className="flex items-center justify-between border-b border-primary/10 pb-2">
                     <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/80">
