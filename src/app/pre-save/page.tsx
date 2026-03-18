@@ -26,12 +26,14 @@ const AVAILABLE_TSHIRTS = [
 
 const COLORS = ["Preto", "Off-White", "Cinza Mescla"];
 const SIZES = ["P", "M", "G", "GG"];
+const QUANTITIES = ["1", "2", "3", "4", "5", "10"];
 
 interface Selection {
   id: string;
   name: string;
   color: string;
   size: string;
+  quantity: string;
 }
 
 export default function PreSavePage() {
@@ -85,11 +87,11 @@ export default function PreSavePage() {
       if (exists) {
         return prev.filter(s => s.id !== shirt.id);
       }
-      return [...prev, { id: shirt.id, name: shirt.name, color: COLORS[0], size: SIZES[1] }];
+      return [...prev, { id: shirt.id, name: shirt.name, color: COLORS[0], size: SIZES[1], quantity: "1" }];
     });
   };
 
-  const updateSelection = (id: string, field: 'color' | 'size', value: string) => {
+  const updateSelection = (id: string, field: 'color' | 'size' | 'quantity', value: string) => {
     setSelections(prev => prev.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
@@ -121,7 +123,7 @@ export default function PreSavePage() {
       complement: formData.get("complement") as string,
       document: formData.get("document") as string,
       newsletter: formData.get("newsletter") === "on",
-      selectedProducts: selections.map(({ name, color, size }) => ({ name, color, size })),
+      selectedProducts: selections.map(({ name, color, size, quantity }) => ({ name, color, size, quantity })),
       createdAt: serverTimestamp(),
     };
 
@@ -174,12 +176,12 @@ export default function PreSavePage() {
                 </span>
                 <h1 className="text-4xl md:text-5xl font-headline text-primary mb-6">Pré-Save Drop 01</h1>
                 <p className="text-primary/60 font-body text-base leading-relaxed max-w-lg mx-auto">
-                  Selecione abaixo as peças, cores e tamanhos que você deseja garantir no lançamento de 2026.
+                  Selecione abaixo as peças, cores, tamanhos e quantidades que você deseja garantir no lançamento de 2026.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-20">
-                {/* Seleção de Peças - Aumentada */}
+                {/* Seleção de Peças */}
                 <div className="space-y-10">
                   <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
                     <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
@@ -222,7 +224,7 @@ export default function PreSavePage() {
                           
                           {isSelected && (
                             <div className="p-6 space-y-5 animate-in fade-in slide-in-from-top-4 duration-500 bg-white/50">
-                              <div className="grid grid-cols-2 gap-4">
+                              <div className="grid grid-cols-3 gap-3">
                                 <div className="space-y-2">
                                   <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Cor</Label>
                                   <Select 
@@ -240,17 +242,33 @@ export default function PreSavePage() {
                                   </Select>
                                 </div>
                                 <div className="space-y-2">
-                                  <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Tamanho</Label>
+                                  <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Tam.</Label>
                                   <Select 
                                     value={selection.size} 
                                     onValueChange={(v) => updateSelection(shirt.id, 'size', v)}
                                   >
                                     <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
-                                      <SelectValue placeholder="Tamanho" />
+                                      <SelectValue placeholder="Tam" />
                                     </SelectTrigger>
                                     <SelectContent>
                                       {SIZES.map(s => (
                                         <SelectItem key={s} value={s} className="text-[11px]">{s}</SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                                <div className="space-y-2">
+                                  <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Qtd.</Label>
+                                  <Select 
+                                    value={selection.quantity} 
+                                    onValueChange={(v) => updateSelection(shirt.id, 'quantity', v)}
+                                  >
+                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
+                                      <SelectValue placeholder="Qtd" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {QUANTITIES.map(q => (
+                                        <SelectItem key={q} value={q} className="text-[11px]">{q}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
