@@ -12,16 +12,36 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useFirestore, addDocumentNonBlocking } from "@/firebase";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check, Plus, Minus } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check, Plus, Minus, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const AVAILABLE_TSHIRTS = [
-  { id: "3", name: "ERREJOTA OVERSIZE", image: "https://i.imgur.com/x6JzQYO.jpeg" },
-  { id: "2", name: "GLASSES OVERSIZE", image: "https://i.imgur.com/0emZ0Ht.jpeg" },
-  { id: "1", name: "FLY OVERSIZE", image: "https://i.imgur.com/45AlfcA.jpeg" },
-  { id: "4", name: "ROMA OVERSIZE", image: "https://i.imgur.com/MfpdCpM.jpeg" }
+  { 
+    id: "3", 
+    name: "ERREJOTA OVERSIZE", 
+    image: "https://i.imgur.com/x6JzQYO.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg"
+  },
+  { 
+    id: "2", 
+    name: "GLASSES OVERSIZE", 
+    image: "https://i.imgur.com/0emZ0Ht.jpeg",
+    imageBack: "https://i.imgur.com/mRAZvlJ.jpeg"
+  },
+  { 
+    id: "1", 
+    name: "FLY OVERSIZE", 
+    image: "https://i.imgur.com/45AlfcA.jpeg",
+    imageBack: "https://i.imgur.com/379gAh7.jpeg"
+  },
+  { 
+    id: "4", 
+    name: "ROMA OVERSIZE", 
+    image: "https://i.imgur.com/MfpdCpM.jpeg",
+    imageBack: "https://i.imgur.com/nEVUYNk.jpeg"
+  }
 ];
 
 const COLORS = ["Preto", "Off-White", "Cinza Mescla"];
@@ -42,6 +62,7 @@ export default function PreSavePage() {
   const [noNumber, setNoNumber] = useState(false);
   const [cepLoading, setCepLoading] = useState(false);
   const [selections, setSelections] = useState<Selection[]>([]);
+  const [flippedIds, setFlippedIds] = useState<string[]>([]);
   const [addressData, setAddressData] = useState({
     logradouro: "",
     bairro: "",
@@ -88,6 +109,13 @@ export default function PreSavePage() {
       }
       return [...prev, { id: shirt.id, name: shirt.name, color: COLORS[0], size: SIZES[1], quantity: "1" }];
     });
+  };
+
+  const toggleFlip = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setFlippedIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
   };
 
   const updateSelection = (id: string, field: 'color' | 'size' | 'quantity', value: string) => {
@@ -193,6 +221,7 @@ export default function PreSavePage() {
                     {AVAILABLE_TSHIRTS.map((shirt) => {
                       const selection = selections.find(s => s.id === shirt.id);
                       const isSelected = !!selection;
+                      const isFlipped = flippedIds.includes(shirt.id);
 
                       return (
                         <div 
@@ -206,9 +235,41 @@ export default function PreSavePage() {
                             className="aspect-[4/5] relative cursor-pointer"
                             onClick={() => toggleShirt(shirt)}
                           >
-                            <Image src={shirt.image} alt={shirt.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                            <Image 
+                              src={shirt.image} 
+                              alt={shirt.name} 
+                              fill 
+                              className={cn(
+                                "object-cover transition-all duration-700",
+                                isFlipped ? "opacity-0 scale-105" : "opacity-100 scale-100"
+                              )} 
+                            />
+                            {shirt.imageBack && (
+                              <Image 
+                                src={shirt.imageBack} 
+                                alt={`${shirt.name} back`} 
+                                fill 
+                                className={cn(
+                                  "object-cover transition-all duration-700 absolute inset-0",
+                                  isFlipped ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                                )} 
+                              />
+                            )}
+
+                            {/* Botão de Giro */}
+                            {shirt.imageBack && (
+                              <button
+                                type="button"
+                                onClick={(e) => toggleFlip(e, shirt.id)}
+                                className="absolute top-6 right-6 z-20 bg-white/80 backdrop-blur-md p-3 rounded-full shadow-xl border border-primary/10 hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300"
+                                aria-label="Ver parte de trás"
+                              >
+                                <RotateCcw className={cn("w-5 h-5 text-primary transition-transform duration-500", isFlipped && "rotate-180")} />
+                              </button>
+                            )}
+
                             {isSelected && (
-                              <div className="absolute inset-0 bg-secondary/5 flex items-center justify-center backdrop-blur-[2px]">
+                              <div className="absolute inset-0 bg-secondary/5 flex items-center justify-center backdrop-blur-[2px] pointer-events-none">
                                 <div className="bg-secondary text-white rounded-full p-4 shadow-2xl animate-in zoom-in-50 duration-300">
                                   <Check className="w-8 h-8" />
                                 </div>
