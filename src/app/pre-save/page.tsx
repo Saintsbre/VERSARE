@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useFirestore, addDocumentNonBlocking } from "@/firebase";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check } from "lucide-react";
+import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check, Plus, Minus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -26,7 +26,6 @@ const AVAILABLE_TSHIRTS = [
 
 const COLORS = ["Preto", "Off-White", "Cinza Mescla"];
 const SIZES = ["P", "M", "G", "GG"];
-const QUANTITIES = ["1", "2", "3", "4", "5", "10"];
 
 interface Selection {
   id: string;
@@ -224,14 +223,14 @@ export default function PreSavePage() {
                           
                           {isSelected && (
                             <div className="p-6 space-y-5 animate-in fade-in slide-in-from-top-4 duration-500 bg-white/50">
-                              <div className="grid grid-cols-3 gap-3">
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                   <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Cor</Label>
                                   <Select 
                                     value={selection.color} 
                                     onValueChange={(v) => updateSelection(shirt.id, 'color', v)}
                                   >
-                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
+                                    <SelectTrigger className="h-11 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
                                       <SelectValue placeholder="Cor" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -247,7 +246,7 @@ export default function PreSavePage() {
                                     value={selection.size} 
                                     onValueChange={(v) => updateSelection(shirt.id, 'size', v)}
                                   >
-                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
+                                    <SelectTrigger className="h-11 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
                                       <SelectValue placeholder="Tam" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -259,19 +258,31 @@ export default function PreSavePage() {
                                 </div>
                                 <div className="space-y-2">
                                   <Label className="text-[9px] uppercase tracking-widest text-primary/60 font-bold">Qtd.</Label>
-                                  <Select 
-                                    value={selection.quantity} 
-                                    onValueChange={(v) => updateSelection(shirt.id, 'quantity', v)}
-                                  >
-                                    <SelectTrigger className="h-10 text-[11px] rounded-xl bg-white/80 border-primary/10 hover:border-secondary/30 transition-colors">
-                                      <SelectValue placeholder="Qtd" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      {QUANTITIES.map(q => (
-                                        <SelectItem key={q} value={q} className="text-[11px]">{q}</SelectItem>
-                                      ))}
-                                    </SelectContent>
-                                  </Select>
+                                  <div className="flex items-center justify-between h-11 px-3 rounded-xl bg-white/80 border border-primary/10">
+                                    <button 
+                                      type="button"
+                                      onClick={() => {
+                                        const current = parseInt(selection.quantity);
+                                        if (current > 1) updateSelection(shirt.id, 'quantity', (current - 1).toString());
+                                      }}
+                                      className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-primary/5 text-primary transition-colors active:scale-90"
+                                    >
+                                      <Minus className="w-4 h-4" />
+                                    </button>
+                                    <span className="text-sm font-bold text-primary min-w-[20px] text-center">
+                                      {selection.quantity}
+                                    </span>
+                                    <button 
+                                      type="button"
+                                      onClick={() => {
+                                        const current = parseInt(selection.quantity);
+                                        if (current < 10) updateSelection(shirt.id, 'quantity', (current + 1).toString());
+                                      }}
+                                      className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-primary/5 text-primary transition-colors active:scale-90"
+                                    >
+                                      <Plus className="w-4 h-4" />
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
