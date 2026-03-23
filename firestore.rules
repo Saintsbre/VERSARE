@@ -3,131 +3,168 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * FIREBASE SECURITY RULES DOCUMENTATION
+     * VERSARE E-COMMERCE SECURITY RULES
      * 
      * Core Philosophy:
-     * This ruleset implements a dual-access model designed for a luxury e-commerce platform. 
-     * It prioritizes a seamless, anonymous checkout experience (Pre-Sale) while maintaining 
-     * strict administrative control over product data and customer orders via Database-Based 
-     * Access Control (DBAC).
-     * 
+     * This ruleset enforces a strict user-ownership model for all personal and transactional data
+     * (profiles, addresses, carts, and orders) while maintaining a public-read catalog for
+     * products and collections. 
+     *
      * Data Structure:
-     * - /products: Publicly viewable catalog managed by admins.
-     * - /collections: Publicly viewable curated groupings managed by admins.
-     * - /preSellOrders: Private customer submissions. Anonymous users can create; only admins can read/manage.
-     * - /roles_admin: A protected registry of UIDs with administrative privileges.
-     * 
+     * - Public Catalog: /collections and /products (Global Read)
+     * - Private Data: Nested under /users/{userId}/... (Owner Read/Write)
+     *
      * Key Security Decisions:
-     * - Anonymous Submissions: To minimize friction, Pre-Sale orders do not require authentication for creation.
-     * - Administrative Lockdown: All management functions (listing orders, updating products) are restricted 
-     *   to users whose UIDs exist in the 'roles_admin' collection.
-     * - Data Integrity: Rules enforce that internal document IDs and parent references match their 
-     *   Firestore paths to prevent orphaned or mislabeled data.
-     * - Prototyping Mode: Schema validation is limited to relational integrity and ownership fields 
-     *   to allow for rapid iteration of product and order data shapes.
+     * 1. Authorization Independence: To avoid expensive and complex 'get()' calls, critical 
+     *    authorization data (specifically 'userId') is enforced to be denormalized directly 
+     *    on subcollection documents (CartItems and OrderItems).
+     * 2. Path-Auth Parity: For all user-scoped data, the rules verify that the internal 
+     *    'userId' field matches the UID in the document path.
+     * 3. Public Listing: Global collections like 'products' are listable for browsing, 
+     *    but 'users' and their sub-data are restricted to the account owner.
+     * 4. Write Protection: Direct writes to the catalog (products/collections) are 
+     *    prohibited, assuming these are managed via Admin SDK or a separate secure process.
      */
 
-    /**
-     * @description Global helper to verify if a request is authenticated.
-     */
+    // --- HELPER FUNCTIONS ---
+
+    /** @description Checks if the request is from an authenticated user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /**
-     * @description Verifies if the authenticated user has an entry in the admin roles collection.
-     * This pattern enables central management of administrative permissions.
-     */
-    function isAdmin() {
-      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
-    }
-
-    /**
-     * @description Combined check for admin status and document existence for destructive/state-changing operations.
-     */
-    function isExistingAdmin() {
-      return isAdmin() && resource != null;
-    }
-
-    /**
-     * @description Validates that the user is accessing their own document in a user-indexed collection.
-     */
+    /** @description Checks if the authenticated user's UID matches the provided userId. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /**
-     * @description Top-level collection for customer pre-sale orders.
-     * @path /preSellOrders/{orderId}
-     * @allow (create) Unauthenticated user submitting an order with matching internal ID.
-     * @deny (get) Unauthenticated user attempting to view order details.
-     * @principle Permits open creation for lead generation while restricting sensitive data to admins.
-     */
-    match /preSellOrders/{orderId} {
-      allow create: if request.resource.data.id == orderId;
-      allow get, list: if isAdmin();
-      allow update, delete: if isExistingAdmin();
-
-      /**
-       * @description Subcollection for items within a specific pre-sale order.
-       * @path /preSellOrders/{orderId}/preSellOrderItems/{itemId}
-       * @allow (create) Anonymous user adding items to their submission.
-       * @deny (list) Anonymous user trying to browse all order items.
-       * @principle Ensures items are linked to the correct parent order via denormalized preSellOrderId.
-       */
-      match /preSellOrderItems/{itemId} {
-        allow create: if request.resource.data.preSellOrderId == orderId;
-        allow get, list: if isAdmin();
-        allow update, delete: if isExistingAdmin();
-      }
+    /** @description Verifies ownership and ensures the document exists before update/delete. */
+    function isExistingOwner(userId) {
+      return resource != null && isOwner(userId);
     }
 
-    /**
-     * @description Alias for pre-sell orders to handle variant path naming in application code.
-     * @path /pre-sell/{orderId}
-     */
-    match /pre-sell/{orderId} {
-      allow create: if true;
-      allow get, list, update, delete: if isAdmin();
+    /** @description Validates that a critical relational field is being set correctly on creation. */
+    function validatesRelationship(field, expectedValue) {
+      return request.resource.data[field] == expectedValue;
     }
 
-    /**
-     * @description Public catalog of artisanal fashion products.
-     * @path /products/{productId}
-     * @allow (get) Any user viewing a product page.
-     * @deny (update) Unauthenticated user attempting to change product prices.
-     * @principle Public read access for SEO and browsing; admin-only writes for catalog integrity.
-     */
-    match /products/{productId} {
-      allow get, list: if true;
-      allow create: if isAdmin();
-      allow update, delete: if isExistingAdmin();
+    /** @description Ensures that a critical relational field remains unchanged during updates. */
+    function isImmutable(field) {
+      return request.resource.data[field] == resource.data[field];
     }
 
+    // --- COLLECTION RULES ---
+
     /**
-     * @description Curated themes and collection metadata.
+     * @description Publicly accessible collections for thematic grouping of products.
      * @path /collections/{collectionId}
-     * @allow (list) Any user browsing navigation menus.
-     * @deny (delete) Any non-admin user trying to remove a collection.
-     * @principle Simplifies navigation access while protecting site structure.
+     * @allow get, list: (any user)
+     * @deny create, update, delete: (any user - managed by admin)
+     * @principle Public catalog access with server-side write restriction.
      */
     match /collections/{collectionId} {
       allow get, list: if true;
-      allow create: if isAdmin();
-      allow update, delete: if isExistingAdmin();
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
     }
 
     /**
-     * @description Registry for administrative roles (DBAC).
-     * @path /roles_admin/{userId}
-     * @allow (get) A user checking if they have admin status.
-     * @deny (create) Any client-side attempt to grant admin privileges.
-     * @principle Strict server-side management of authorization levels.
+     * @description Individual luxury fashion products available for browsing.
+     * @path /products/{productId}
+     * @allow get, list: (any user)
+     * @deny create, update, delete: (any user - managed by admin)
+     * @principle Public catalog access with server-side write restriction.
      */
-    match /roles_admin/{userId} {
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create, update, delete: if false;
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description User profile documents containing personal and preference data.
+     * @path /users/{userId}
+     * @allow create: (authenticated user where path userId matches auth.uid)
+     * @allow get, list, update, delete: (owner of the profile)
+     * @principle Self-creation and strict owner-only access for profiles.
+     */
+    match /users/{userId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('id', userId);
+      allow update: if isExistingOwner(userId) && isImmutable('id');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Shipping and billing addresses associated with a specific user.
+     * @path /users/{userId}/addresses/{addressId}
+     * @allow create, get, list, update, delete: (owner of the parent user path)
+     * @principle Enforces relational integrity by matching internal userId to path and auth.
+     */
+    match /users/{userId}/addresses/{addressId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('userId', userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description The root document for a user's active shopping cart.
+     * @path /users/{userId}/carts/{cartId}
+     * @allow create, get, list, update, delete: (owner of the cart)
+     * @principle Path-based ownership verification for shopping carts.
+     */
+    match /users/{userId}/carts/{cartId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('userId', userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Individual items within a shopping cart. Requires denormalized userId for auth independence.
+     * @path /users/{userId}/carts/{cartId}/items/{cartItemId}
+     * @allow create: (owner where request data includes correct denormalized userId)
+     * @allow get, list, update, delete: (owner verified via path and denormalized field)
+     * @principle Authorization Independence: uses denormalized userId to avoid parent document lookups.
+     */
+    match /users/{userId}/carts/{cartId}/items/{cartItemId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('userId', userId);
+      allow update: if isExistingOwner(userId) && isImmutable('userId');
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Records of completed transactions for a user.
+     * @path /users/{userId}/orders/{orderId}
+     * @allow get, list: (owner of the order)
+     * @allow create: (owner placing the order)
+     * @deny update, delete: (standard e-commerce practice: orders are typically immutable via client)
+     * @principle Strict ownership for order history.
+     */
+    match /users/{userId}/orders/{orderId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('userId', userId);
+      allow update: if false; // Orders are generally immutable once placed via client
+      allow delete: if false;
+    }
+
+    /**
+     * @description Detailed product items within a specific order. Requires denormalized userId.
+     * @path /users/{userId}/orders/{orderId}/items/{orderItemId}
+     * @allow get, list: (owner of the parent order)
+     * @allow create: (owner placing the order)
+     * @deny update, delete: (order items are historical records)
+     * @principle Relational integrity through denormalization for transaction records.
+     */
+    match /users/{userId}/orders/{orderId}/items/{orderItemId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId) && validatesRelationship('userId', userId);
+      allow update: if false;
+      allow delete: if false;
     }
   }
 }
