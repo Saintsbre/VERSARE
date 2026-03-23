@@ -3,8 +3,8 @@
   "placeholderImages": [
     {
       "id": "hero-editorial",
-      "description": "Urban luxury streetwear editorial",
-      "imageUrl": "https://i.imgur.com/yfezlP6.jpeg",
+      "description": "Urban luxury streetwear editorial with classic car",
+      "imageUrl": "https://i.imgur.com/8bpewZP.jpeg",
       "imageHint": "luxury streetwear"
     },
     {
@@ -40,7 +40,7 @@
     {
       "id": "urban-manifesto",
       "description": "Urban editorial shot",
-      "imageUrl": "https://picsum.photos/seed/urban-editorial/800/600",
+      "imageUrl": "https://i.imgur.com/8bpewZP.jpeg",
       "imageHint": "urban streetwear"
     }
   ]
