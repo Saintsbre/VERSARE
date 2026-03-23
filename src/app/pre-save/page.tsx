@@ -19,6 +19,12 @@ import { cn } from "@/lib/utils";
 
 const AVAILABLE_TSHIRTS = [
   { 
+    id: "5", 
+    name: "BRAZILIDADE OVERSIZE", 
+    image: "https://i.imgur.com/8bpewZP.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg"
+  },
+  { 
     id: "3", 
     name: "ERREJOTA OVERSIZE", 
     image: "https://i.imgur.com/x6JzQYO.jpeg",

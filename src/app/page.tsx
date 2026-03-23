@@ -9,6 +9,16 @@ import Image from "next/image";
 
 const SAMPLE_PRODUCTS = [
   {
+    id: "5",
+    name: "BRAZILIDADE OVERSIZE",
+    price: 450,
+    description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
+    details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
+    image: "https://i.imgur.com/8bpewZP.jpeg",
+    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
+    category: "Special Drop"
+  },
+  {
     id: "3",
     name: "ERREJOTA OVERSIZE",
     price: 345,
@@ -36,16 +46,6 @@ const SAMPLE_PRODUCTS = [
     details: "Malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/45AlfcA.jpeg",
     imageBack: "https://i.imgur.com/379gAh7.jpeg",
-    category: "Streetwear"
-  },
-  {
-    id: "4",
-    name: "ROMA OVERSIZE",
-    price: 410,
-    description: "Silhueta ampla e moderna. O equilíbrio perfeito entre o luxo e a rua.",
-    details: "100% Algodão, modelagem wide, estética streetwear.",
-    image: "https://i.imgur.com/MfpdCpM.jpeg",
-    imageBack: "https://i.imgur.com/nEVUYNk.jpeg",
     category: "Streetwear"
   }
 ];
