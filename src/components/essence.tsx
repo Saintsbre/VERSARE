@@ -33,7 +33,7 @@ export function Essence() {
               Somos o streetwear feito com propósito.
             </p>
             <p>
-              Substituímos o descartável pelo duradouro. Linhos de alta gramatura, sarjas sustentáveis e couros premium se transformam em silhuetas contemporâneas que respeitam a rua e quem a habita.
+              Substituímos o descartável pelo duradouro. Linhos de alta gramatura se transformam em silhuetas contemporâneas que respeitam a rua e quem a habita.
             </p>
             <div className="pt-6 md:pt-8 border-t border-primary-foreground/10 flex items-center gap-4">
               <div className="w-8 md:w-12 h-px bg-secondary"></div>
