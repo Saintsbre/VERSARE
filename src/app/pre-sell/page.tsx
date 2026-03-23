@@ -49,7 +49,7 @@ const AVAILABLE_TSHIRTS = [
   }
 ];
 
-const COLORS = ["Branco", "Preto", "Off-White"];
+const COLORS = ["Preto", "Branco", "Off-White"];
 const SIZES = ["P", "M", "G", "GG"];
 
 interface Selection {

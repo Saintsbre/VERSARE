@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -48,7 +49,7 @@ const AVAILABLE_TSHIRTS = [
   }
 ];
 
-const COLORS = ["Preto", "Off-White", "Cinza Mescla"];
+const COLORS = ["Preto", "Branco", "Off-White"];
 const SIZES = ["P", "M", "G", "GG"];
 
 interface Selection {
@@ -134,7 +135,7 @@ export default function PreSavePage() {
       toast({
         variant: "destructive",
         title: "Seleção necessária",
-        description: "Selecione pelo menos uma peça para o pré-save.",
+        description: "Selecione pelo menos uma peça para o pré-sell.",
       });
       return;
     }
@@ -158,8 +159,8 @@ export default function PreSavePage() {
       createdAt: serverTimestamp(),
     };
 
-    const preSaveRef = collection(firestore, "pre-save");
-    addDocumentNonBlocking(preSaveRef, payload);
+    const preSellRef = collection(firestore, "pre-sell");
+    addDocumentNonBlocking(preSellRef, payload);
     
     setSuccess(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -184,7 +185,7 @@ export default function PreSavePage() {
               <div className="space-y-4">
                 <h1 className="text-4xl font-headline text-primary">Reserva Confirmada.</h1>
                 <p className="text-primary/60 font-body leading-relaxed max-w-sm mx-auto">
-                  Sua seleção foi registrada com sucesso. Avisaremos você por WhatsApp assim que o Drop 01 for liberado em 2026.
+                  Sua seleção foi registrada com sucesso no Pre-Sell. Avisaremos você por WhatsApp assim que o Drop 01 for liberado em 2026.
                 </p>
               </div>
 
@@ -205,14 +206,13 @@ export default function PreSavePage() {
                 <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[10px] mb-4 block">
                   Acesso Exclusivo
                 </span>
-                <h1 className="text-4xl md:text-5xl font-headline text-primary mb-6">Pré-Save Drop 01</h1>
+                <h1 className="text-4xl md:text-5xl font-headline text-primary mb-6">Pre-Sell Drop 01</h1>
                 <p className="text-primary/60 font-body text-base leading-relaxed max-w-lg mx-auto">
-                  Selecione abaixo as peças, cores, tamanhos e quantidades que você deseja garantir no lançamento de 2026.
+                  Selecione abaixo as peças, cores, tamanhos e quantidades que você deseja garantir no lançamento de 2026 através do nosso Pre-Sell.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-20">
-                {/* Seleção de Peças */}
                 <div className="space-y-10">
                   <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
                     <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
@@ -260,7 +260,6 @@ export default function PreSavePage() {
                               />
                             )}
 
-                            {/* Botão de Giro */}
                             {shirt.imageBack && (
                               <button
                                 type="button"
@@ -358,7 +357,6 @@ export default function PreSavePage() {
                   </div>
                 </div>
 
-                {/* Dados para Entrega */}
                 <div className="space-y-8">
                   <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
                     <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
@@ -368,139 +366,51 @@ export default function PreSavePage() {
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input 
-                      name="firstName" 
-                      required 
-                      placeholder="Nome"
-                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                    />
-                    <Input 
-                      name="lastName" 
-                      required 
-                      placeholder="Sobrenome"
-                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                    />
+                    <Input name="firstName" required placeholder="Nome" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
+                    <Input name="lastName" required placeholder="Sobrenome" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Input 
-                      name="email" 
-                      type="email" 
-                      required 
-                      placeholder="Email"
-                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                    />
-                    <Input 
-                      name="whatsapp" 
-                      type="tel" 
-                      required 
-                      placeholder="Telefone com DDD"
-                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                    />
+                    <Input name="email" type="email" required placeholder="Email" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
+                    <Input name="whatsapp" type="tel" required placeholder="Telefone com DDD" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
                   </div>
 
                   <div className="space-y-6">
                     <div className="relative">
-                      <Input 
-                        name="cep" 
-                        required 
-                        placeholder="CEP (Digite para localizar)"
-                        onChange={handleCepChange}
-                        maxLength={9}
-                        className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                      />
+                      <Input name="cep" required placeholder="CEP" onChange={handleCepChange} maxLength={9} className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
                       {cepLoading && <Loader2 className="absolute right-5 top-4.5 w-5 h-5 animate-spin text-primary/40" />}
                     </div>
 
-                    {addressData.localidade && (
-                      <div className="bg-primary/5 p-6 rounded-[1.5rem] flex items-start gap-4 border border-primary/10 animate-in fade-in slide-in-from-top-4 duration-500">
-                        <MapPin className="w-6 h-6 text-primary mt-0.5" />
-                        <div className="text-sm text-primary/70">
-                          <p className="font-bold text-primary mb-1">Endereço Encontrado</p>
-                          <p>{addressData.logradouro} - {addressData.bairro}</p>
-                          <p>{addressData.localidade} - {addressData.uf}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    <Input 
-                      name="address" 
-                      required 
-                      value={addressData.logradouro}
-                      onChange={(e) => setAddressData({...addressData, logradouro: e.target.value})}
-                      placeholder="Endereço"
-                      className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                    />
+                    <Input name="address" required value={addressData.logradouro} onChange={(e) => setAddressData({...addressData, logradouro: e.target.value})} placeholder="Endereço" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="flex gap-3 items-center">
-                        <Input 
-                          name="number" 
-                          disabled={noNumber}
-                          required={!noNumber}
-                          placeholder="Número"
-                          className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm flex-grow focus:border-secondary/40 transition-all"
-                        />
-                        <div className="flex items-center space-x-3 min-w-fit pr-4">
-                          <Checkbox 
-                            id="noNumber" 
-                            checked={noNumber}
-                            onCheckedChange={(checked) => setNoNumber(!!checked)}
-                            className="w-5 h-5 rounded-md"
-                          />
-                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-bold cursor-pointer tracking-widest">S/N</Label>
+                        <Input name="number" disabled={noNumber} required={!noNumber} placeholder="Número" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm flex-grow" />
+                        <div className="flex items-center space-x-3">
+                          <Checkbox id="noNumber" checked={noNumber} onCheckedChange={(checked) => setNoNumber(!!checked)} />
+                          <Label htmlFor="noNumber" className="text-[10px] uppercase text-primary/60 font-bold cursor-pointer">S/N</Label>
                         </div>
                       </div>
-                      <Input 
-                        name="complement" 
-                        placeholder="Complemento (opcional)"
-                        className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                      />
+                      <Input name="complement" placeholder="Complemento" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
                     </div>
                   </div>
                 </div>
 
-                {/* Dados Fiscais */}
                 <div className="space-y-8">
                   <div className="flex items-center gap-4 border-b border-primary/10 pb-4">
                     <h3 className="text-[12px] uppercase tracking-[0.3em] font-bold text-primary">
                       Dados para Nota Fiscal
                     </h3>
-                    <HelpCircle className="w-5 h-5 text-primary/20 cursor-help" />
                   </div>
-                  
-                  <Input 
-                    name="document" 
-                    required 
-                    placeholder="CPF ou CNPJ"
-                    className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm focus:border-secondary/40 transition-all"
-                  />
-
-                  <div className="flex items-start space-x-4 pt-4">
-                    <Checkbox id="newsletter" name="newsletter" className="mt-1 w-5 h-5 rounded-md" defaultChecked />
-                    <Label 
-                      htmlFor="newsletter" 
-                      className="text-[12px] text-primary/60 leading-relaxed font-medium cursor-pointer"
-                    >
-                      Quero receber novidades e avisos antecipados da Versare por e-mail e WhatsApp. 
-                      <span className="block text-[10px] opacity-70 mt-1 uppercase tracking-tighter italic">Seja o primeiro a saber do Drop 01.</span>
-                    </Label>
-                  </div>
+                  <Input name="document" required placeholder="CPF ou CNPJ" className="rounded-xl bg-white/50 border-primary/10 h-14 px-6 text-sm" />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-20 rounded-full uppercase tracking-[0.3em] text-[11px] transition-all duration-500 shadow-2xl mt-8 group active:scale-95"
+                  className="w-full bg-primary hover:bg-accent text-primary-foreground h-20 rounded-full uppercase tracking-[0.3em] text-[11px] transition-all"
                 >
-                  {loading ? (
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                  ) : (
-                    <span className="flex items-center gap-3">
-                      Garantir meu Acesso Antecipado
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                    </span>
-                  )}
+                  {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Garantir meu Acesso via Pre-Sell"}
                 </Button>
               </form>
             </>
