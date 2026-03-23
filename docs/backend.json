@@ -1,47 +1,334 @@
-
 {
   "entities": {
-    "PreSell": {
-      "title": "PreSell",
-      "description": "Informações completas para reserva e futura entrega do drop exclusivo",
+    "PreSellOrder": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PreSellOrder",
       "type": "object",
+      "description": "Represents a customer's pre-sale order for luxury fashion items, capturing contact and address details.",
       "properties": {
-        "firstName": { "type": "string" },
-        "lastName": { "type": "string" },
-        "email": { "type": "string", "format": "email" },
-        "whatsapp": { "type": "string" },
-        "cep": { "type": "string" },
-        "address": { "type": "string" },
-        "number": { "type": "string" },
-        "noNumber": { "type": "boolean" },
-        "complement": { "type": "string" },
-        "document": { "type": "string" },
-        "newsletter": { "type": "boolean" },
-        "selectedProducts": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": { "type": "string" },
-              "color": { "type": "string" },
-              "size": { "type": "string" }
-            },
-            "required": ["name", "color", "size"]
-          },
-          "description": "Lista de peças selecionadas com cor e tamanho"
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the PreSellOrder entity."
         },
-        "createdAt": { "type": "string", "format": "date-time" }
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the customer making the pre-sale request."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the customer making the pre-sale request."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the customer.",
+          "format": "email"
+        },
+        "whatsapp": {
+          "type": "string",
+          "description": "The WhatsApp contact number of the customer."
+        },
+        "cep": {
+          "type": "string",
+          "description": "The Brazilian postal code (Código de Endereçamento Postal) of the customer's address."
+        },
+        "address": {
+          "type": "string",
+          "description": "The street address of the customer."
+        },
+        "number": {
+          "type": "string",
+          "description": "The building or house number at the customer's address (e.g., 'S/N' if no specific number)."
+        },
+        "noNumber": {
+          "type": "boolean",
+          "description": "Indicates if the address does not have a specific number."
+        },
+        "complement": {
+          "type": "string",
+          "description": "Additional address information, such as apartment number, block, or house type."
+        },
+        "document": {
+          "type": "string",
+          "description": "The customer's national identification document number (e.g., CPF)."
+        },
+        "newsletter": {
+          "type": "boolean",
+          "description": "Indicates if the customer has opted to receive newsletters."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The timestamp when the pre-sale order was created.",
+          "format": "date-time"
+        },
+        "preSellOrderItemIds": {
+          "type": "array",
+          "description": "References to PreSellOrderItem entities associated with this pre-sale order. (Relationship: PreSellOrder 1:N PreSellOrderItem)",
+          "items": {
+            "type": "string"
+          }
+        }
       },
-      "required": ["firstName", "lastName", "email", "whatsapp", "cep", "address", "document", "selectedProducts"]
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "whatsapp",
+        "cep",
+        "address",
+        "number",
+        "document",
+        "newsletter",
+        "createdAt",
+        "preSellOrderItemIds"
+      ]
+    },
+    "PreSellOrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PreSellOrderItem",
+      "type": "object",
+      "description": "Represents a single product item within a pre-sale order, including selected variations like color, size, and quantity.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the PreSellOrderItem entity."
+        },
+        "preSellOrderId": {
+          "type": "string",
+          "description": "Reference to the PreSellOrder to which this item belongs. (Relationship: PreSellOrder 1:N PreSellOrderItem)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to the Product entity selected for this pre-sale item. (Relationship: Product 1:N PreSellOrderItem)"
+        },
+        "selectedColor": {
+          "type": "string",
+          "description": "The specific color chosen for this product in the pre-sale (e.g., 'Branco')."
+        },
+        "selectedSize": {
+          "type": "string",
+          "description": "The specific size chosen for this product in the pre-sale (e.g., 'M')."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the selected product item."
+        }
+      },
+      "required": [
+        "id",
+        "preSellOrderId",
+        "productId",
+        "selectedColor",
+        "selectedSize",
+        "quantity"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a luxury artisanal fashion product available for sale in the Versare e-commerce store.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Product entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the fashion product (e.g., 'BRAZILIDADE OVERSIZE')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product, including rich textual content and brand essence."
+        },
+        "materials": {
+          "type": "string",
+          "description": "Information about the materials used in the product's construction (e.g., 'linen', 'organic cotton')."
+        },
+        "price": {
+          "type": "number",
+          "description": "The selling price of the product."
+        },
+        "mainImageUrl": {
+          "type": "string",
+          "description": "The URL of the high-quality editorial image for the product, suitable for product detail pages.",
+          "format": "uri"
+        },
+        "thumbnailImageUrl": {
+          "type": "string",
+          "description": "The URL of a smaller image suitable for product display grids and cards.",
+          "format": "uri"
+        },
+        "availableColors": {
+          "type": "array",
+          "description": "A list of colors in which the product is available (e.g., ['Branco', 'Preto', 'Verde']).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "availableSizes": {
+          "type": "array",
+          "description": "A list of sizes in which the product is available (e.g., ['XS', 'S', 'M', 'L', 'XL']).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "collectionIds": {
+          "type": "array",
+          "description": "References to Collection entities that this product belongs to. (Relationship: Collection N:N Product)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The timestamp when the product record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "The timestamp when the product record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "materials",
+        "price",
+        "mainImageUrl",
+        "thumbnailImageUrl",
+        "availableColors",
+        "availableSizes",
+        "collectionIds",
+        "createdAt"
+      ]
+    },
+    "Collection": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Collection",
+      "type": "object",
+      "description": "Represents a curated collection of products, reflecting themes like 'Classic Europe' or 'Brasil Core', displayed in the e-commerce navigation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Collection entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the product collection (e.g., 'Summer Elegance', 'Brasil Core Collection')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the collection's theme or inspiration."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "An optional image URL representing the collection, for visual display.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
     }
   },
   "auth": {
-    "providers": ["anonymous"]
+    "providers": [
+      "password",
+      "anonymous"
+    ]
   },
   "firestore": {
-    "/pre-sell/{preSellId}": {
-      "schema": "PreSell",
-      "description": "Coleção de cadastros de pré-venda detalhados"
-    }
+    "structure": [
+      {
+        "path": "/preSellOrders/{preSellOrderId}",
+        "definition": {
+          "entityName": "PreSellOrder",
+          "schema": {
+            "$ref": "#/backend/entities/PreSellOrder"
+          },
+          "description": "Top-level collection for anonymous customer pre-sale order submissions. Documents are created by unauthenticated users and managed by authenticated administrators. Includes denormalized 'preSellOrderItemIds' for direct linking to order items.",
+          "params": [
+            {
+              "name": "preSellOrderId",
+              "description": "The unique identifier for a specific pre-sell order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/preSellOrders/{preSellOrderId}/preSellOrderItems/{preSellOrderItemId}",
+        "definition": {
+          "entityName": "PreSellOrderItem",
+          "schema": {
+            "$ref": "#/backend/entities/PreSellOrderItem"
+          },
+          "description": "Subcollection containing the individual product items associated with a specific pre-sell order. Documents are created by unauthenticated users as part of a pre-sell order and managed by authenticated administrators. The 'preSellOrderId' field is denormalized within each item for authorization independence and direct lookup.",
+          "params": [
+            {
+              "name": "preSellOrderId",
+              "description": "The unique identifier of the parent pre-sell order."
+            },
+            {
+              "name": "preSellOrderItemId",
+              "description": "The unique identifier for a specific item within the pre-sell order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Top-level collection for all artisanal luxury fashion products. Documents are publicly readable and listable, with write operations restricted to authenticated administrators.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier for a specific product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/collections/{collectionId}",
+        "definition": {
+          "entityName": "Collection",
+          "schema": {
+            "$ref": "#/backend/entities/Collection"
+          },
+          "description": "Top-level collection for curated product collections (e.g., 'Summer Elegance'). Documents are publicly readable and listable, with write operations restricted to authenticated administrators.",
+          "params": [
+            {
+              "name": "collectionId",
+              "description": "The unique identifier for a specific product collection."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{userId}",
+        "definition": {
+          "entityName": "user",
+          "schema": {
+            "$ref": "#/backend/entities/user"
+          },
+          "description": "Collection for storing administrative roles (DBAC). Used to determine if a user has administrative privileges. Documents are read-only for the owning user (if admin) and strictly managed by the backend or manual intervention; no client-side write access.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique Firebase Authentication UID of the user with an administrative role."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to provide clear separation of concerns, enforce strong security rules, and maintain scalability, adhering to the core design principles. The primary focus is on resolving the permission error for anonymous pre-sell order creation while establishing a robust overall data model.\n\n**Authorization Independence (CRITICAL):**\n\n1.  **Anonymous Pre-Sell Orders (`/preSellOrders` and subcollection `preSellOrderItems`):** The `create` operation for `PreSellOrder` and `PreSellOrderItem` documents is explicitly allowed for unauthenticated users (`request.auth == null`). This ensures authorization for these operations is completely independent of any other document reads (`get()`). There are no hierarchical authorization checks required for anonymous submissions. The `preSellOrderId` in the `PreSellOrderItem` document serves as a direct link to its parent, facilitating data integrity without requiring `get()` calls in security rules for basic anonymous creation. Administration of these orders will rely on DBAC using the `/roles_admin` collection, which is also an independent check.\n2.  **Public Collections (`/products`, `/collections`):** These collections are designed for public read access. Their authorization is independent because `read` and `list` operations do not depend on the state or existence of any other document, nor do they require authentication.\n3.  **Global Roles (`/roles_admin`):** Administrator roles are stored in a dedicated top-level collection (`/roles_admin/{userId}`). Authorization checks for admin operations (e.g., managing products or viewing pre-sell orders) use `exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid))`. This pattern ensures that admin authorization is a direct, independent lookup, avoiding `get()` calls on hierarchical parent documents.\n\n**QAPs (Rules are not Filters):**\n\n1.  **Anonymous Pre-Sell Orders (`/preSellOrders` and `/preSellOrders/{preSellOrderId}/preSellOrderItems`):** Anonymous users are granted `create` access, but `read` and `list` operations are restricted to authenticated administrators. This prevents the exposure of sensitive customer data to the public and ensures that rules are not used as filters to hide data from unauthorized users.\n2.  **Public Collections (`/products`, `/collections`):** These collections allow public `read` and `list` access. This is a valid application of QAPs as all documents within these collections are intended to be publicly viewable, thus rules are not attempting to filter documents for clients.\n3.  **Structural Segregation:** By separating data based on its security posture (e.g., public products vs. private pre-sell orders vs. admin roles), we ensure that each collection (or subcollection) has a homogeneous security model, simplifying rules and avoiding the need for client-side filtering after fetching. For instance, `/preSellOrders` does not contain any 'public' orders mixed with 'private' ones; all orders have the same access requirements for anonymous users (create) and admins (read/manage)."
   }
 }

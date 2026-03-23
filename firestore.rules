@@ -1,44 +1,132 @@
-
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * VERSARE SECURITY RULES - PROTOTYPING MODE
+     * FIREBASE SECURITY RULES DOCUMENTATION
+     * 
+     * Core Philosophy:
+     * This ruleset implements a dual-access model designed for a luxury e-commerce platform. 
+     * It prioritizes a seamless, anonymous checkout experience (Pre-Sale) while maintaining 
+     * strict administrative control over product data and customer orders via Database-Based 
+     * Access Control (DBAC).
+     * 
+     * Data Structure:
+     * - /products: Publicly viewable catalog managed by admins.
+     * - /collections: Publicly viewable curated groupings managed by admins.
+     * - /preSellOrders: Private customer submissions. Anonymous users can create; only admins can read/manage.
+     * - /roles_admin: A protected registry of UIDs with administrative privileges.
+     * 
+     * Key Security Decisions:
+     * - Anonymous Submissions: To minimize friction, Pre-Sale orders do not require authentication for creation.
+     * - Administrative Lockdown: All management functions (listing orders, updating products) are restricted 
+     *   to users whose UIDs exist in the 'roles_admin' collection.
+     * - Data Integrity: Rules enforce that internal document IDs and parent references match their 
+     *   Firestore paths to prevent orphaned or mislabeled data.
+     * - Prototyping Mode: Schema validation is limited to relational integrity and ownership fields 
+     *   to allow for rapid iteration of product and order data shapes.
      */
 
+    /**
+     * @description Global helper to verify if a request is authenticated.
+     */
     function isSignedIn() {
       return request.auth != null;
     }
 
+    /**
+     * @description Verifies if the authenticated user has an entry in the admin roles collection.
+     * This pattern enables central management of administrative permissions.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    /**
+     * @description Combined check for admin status and document existence for destructive/state-changing operations.
+     */
+    function isExistingAdmin() {
+      return isAdmin() && resource != null;
+    }
+
+    /**
+     * @description Validates that the user is accessing their own document in a user-indexed collection.
+     */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    function isExistingOwner(userId) {
-      return resource != null && isOwner(userId);
-    }
+    /**
+     * @description Top-level collection for customer pre-sale orders.
+     * @path /preSellOrders/{orderId}
+     * @allow (create) Unauthenticated user submitting an order with matching internal ID.
+     * @deny (get) Unauthenticated user attempting to view order details.
+     * @principle Permits open creation for lead generation while restricting sensitive data to admins.
+     */
+    match /preSellOrders/{orderId} {
+      allow create: if request.resource.data.id == orderId;
+      allow get, list: if isAdmin();
+      allow update, delete: if isExistingAdmin();
 
-    // --- Collection Rules ---
+      /**
+       * @description Subcollection for items within a specific pre-sale order.
+       * @path /preSellOrders/{orderId}/preSellOrderItems/{itemId}
+       * @allow (create) Anonymous user adding items to their submission.
+       * @deny (list) Anonymous user trying to browse all order items.
+       * @principle Ensures items are linked to the correct parent order via denormalized preSellOrderId.
+       */
+      match /preSellOrderItems/{itemId} {
+        allow create: if request.resource.data.preSellOrderId == orderId;
+        allow get, list: if isAdmin();
+        allow update, delete: if isExistingAdmin();
+      }
+    }
 
     /**
-     * @description Regras para a coleção de Pré-Venda (Pre-Sell).
-     * @allow Qualquer pessoa pode criar um registro (cadastro de lead).
+     * @description Alias for pre-sell orders to handle variant path naming in application code.
+     * @path /pre-sell/{orderId}
      */
-    match /pre-sell/{preSellId} {
+    match /pre-sell/{orderId} {
       allow create: if true;
-      allow get, list, update, delete: if false; 
+      allow get, list, update, delete: if isAdmin();
     }
 
-    match /user_profiles/{userId} {
-      allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
-      allow delete: if isExistingOwner(userId);
-    }
-
+    /**
+     * @description Public catalog of artisanal fashion products.
+     * @path /products/{productId}
+     * @allow (get) Any user viewing a product page.
+     * @deny (update) Unauthenticated user attempting to change product prices.
+     * @principle Public read access for SEO and browsing; admin-only writes for catalog integrity.
+     */
     match /products/{productId} {
       allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Curated themes and collection metadata.
+     * @path /collections/{collectionId}
+     * @allow (list) Any user browsing navigation menus.
+     * @deny (delete) Any non-admin user trying to remove a collection.
+     * @principle Simplifies navigation access while protecting site structure.
+     */
+    match /collections/{collectionId} {
+      allow get, list: if true;
+      allow create: if isAdmin();
+      allow update, delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Registry for administrative roles (DBAC).
+     * @path /roles_admin/{userId}
+     * @allow (get) A user checking if they have admin status.
+     * @deny (create) Any client-side attempt to grant admin privileges.
+     * @principle Strict server-side management of authorization levels.
+     */
+    match /roles_admin/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
       allow create, update, delete: if false;
     }
   }
