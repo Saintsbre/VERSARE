@@ -4,167 +4,77 @@ service cloud.firestore {
 
     /**
      * VERSARE E-COMMERCE SECURITY RULES
-     * 
-     * Core Philosophy:
-     * This ruleset enforces a strict user-ownership model for all personal and transactional data
-     * (profiles, addresses, carts, and orders) while maintaining a public-read catalog for
-     * products and collections. 
-     *
-     * Data Structure:
-     * - Public Catalog: /collections and /products (Global Read)
-     * - Private Data: Nested under /users/{userId}/... (Owner Read/Write)
-     *
-     * Key Security Decisions:
-     * 1. Authorization Independence: To avoid expensive and complex 'get()' calls, critical 
-     *    authorization data (specifically 'userId') is enforced to be denormalized directly 
-     *    on subcollection documents (CartItems and OrderItems).
-     * 2. Path-Auth Parity: For all user-scoped data, the rules verify that the internal 
-     *    'userId' field matches the UID in the document path.
-     * 3. Public Listing: Global collections like 'products' are listable for browsing, 
-     *    but 'users' and their sub-data are restricted to the account owner.
-     * 4. Write Protection: Direct writes to the catalog (products/collections) are 
-     *    prohibited, assuming these are managed via Admin SDK or a separate secure process.
      */
 
-    // --- HELPER FUNCTIONS ---
-
-    /** @description Checks if the request is from an authenticated user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /** @description Checks if the authenticated user's UID matches the provided userId. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /** @description Verifies ownership and ensures the document exists before update/delete. */
-    function isExistingOwner(userId) {
-      return resource != null && isOwner(userId);
-    }
-
-    /** @description Validates that a critical relational field is being set correctly on creation. */
     function validatesRelationship(field, expectedValue) {
       return request.resource.data[field] == expectedValue;
     }
 
-    /** @description Ensures that a critical relational field remains unchanged during updates. */
-    function isImmutable(field) {
-      return request.resource.data[field] == resource.data[field];
+    // --- PUBLIC PRE-SELL ---
+    // Permite que qualquer visitante envie seus dados de reserva
+    match /pre-sell/{preSellId} {
+      allow create: if true;
+      allow read, update, delete: if false; // Apenas o admin (via console) acessa os dados
     }
 
     // --- COLLECTION RULES ---
 
-    /**
-     * @description Publicly accessible collections for thematic grouping of products.
-     * @path /collections/{collectionId}
-     * @allow get, list: (any user)
-     * @deny create, update, delete: (any user - managed by admin)
-     * @principle Public catalog access with server-side write restriction.
-     */
     match /collections/{collectionId} {
       allow get, list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow write: if false;
     }
 
-    /**
-     * @description Individual luxury fashion products available for browsing.
-     * @path /products/{productId}
-     * @allow get, list: (any user)
-     * @deny create, update, delete: (any user - managed by admin)
-     * @principle Public catalog access with server-side write restriction.
-     */
     match /products/{productId} {
       allow get, list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow write: if false;
     }
 
-    /**
-     * @description User profile documents containing personal and preference data.
-     * @path /users/{userId}
-     * @allow create: (authenticated user where path userId matches auth.uid)
-     * @allow get, list, update, delete: (owner of the profile)
-     * @principle Self-creation and strict owner-only access for profiles.
-     */
     match /users/{userId} {
       allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && validatesRelationship('id', userId);
-      allow update: if isExistingOwner(userId) && isImmutable('id');
-      allow delete: if isExistingOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
     }
 
-    /**
-     * @description Shipping and billing addresses associated with a specific user.
-     * @path /users/{userId}/addresses/{addressId}
-     * @allow create, get, list, update, delete: (owner of the parent user path)
-     * @principle Enforces relational integrity by matching internal userId to path and auth.
-     */
     match /users/{userId}/addresses/{addressId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && validatesRelationship('userId', userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
     }
 
-    /**
-     * @description The root document for a user's active shopping cart.
-     * @path /users/{userId}/carts/{cartId}
-     * @allow create, get, list, update, delete: (owner of the cart)
-     * @principle Path-based ownership verification for shopping carts.
-     */
     match /users/{userId}/carts/{cartId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && validatesRelationship('userId', userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
     }
 
-    /**
-     * @description Individual items within a shopping cart. Requires denormalized userId for auth independence.
-     * @path /users/{userId}/carts/{cartId}/items/{cartItemId}
-     * @allow create: (owner where request data includes correct denormalized userId)
-     * @allow get, list, update, delete: (owner verified via path and denormalized field)
-     * @principle Authorization Independence: uses denormalized userId to avoid parent document lookups.
-     */
     match /users/{userId}/carts/{cartId}/items/{cartItemId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && validatesRelationship('userId', userId);
-      allow update: if isExistingOwner(userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
     }
 
-    /**
-     * @description Records of completed transactions for a user.
-     * @path /users/{userId}/orders/{orderId}
-     * @allow get, list: (owner of the order)
-     * @allow create: (owner placing the order)
-     * @deny update, delete: (standard e-commerce practice: orders are typically immutable via client)
-     * @principle Strict ownership for order history.
-     */
     match /users/{userId}/orders/{orderId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && validatesRelationship('userId', userId);
-      allow update: if false; // Orders are generally immutable once placed via client
-      allow delete: if false;
+      allow update, delete: if false;
     }
 
-    /**
-     * @description Detailed product items within a specific order. Requires denormalized userId.
-     * @path /users/{userId}/orders/{orderId}/items/{orderItemId}
-     * @allow get, list: (owner of the parent order)
-     * @allow create: (owner placing the order)
-     * @deny update, delete: (order items are historical records)
-     * @principle Relational integrity through denormalization for transaction records.
-     */
     match /users/{userId}/orders/{orderId}/items/{orderItemId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && validatesRelationship('userId', userId);
-      allow update: if false;
-      allow delete: if false;
+      allow update, delete: if false;
     }
   }
 }
