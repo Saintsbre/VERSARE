@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
@@ -12,15 +11,15 @@ export function Hero() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
         <div className="md:col-span-5 z-10 fade-in order-2 md:order-1 text-center md:text-left">
           <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[8px] md:text-[10px] mb-4 block font-body">
-            Drop 01 // City Vibes 2026
+            Drop 01 // Brazilidade 2026
           </span>
           <h2 className="text-5xl md:text-8xl font-brand leading-[0.9] text-primary mb-6 md:mb-8">
-            Street <br />
+            Brasil <br />
             <span className="italic">Elevado.</span>
           </h2>
           <p className="text-primary/70 font-body text-base md:text-lg max-w-md mx-auto md:mx-0 mb-8 md:mb-10 leading-relaxed">
-            Onde a estrutura clássica encontra a atitude das ruas. 
-            Streetwear de luxo com alma brasileira e materiais sustentáveis.
+            A essência da cultura brasileira encontra o rigor do minimalismo europeu. 
+            Streetwear de luxo que celebra nossa identidade com materiais nobres e alma urbana.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link href="/pre-save">
@@ -35,7 +34,7 @@ export function Hero() {
           <div className="absolute inset-0 bg-secondary/10 -m-2 md:-m-8 z-0 translate-x-2 md:translate-x-4 translate-y-2 md:translate-y-4 rounded-[1.5rem] md:rounded-[2.5rem]"></div>
           <div className="relative h-full w-full overflow-hidden shadow-2xl rounded-[1.5rem] md:rounded-[2.5rem]">
             <Image
-              src={heroImage?.imageUrl || "https://i.imgur.com/IgsaBrY.jpeg"}
+              src={heroImage?.imageUrl || "https://i.imgur.com/yfezlP6.jpeg"}
               alt="Versare Streetwear Editorial"
               fill
               className="object-cover"
