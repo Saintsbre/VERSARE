@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-editorial",
+      "description": "Urban luxury streetwear editorial",
+      "imageUrl": "https://i.imgur.com/yfezlP6.jpeg",
+      "imageHint": "luxury streetwear"
+    },
+    {
+      "id": "product-1",
+      "description": "Oversized Linen Hoodie",
+      "imageUrl": "https://i.imgur.com/x6JzQYO.jpeg",
+      "imageHint": "oversized hoodie fashion"
+    },
+    {
+      "id": "product-2",
+      "description": "Premium Leather Sneakers",
+      "imageUrl": "https://picsum.photos/seed/street2/600/800",
+      "imageHint": "minimalist sneakers leather"
+    },
+    {
+      "id": "product-3",
+      "description": "Urban Canvas Crossbody Bag",
+      "imageUrl": "https://picsum.photos/seed/street3/600/800",
+      "imageHint": "streetwear bag urban"
+    },
+    {
+      "id": "product-4",
+      "description": "Wide Leg Cargo Trousers",
+      "imageUrl": "https://picsum.photos/seed/street4/600/800",
+      "imageHint": "cargo pants streetwear"
+    },
+    {
+      "id": "essence-bg",
+      "description": "Streetwear luxury editorial",
+      "imageUrl": "https://i.imgur.com/QHnytp8.jpeg",
+      "imageHint": "luxury fashion"
+    },
+    {
+      "id": "urban-manifesto",
+      "description": "Urban editorial shot",
+      "imageUrl": "https://picsum.photos/seed/urban-editorial/800/600",
+      "imageHint": "urban streetwear"
+    }
+  ]
 }
