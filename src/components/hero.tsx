@@ -18,8 +18,8 @@ export function Hero() {
             <span className="italic">Elevado.</span>
           </h2>
           <p className="text-primary/70 font-body text-base md:text-lg max-w-md mx-auto md:mx-0 mb-8 md:mb-10 leading-relaxed">
-            A essência da cultura brasileira encontra o rigor do minimalismo europeu. 
-            Streetwear de luxo que celebra nossa identidade com materiais nobres e alma urbana.
+            Onde a garra da Seleção Brasileira encontra a sofisticação do streetwear de luxo. 
+            A Versare celebra a brazilidade com materiais nobres, design minimalista e a alma urbana do nosso país.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Link href="/pre-save">
