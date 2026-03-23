@@ -40,6 +40,19 @@
           "type": "string",
           "description": "CPF ou CNPJ para nota fiscal"
         },
+        "selectedProducts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "color": { "type": "string" },
+              "size": { "type": "string" },
+              "quantity": { "type": "string" }
+            },
+            "required": ["name", "color", "size", "quantity"]
+          }
+        },
         "newsletter": {
           "type": "boolean"
         },
@@ -55,7 +68,8 @@
         "whatsapp",
         "cep",
         "address",
-        "document"
+        "document",
+        "selectedProducts"
       ]
     }
   },

@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useFirestore, addDocumentNonBlocking } from "@/firebase";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle2, MapPin, HelpCircle, ArrowRight, Check, Plus, Minus, RotateCcw } from "lucide-react";
+import { Loader2, CheckCircle2, Check, Plus, Minus, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -49,7 +49,7 @@ const AVAILABLE_TSHIRTS = [
   }
 ];
 
-const COLORS = ["Preto", "Branco", "Off-White"];
+const COLORS = ["Branco", "Preto", "Off-White"];
 const SIZES = ["P", "M", "G", "GG"];
 
 interface Selection {
@@ -127,7 +127,7 @@ export default function PreSellPage() {
     setSelections(prev => prev.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
 
@@ -142,29 +142,39 @@ export default function PreSellPage() {
     
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const payload = {
-      firstName: formData.get("firstName") as string,
-      lastName: formData.get("lastName") as string,
-      email: formData.get("email") as string,
-      whatsapp: formData.get("whatsapp") as string,
-      cep: formData.get("cep") as string,
-      address: addressData.logradouro || (formData.get("address") as string),
-      number: noNumber ? "S/N" : (formData.get("number") as string),
-      noNumber: noNumber,
-      complement: formData.get("complement") as string,
-      document: formData.get("document") as string,
-      newsletter: formData.get("newsletter") === "on",
-      selectedProducts: selections.map(({ name, color, size, quantity }) => ({ name, color, size, quantity })),
-      createdAt: serverTimestamp(),
-    };
+    try {
+      const formData = new FormData(e.currentTarget);
+      const payload = {
+        firstName: formData.get("firstName") as string,
+        lastName: formData.get("lastName") as string,
+        email: formData.get("email") as string,
+        whatsapp: formData.get("whatsapp") as string,
+        cep: formData.get("cep") as string,
+        address: addressData.logradouro || (formData.get("address") as string),
+        number: noNumber ? "S/N" : (formData.get("number") as string),
+        noNumber: noNumber,
+        complement: formData.get("complement") as string || "",
+        document: formData.get("document") as string,
+        newsletter: formData.get("newsletter") === "on",
+        selectedProducts: selections.map(({ name, color, size, quantity }) => ({ name, color, size, quantity })),
+        createdAt: serverTimestamp(),
+      };
 
-    const preSellRef = collection(firestore, "pre-sell");
-    addDocumentNonBlocking(preSellRef, payload);
-    
-    setSuccess(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setLoading(false);
+      const preSellRef = collection(firestore, "pre-sell");
+      await addDocumentNonBlocking(preSellRef, payload);
+      
+      setSuccess(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      toast({
+        variant: "destructive",
+        title: "Erro ao salvar",
+        description: "Ocorreu um problema ao registrar sua reserva. Tente novamente.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
