@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -21,8 +20,7 @@ const AVAILABLE_TSHIRTS = [
   { 
     id: "5", 
     name: "BRAZILIDADE OVERSIZE", 
-    image: "https://i.imgur.com/8bpewZP.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg"
+    image: "https://i.imgur.com/8bpewZP.jpeg"
   },
   { 
     id: "3", 

@@ -15,7 +15,6 @@ const SAMPLE_PRODUCTS = [
     description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
     details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
     image: "https://i.imgur.com/8bpewZP.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
     category: "Special Drop"
   },
   {
@@ -43,7 +42,7 @@ const SAMPLE_PRODUCTS = [
     name: "FLY OVERSIZE",
     price: 185,
     description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    details: "Algodão premium, malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/45AlfcA.jpeg",
     imageBack: "https://i.imgur.com/379gAh7.jpeg",
     category: "Streetwear"
