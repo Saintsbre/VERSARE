@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -47,9 +48,9 @@ export function Navbar() {
 
         <div className="flex gap-4 md:gap-6 items-center flex-1 justify-end text-primary/80">
           <Search className="w-5 h-5 cursor-pointer hover:text-primary transition-colors hidden sm:block" />
-          <Link href="/pre-save">
+          <Link href="/pre-sell">
             <Button variant="outline" className="rounded-full border-primary/20 text-primary hover:bg-primary hover:text-white text-[9px] uppercase tracking-widest px-6 h-9 transition-all duration-300">
-              Pré-Save
+              Pre-Sell
             </Button>
           </Link>
         </div>

@@ -1,3 +1,4 @@
+
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { Essence } from "@/components/essence";

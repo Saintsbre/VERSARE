@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useParams } from "next/navigation";
@@ -147,11 +148,11 @@ export default function ProductDetailPage() {
               </p>
             </div>
 
-            <Link href="/pre-save">
+            <Link href="/pre-sell">
               <Button 
                 className="w-full bg-primary hover:bg-accent text-primary-foreground py-8 rounded-full text-xs uppercase tracking-[0.2em] transition-all duration-300"
               >
-                Cadastrar Pré-Save
+                Garantir via Pre-Sell
               </Button>
             </Link>
 

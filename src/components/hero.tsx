@@ -23,9 +23,9 @@ export function Hero() {
             A Versare celebra a brazilidade com materiais nobres, design minimalista e a alma urbana do nosso país.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Link href="/pre-save">
+            <Link href="/pre-sell">
               <Button className="bg-primary hover:bg-accent text-primary-foreground px-12 py-6 rounded-full text-[10px] md:text-xs uppercase tracking-widest transition-all duration-300 h-14 shadow-lg active:scale-95">
-                Cadastrar Pré-Save
+                Garantir via Pre-Sell
               </Button>
             </Link>
           </div>

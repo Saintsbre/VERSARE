@@ -44,7 +44,6 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
         </Link>
 
-        {/* Botão de troca de imagem para Mobile/Tablet */}
         {product.imageBack && (
           <button
             onClick={(e) => {
@@ -67,11 +66,11 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <div className="mt-4 flex gap-2 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300 px-1">
-        <Link href="/pre-save" className="w-full">
+        <Link href="/pre-sell" className="w-full">
           <Button 
             className="w-full bg-primary hover:bg-accent text-primary-foreground rounded-full text-[9px] md:text-[10px] uppercase tracking-widest h-10 md:h-12 shadow-sm active:scale-95 transition-transform"
           >
-            Garantir Pré-Save
+            Garantir via Pre-Sell
           </Button>
         </Link>
       </div>

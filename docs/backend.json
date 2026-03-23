@@ -1,8 +1,8 @@
 
 {
   "entities": {
-    "PreSave": {
-      "title": "PreSave",
+    "PreSell": {
+      "title": "PreSell",
       "description": "Informações completas para reserva e futura entrega do drop exclusivo",
       "type": "object",
       "properties": {
@@ -39,9 +39,9 @@
     "providers": ["anonymous"]
   },
   "firestore": {
-    "/pre-save/{preSaveId}": {
-      "schema": "PreSave",
-      "description": "Coleção de cadastros de pré-save detalhados"
+    "/pre-sell/{preSellId}": {
+      "schema": "PreSell",
+      "description": "Coleção de cadastros de pré-venda detalhados"
     }
   }
 }

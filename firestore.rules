@@ -1,29 +1,20 @@
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
      * VERSARE SECURITY RULES - PROTOTYPING MODE
-     *
-     * CORE PHILOSOPHY:
-     * This ruleset enforces a strict user-ownership model where private data is isolated 
-     * by the user's unique Firebase Authentication ID (UID). It prioritizes authorization 
-     * security while maintaining flexibility for data schemas during rapid development.
      */
 
-    // --- Global Helper Functions ---
-
-    /** Checks if the request is coming from an authenticated user. */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /** Checks if the provided ID matches the authenticated user's UID. */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /** Checks if a document exists and belongs to the authenticated user. */
     function isExistingOwner(userId) {
       return resource != null && isOwner(userId);
     }
@@ -31,18 +22,14 @@ service cloud.firestore {
     // --- Collection Rules ---
 
     /**
-     * @description Regras para a coleção de Pré-Save.
+     * @description Regras para a coleção de Pré-Venda (Pre-Sell).
      * @allow Qualquer pessoa pode criar um registro (cadastro de lead).
-     * @deny Leitura, atualização e exclusão são bloqueadas para o público para proteger dados sensíveis.
      */
-    match /pre-save/{preSaveId} {
+    match /pre-sell/{preSellId} {
       allow create: if true;
       allow get, list, update, delete: if false; 
     }
 
-    /**
-     * @description Rules for the UserProfile collection, ensuring users can only access their own profile.
-     */
     match /user_profiles/{userId} {
       allow get, list: if isOwner(userId);
       allow create: if isOwner(userId) && request.resource.data.id == userId;
@@ -50,22 +37,9 @@ service cloud.firestore {
       allow delete: if isExistingOwner(userId);
     }
 
-    /**
-     * @description Rules for the Product catalog.
-     */
     match /products/{productId} {
       allow get, list: if true;
       allow create, update, delete: if false;
-    }
-
-    /**
-     * @description Rules for User-specific Pre-Save items (wishlist style).
-     */
-    match /users/{userId}/pre_saves/{preSaveItemId} {
-      allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-      allow delete: if isExistingOwner(userId);
     }
   }
 }
