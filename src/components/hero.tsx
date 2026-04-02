@@ -35,7 +35,7 @@ export function Hero() {
           <div className="absolute inset-0 bg-secondary/10 -m-2 md:-m-8 z-0 translate-x-2 md:translate-x-4 translate-y-2 md:translate-y-4 rounded-[1.5rem] md:rounded-[2.5rem]"></div>
           <div className="relative h-full w-full overflow-hidden shadow-2xl rounded-[1.5rem] md:rounded-[2.5rem]">
             <Image
-              src={heroImage?.imageUrl || "https://i.imgur.com/8bpewZP.jpeg"}
+              src={heroImage?.imageUrl || "https://i.imgur.com/CmAT1T9.jpeg"}
               alt="Versare Streetwear Editorial"
               fill
               className="object-cover"
