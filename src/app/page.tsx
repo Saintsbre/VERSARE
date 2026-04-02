@@ -7,45 +7,63 @@ import { Footer } from "@/components/footer";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 const SAMPLE_PRODUCTS = [
   {
-    id: "5",
-    name: "BRAZILIDADE OVERSIZE",
-    price: 450,
-    description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
-    details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
-    image: "https://i.imgur.com/CmAT1T9.jpeg",
-    category: "Special Drop"
+    id: "maraca",
+    name: "MARACA OVERSIZED",
+    price: 360,
+    description: "Inspirada no templo do futebol. Minimalismo e paixão em cada fibra.",
+    details: "100% Algodão Premium, gramatura alta, estampa exclusiva frontal e traseira.",
+    image: "https://i.imgur.com/xrHRwq6.jpeg",
+    imageBack: "https://i.imgur.com/xrHRwq6.jpeg",
+    category: "Brazilidade"
   },
   {
-    id: "3",
-    name: "ERREJOTA OVERSIZE",
+    id: "street-club",
+    name: "STREET CLUB OVERSIZED",
     price: 345,
-    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    description: "A essência das ruas em um corte sofisticado. Feita para o movimento urbano.",
+    details: "Algodão de alta gramatura, modelagem boxy, toque peletizado.",
+    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    imageBack: "https://i.imgur.com/qVegjta.jpeg",
+    category: "Streetwear"
+  },
+  {
+    id: "errejota",
+    name: "ERREJOTA OVERSIZED",
+    price: 345,
+    description: "A vibração do Rio traduzida em moda contemporânea.",
     details: "Algodão premium, corte oversized, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
-    category: "Streetwear"
+    image: "https://i.imgur.com/DdsZdcD.jpeg",
+    imageBack: "https://i.imgur.com/2EM2Yo1.jpeg",
+    category: "Brazilidade"
   },
   {
-    id: "2",
-    name: "GLASSES OVERSIZE",
-    price: 520,
-    description: "Peça essencial com estética urbana e minimalista. Tecido de alta gramatura.",
-    details: "Algodão premium, acabamento manual, durabilidade extrema.",
-    image: "https://i.imgur.com/0emZ0Ht.jpeg",
-    imageBack: "https://i.imgur.com/mRAZvlJ.jpeg",
-    category: "Streetwear"
+    id: "domingo",
+    name: "DOMINGO OVERSIZED",
+    price: 320,
+    description: "O conforto de um domingo ensolarado com a atitude da Versare.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/SuZ7W4Z.jpeg",
+    category: "Lançamento"
   },
   {
-    id: "1",
-    name: "FLY OVERSIZE",
-    price: 185,
-    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Algodão premium, malha encorpada, gola reforçada, detalhes em bordado.",
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg",
+    id: "fly",
+    name: "FLY OVERSIZED",
+    price: 320,
+    description: "Leveza e presença. O design que voa alto na estética urbana.",
+    details: "Algodão 30.1 penteado, modelagem ampla, estampa silk screen.",
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/zlcXbf1.jpeg",
     category: "Streetwear"
   }
 ];
@@ -56,24 +74,40 @@ export default function Home() {
       <Navbar />
       <Hero />
       
-      <section className="py-16 md:py-20 px-4 md:px-12 bg-background">
+      <section className="py-16 md:py-24 px-4 md:px-12 bg-background overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
             <div>
               <span className="text-secondary font-medium tracking-[0.3em] uppercase text-[8px] md:text-[10px] mb-2 block">
-                O Drop
+                Drop 01 // 2026
               </span>
               <h2 className="text-3xl md:text-4xl font-headline text-primary">Lançamentos</h2>
             </div>
-            <Link href="/" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
+            <Link href="/pre-sell" className="text-[10px] uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors border-b border-primary/20 pb-1">
               Ver Coleção Completa
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 md:gap-x-8 gap-y-12 md:gap-y-16">
-            {SAMPLE_PRODUCTS.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="relative">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4 md:-ml-8">
+                {SAMPLE_PRODUCTS.map((product) => (
+                  <CarouselItem key={product.id} className="pl-4 md:pl-8 sm:basis-1/2 lg:basis-1/4">
+                    <ProductCard product={product} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="hidden md:flex justify-end gap-2 mt-8">
+                <CarouselPrevious className="static translate-y-0 h-10 w-10 border-primary/10 hover:bg-primary hover:text-white" />
+                <CarouselNext className="static translate-y-0 h-10 w-10 border-primary/10 hover:bg-primary hover:text-white" />
+              </div>
+            </Carousel>
           </div>
         </div>
       </section>
@@ -99,9 +133,11 @@ export default function Home() {
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
                 sempre com autenticidade e materiais de verdade.
               </p>
-              <Button variant="outline" className="w-full md:w-auto rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
-                Ver Lookbook Urban
-              </Button>
+              <Link href="/pre-sell">
+                <Button variant="outline" className="w-full md:w-auto rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
+                  Ver Lookbook Urban
+                </Button>
+              </Link>
            </div>
         </div>
       </section>

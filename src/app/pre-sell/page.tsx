@@ -19,33 +19,34 @@ import { cn } from "@/lib/utils";
 
 const AVAILABLE_TSHIRTS = [
   { 
-    id: "5", 
-    name: "BRAZILIDADE OVERSIZE", 
-    image: "https://i.imgur.com/CmAT1T9.jpeg"
+    id: "maraca", 
+    name: "MARACA OVERSIZED", 
+    image: "https://i.imgur.com/xrHRwq6.jpeg",
+    imageBack: "https://i.imgur.com/xrHRwq6.jpeg"
   },
   { 
-    id: "3", 
-    name: "ERREJOTA OVERSIZE", 
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg"
+    id: "street-club", 
+    name: "STREET CLUB OVERSIZED", 
+    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    imageBack: "https://i.imgur.com/qVegjta.jpeg"
   },
   { 
-    id: "2", 
-    name: "GLASSES OVERSIZE", 
-    image: "https://i.imgur.com/0emZ0Ht.jpeg",
-    imageBack: "https://i.imgur.com/mRAZvlJ.jpeg"
+    id: "errejota", 
+    name: "ERREJOTA OVERSIZED", 
+    image: "https://i.imgur.com/DdsZdcD.jpeg",
+    imageBack: "https://i.imgur.com/2EM2Yo1.jpeg"
   },
   { 
-    id: "1", 
-    name: "FLY OVERSIZE", 
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg"
+    id: "domingo", 
+    name: "DOMINGO OVERSIZED", 
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/SuZ7W4Z.jpeg"
   },
   { 
-    id: "4", 
-    name: "ROMA OVERSIZE", 
-    image: "https://i.imgur.com/MfpdCpM.jpeg",
-    imageBack: "https://i.imgur.com/nEVUYNk.jpeg"
+    id: "fly", 
+    name: "FLY OVERSIZED", 
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/zlcXbf1.jpeg"
   }
 ];
 
