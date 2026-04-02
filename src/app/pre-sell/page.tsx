@@ -21,7 +21,7 @@ const AVAILABLE_TSHIRTS = [
   { 
     id: "5", 
     name: "BRAZILIDADE OVERSIZE", 
-    image: "https://i.imgur.com/8bpewZP.jpeg"
+    image: "https://i.imgur.com/CmAT1T9.jpeg"
   },
   { 
     id: "3", 
@@ -127,7 +127,7 @@ export default function PreSellPage() {
     setSelections(prev => prev.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loading) return;
 
@@ -142,39 +142,29 @@ export default function PreSellPage() {
     
     setLoading(true);
 
-    try {
-      const formData = new FormData(e.currentTarget);
-      const payload = {
-        firstName: formData.get("firstName") as string,
-        lastName: formData.get("lastName") as string,
-        email: formData.get("email") as string,
-        whatsapp: formData.get("whatsapp") as string,
-        cep: formData.get("cep") as string,
-        address: addressData.logradouro || (formData.get("address") as string),
-        number: noNumber ? "S/N" : (formData.get("number") as string),
-        noNumber: noNumber,
-        complement: formData.get("complement") as string || "",
-        document: formData.get("document") as string,
-        newsletter: formData.get("newsletter") === "on",
-        selectedProducts: selections.map(({ name, color, size, quantity }) => ({ name, color, size, quantity })),
-        createdAt: serverTimestamp(),
-      };
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      whatsapp: formData.get("whatsapp") as string,
+      cep: formData.get("cep") as string,
+      address: addressData.logradouro || (formData.get("address") as string),
+      number: noNumber ? "S/N" : (formData.get("number") as string),
+      noNumber: noNumber,
+      complement: formData.get("complement") as string || "",
+      document: formData.get("document") as string,
+      newsletter: formData.get("newsletter") === "on",
+      selectedProducts: selections.map(({ name, color, size, quantity }) => ({ name, color, size, quantity })),
+      createdAt: serverTimestamp(),
+    };
 
-      const preSellRef = collection(firestore, "pre-sell");
-      await addDocumentNonBlocking(preSellRef, payload);
-      
-      setSuccess(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
-      toast({
-        variant: "destructive",
-        title: "Erro ao salvar",
-        description: "Ocorreu um problema ao registrar sua reserva. Tente novamente.",
-      });
-    } finally {
-      setLoading(false);
-    }
+    const preSellRef = collection(firestore, "pre-sell");
+    addDocumentNonBlocking(preSellRef, payload);
+    
+    setSuccess(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setLoading(false);
   };
 
   return (

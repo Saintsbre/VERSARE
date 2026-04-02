@@ -1,9 +1,11 @@
+
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
      * VERSARE E-COMMERCE SECURITY RULES
+     * Updated to ensure public pre-sell access
      */
 
     function isSignedIn() {
@@ -22,7 +24,7 @@ service cloud.firestore {
     // Permite que qualquer visitante envie seus dados de reserva
     match /pre-sell/{preSellId} {
       allow create: if true;
-      allow read, update, delete: if false; // Apenas o admin (via console) acessa os dados
+      allow read, update, delete: if false; 
     }
 
     // --- COLLECTION RULES ---

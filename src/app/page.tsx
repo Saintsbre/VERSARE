@@ -15,7 +15,7 @@ const SAMPLE_PRODUCTS = [
     price: 450,
     description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
     details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
-    image: "https://i.imgur.com/8bpewZP.jpeg",
+    image: "https://i.imgur.com/CmAT1T9.jpeg",
     category: "Special Drop"
   },
   {
@@ -84,7 +84,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
            <div className="relative h-[300px] md:h-[500px] overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem]">
              <Image 
-              src="https://imgur.com/cvRMhxV.jpeg" 
+              src="https://i.imgur.com/CmAT1T9.jpeg" 
               alt="Manifesto Urbano" 
               fill 
               className="object-cover" 

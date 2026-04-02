@@ -59,7 +59,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     price: 450,
     description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
     details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
-    image: "https://i.imgur.com/8bpewZP.jpeg",
+    image: "https://i.imgur.com/CmAT1T9.jpeg",
     category: "Special Drop"
   }
 };
