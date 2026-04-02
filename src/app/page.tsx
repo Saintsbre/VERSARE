@@ -22,8 +22,8 @@ const SAMPLE_PRODUCTS = [
     price: 360,
     description: "Inspirada no templo do futebol. Minimalismo e paixão em cada fibra.",
     details: "100% Algodão Premium, gramatura alta, estampa exclusiva frontal e traseira.",
-    image: "https://i.imgur.com/xrHRwq6.jpeg",
-    imageBack: "https://i.imgur.com/xrHRwq6.jpeg",
+    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    imageBack: "https://i.imgur.com/kh1I9p6.jpeg",
     category: "Brazilidade"
   },
   {
@@ -32,7 +32,7 @@ const SAMPLE_PRODUCTS = [
     price: 345,
     description: "A essência das ruas em um corte sofisticado. Feita para o movimento urbano.",
     details: "Algodão de alta gramatura, modelagem boxy, toque peletizado.",
-    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    image: "https://i.imgur.com/xrHRwq6.jpeg",
     imageBack: "https://i.imgur.com/qVegjta.jpeg",
     category: "Streetwear"
   },
@@ -112,7 +112,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Silence />
+      <Essence />
 
       <section className="py-16 md:py-20 px-4 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -145,8 +145,4 @@ export default function Home() {
       <Footer />
     </main>
   );
-}
-
-function Silence() {
-  return <Essence />
 }

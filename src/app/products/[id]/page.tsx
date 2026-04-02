@@ -13,54 +13,55 @@ import Link from "next/link";
 import { AIRecommendations } from "@/components/ai-recommendations-client";
 
 const SAMPLE_PRODUCTS: Record<string, Product> = {
-  "1": {
-    id: "1",
-    name: "FLY OVERSIZE",
-    price: 185,
-    description: "Design contemporâneo para quem vive o ritmo da cidade com atitude.",
-    details: "Algodão premium, malha encorpada, gola reforçada, detalhes em bordado.",
-    image: "https://i.imgur.com/45AlfcA.jpeg",
-    imageBack: "https://i.imgur.com/379gAh7.jpeg",
-    category: "Streetwear"
+  "maraca": {
+    id: "maraca",
+    name: "MARACA OVERSIZED",
+    price: 360,
+    description: "Inspirada no templo do futebol. Minimalismo e paixão em cada fibra.",
+    details: "100% Algodão Premium, gramatura alta, estampa exclusiva frontal e traseira.",
+    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    imageBack: "https://i.imgur.com/kh1I9p6.jpeg",
+    category: "Brazilidade"
   },
-  "2": {
-    id: "2",
-    name: "GLASSES OVERSIZE",
-    price: 520,
-    description: "Peça essencial com estética urbana e minimalista. Tecido de alta gramatura.",
-    details: "Algodão premium, acabamento manual, durabilidade extrema.",
-    image: "https://i.imgur.com/0emZ0Ht.jpeg",
-    imageBack: "https://i.imgur.com/mRAZvlJ.jpeg",
-    category: "Streetwear"
-  },
-  "3": {
-    id: "3",
-    name: "ERREJOTA OVERSIZE",
+  "street-club": {
+    id: "street-club",
+    name: "STREET CLUB OVERSIZED",
     price: 345,
-    description: "Camiseta com modelagem street e corte boxy. Conforto absoluto para o dia a dia urbano.",
+    description: "A essência das ruas em um corte sofisticado. Feita para o movimento urbano.",
+    details: "Algodão de alta gramatura, modelagem boxy, toque peletizado.",
+    image: "https://i.imgur.com/xrHRwq6.jpeg",
+    imageBack: "https://i.imgur.com/qVegjta.jpeg",
+    category: "Streetwear"
+  },
+  "errejota": {
+    id: "errejota",
+    name: "ERREJOTA OVERSIZED",
+    price: 345,
+    description: "A vibração do Rio traduzida em moda contemporânea.",
     details: "Algodão premium, corte oversized, feito no Brasil.",
-    image: "https://i.imgur.com/x6JzQYO.jpeg",
-    imageBack: "https://i.imgur.com/QsAAj0y.jpeg",
-    category: "Streetwear"
+    image: "https://i.imgur.com/DdsZdcD.jpeg",
+    imageBack: "https://i.imgur.com/2EM2Yo1.jpeg",
+    category: "Brazilidade"
   },
-  "4": {
-    id: "4",
-    name: "ROMA OVERSIZE",
-    price: 410,
-    description: "Silhueta ampla e moderna. O equilíbrio perfeito entre o luxo e a rua.",
-    details: "100% Algodão, modelagem wide, estética streetwear.",
-    image: "https://i.imgur.com/MfpdCpM.jpeg",
-    imageBack: "https://i.imgur.com/nEVUYNk.jpeg",
-    category: "Streetwear"
+  "domingo": {
+    id: "domingo",
+    name: "DOMINGO OVERSIZED",
+    price: 320,
+    description: "O conforto de um domingo ensolarado com a atitude da Versare.",
+    details: "Malha encorpada, gola reforçada, detalhes em bordado.",
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/SuZ7W4Z.jpeg",
+    category: "Lançamento"
   },
-  "5": {
-    id: "5",
-    name: "BRAZILIDADE OVERSIZE",
-    price: 450,
-    description: "Edição especial comemorativa. A alma da Seleção Brasileira traduzida em streetwear de luxo.",
-    details: "Algodão de alta gramatura, bordado exclusivo, modelagem boxy.",
-    image: "https://i.imgur.com/CmAT1T9.jpeg",
-    category: "Special Drop"
+  "fly": {
+    id: "fly",
+    name: "FLY OVERSIZED",
+    price: 320,
+    description: "Leveza e presença. O design que voa alto na estética urbana.",
+    details: "Algodão 30.1 penteado, modelagem ampla, estampa silk screen.",
+    image: "https://i.imgur.com/NZkBcyv.jpeg",
+    imageBack: "https://i.imgur.com/zlcXbf1.jpeg",
+    category: "Streetwear"
   }
 };
 

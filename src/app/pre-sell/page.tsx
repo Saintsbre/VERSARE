@@ -21,13 +21,13 @@ const AVAILABLE_TSHIRTS = [
   { 
     id: "maraca", 
     name: "MARACA OVERSIZED", 
-    image: "https://i.imgur.com/xrHRwq6.jpeg",
-    imageBack: "https://i.imgur.com/xrHRwq6.jpeg"
+    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    imageBack: "https://i.imgur.com/kh1I9p6.jpeg"
   },
   { 
     id: "street-club", 
     name: "STREET CLUB OVERSIZED", 
-    image: "https://i.imgur.com/LOSpwAG.jpeg",
+    image: "https://i.imgur.com/xrHRwq6.jpeg",
     imageBack: "https://i.imgur.com/qVegjta.jpeg"
   },
   { 
