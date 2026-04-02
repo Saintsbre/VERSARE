@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -77,6 +77,29 @@ export default function PreSellPage() {
   });
   
   const { toast } = useToast();
+
+  // Efeito de auto-flip a cada 3 segundos para as peças não selecionadas
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFlippedIds(prev => {
+        // Toca o flip de todas as peças que têm costas disponíveis de forma alternada
+        const newFlipped = [...prev];
+        AVAILABLE_TSHIRTS.forEach(shirt => {
+          if (shirt.imageBack) {
+            const index = newFlipped.indexOf(shirt.id);
+            if (index > -1) {
+              newFlipped.splice(index, 1);
+            } else {
+              newFlipped.push(shirt.id);
+            }
+          }
+        });
+        return newFlipped;
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const cep = e.target.value.replace(/\D/g, "");
@@ -265,7 +288,7 @@ export default function PreSellPage() {
                               <button
                                 type="button"
                                 onClick={(e) => toggleFlip(e, shirt.id)}
-                                className="absolute top-6 right-6 z-20 bg-white/80 backdrop-blur-md p-3 rounded-full shadow-xl border border-primary/10 hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300"
+                                className="absolute top-6 right-6 z-20 bg-white/90 backdrop-blur-md p-3.5 rounded-full shadow-2xl border border-primary/10 hover:bg-white hover:scale-110 active:scale-95 transition-all duration-300"
                                 aria-label="Ver parte de trás"
                               >
                                 <RotateCcw className={cn("w-5 h-5 text-primary transition-transform duration-500", isFlipped && "rotate-180")} />
@@ -283,6 +306,7 @@ export default function PreSellPage() {
                               <p className="text-xs font-bold text-primary text-center uppercase tracking-widest">
                                 {shirt.name}
                               </p>
+                              <p className="text-[8px] text-center uppercase tracking-widest text-secondary font-bold mt-0.5">Brasilidade</p>
                             </div>
                           </div>
                           
