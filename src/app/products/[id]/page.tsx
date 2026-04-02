@@ -21,7 +21,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     details: "100% Algodão Premium, gramatura alta, estampa exclusiva frontal e traseira.",
     image: "https://i.imgur.com/LOSpwAG.jpeg",
     imageBack: "https://i.imgur.com/kh1I9p6.jpeg",
-    category: "Brazilidade"
+    category: "Brasilidade"
   },
   "street-club": {
     id: "street-club",
@@ -31,7 +31,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     details: "Algodão de alta gramatura, modelagem boxy, toque peletizado.",
     image: "https://i.imgur.com/xrHRwq6.jpeg",
     imageBack: "https://i.imgur.com/qVegjta.jpeg",
-    category: "Streetwear"
+    category: "Brasilidade"
   },
   "errejota": {
     id: "errejota",
@@ -41,7 +41,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     details: "Algodão premium, corte oversized, feito no Brasil.",
     image: "https://i.imgur.com/DdsZdcD.jpeg",
     imageBack: "https://i.imgur.com/2EM2Yo1.jpeg",
-    category: "Brazilidade"
+    category: "Brasilidade"
   },
   "domingo": {
     id: "domingo",
@@ -51,7 +51,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     details: "Malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/NZkBcyv.jpeg",
     imageBack: "https://i.imgur.com/SuZ7W4Z.jpeg",
-    category: "Lançamento"
+    category: "Brasilidade"
   },
   "fly": {
     id: "fly",
@@ -61,7 +61,7 @@ const SAMPLE_PRODUCTS: Record<string, Product> = {
     details: "Algodão 30.1 penteado, modelagem ampla, estampa silk screen.",
     image: "https://i.imgur.com/NZkBcyv.jpeg",
     imageBack: "https://i.imgur.com/zlcXbf1.jpeg",
-    category: "Streetwear"
+    category: "Brasilidade"
   }
 };
 
@@ -125,8 +125,8 @@ export default function ProductDetailPage() {
 
           <div className="md:col-span-5 flex flex-col fade-in" style={{ animationDelay: '0.1s' }}>
             <div className="flex justify-between items-start mb-4">
-              <span className="text-secondary font-medium tracking-[0.2em] uppercase text-[8px] md:text-[10px]">
-                {product.category}
+              <span className="text-secondary font-bold tracking-[0.2em] uppercase text-[10px] md:text-[12px]">
+                Brasilidade
               </span>
               <div className="flex gap-4">
                 <Share2 className="w-5 h-5 text-primary/40 cursor-pointer hover:text-primary transition-colors" />

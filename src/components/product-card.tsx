@@ -61,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="mt-4 md:mt-6 flex justify-between items-start px-1">
         <div>
           <h3 className="font-headline text-lg md:text-xl text-primary truncate max-w-[150px] md:max-w-none">{product.name}</h3>
-          <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-primary/50 mt-1">{product.category}</p>
+          <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-secondary font-bold mt-1">Brasilidade</p>
         </div>
       </div>
 
