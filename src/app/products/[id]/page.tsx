@@ -134,7 +134,8 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-headline text-primary mb-4 leading-tight">{product.name}</h1>
+            <h1 className="text-3xl md:text-5xl font-headline text-primary mb-1 leading-tight">{product.name}</h1>
+            <p className="text-[10px] md:text-[12px] uppercase tracking-[0.3em] font-bold text-secondary mb-4">Brasilidade</p>
             
             <div className="h-px bg-primary/10 mb-6 md:mb-8"></div>
             

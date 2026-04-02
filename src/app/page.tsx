@@ -119,7 +119,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
            <div className="relative h-[300px] md:h-[500px] overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem]">
              <Image 
-              src="https://i.imgur.com/CmAT1T9.jpeg" 
+              src="https://i.imgur.com/ydETTTD.jpeg" 
               alt="Manifesto Urbano" 
               fill 
               className="object-cover" 
@@ -130,8 +130,8 @@ export default function Home() {
            <div className="p-4 md:p-8">
               <h3 className="text-2xl md:text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
               <p className="text-primary/70 mb-8 leading-relaxed font-body text-sm md:text-base">
-                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria e se adapta ao seu ritmo. 
-                Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde. 
+                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria e se adapta ao seu ritmo urbano. Cada drop é pensado para quem busca a essência do luxo nas ruas. 
+                <br /><br />
                 Ser versátil, é ser Versare.
               </p>
               <Link href="/pre-sell">

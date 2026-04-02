@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-editorial",
-      "description": "Urban luxury streetwear editorial",
-      "imageUrl": "https://i.imgur.com/CmAT1T9.jpeg",
-      "imageHint": "luxury streetwear"
+      "description": "Urban luxury streetwear editorial with shirts on line",
+      "imageUrl": "https://i.imgur.com/ydETTTD.jpeg",
+      "imageHint": "streetwear laundry"
     },
     {
       "id": "product-1",
@@ -40,7 +40,7 @@
     {
       "id": "urban-manifesto",
       "description": "Urban editorial shot",
-      "imageUrl": "https://i.imgur.com/CmAT1T9.jpeg",
+      "imageUrl": "https://i.imgur.com/ydETTTD.jpeg",
       "imageHint": "urban streetwear"
     }
   ]
