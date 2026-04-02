@@ -24,7 +24,7 @@ const SAMPLE_PRODUCTS = [
     details: "100% Algodão Premium, gramatura alta, estampa exclusiva frontal e traseira.",
     image: "https://i.imgur.com/LOSpwAG.jpeg",
     imageBack: "https://i.imgur.com/kh1I9p6.jpeg",
-    category: "Brazilidade"
+    category: "Brasilidade"
   },
   {
     id: "street-club",
@@ -34,7 +34,7 @@ const SAMPLE_PRODUCTS = [
     details: "Algodão de alta gramatura, modelagem boxy, toque peletizado.",
     image: "https://i.imgur.com/xrHRwq6.jpeg",
     imageBack: "https://i.imgur.com/qVegjta.jpeg",
-    category: "Streetwear"
+    category: "Brasilidade"
   },
   {
     id: "errejota",
@@ -44,7 +44,7 @@ const SAMPLE_PRODUCTS = [
     details: "Algodão premium, corte oversized, feito no Brasil.",
     image: "https://i.imgur.com/DdsZdcD.jpeg",
     imageBack: "https://i.imgur.com/2EM2Yo1.jpeg",
-    category: "Brazilidade"
+    category: "Brasilidade"
   },
   {
     id: "domingo",
@@ -54,7 +54,7 @@ const SAMPLE_PRODUCTS = [
     details: "Malha encorpada, gola reforçada, detalhes em bordado.",
     image: "https://i.imgur.com/NZkBcyv.jpeg",
     imageBack: "https://i.imgur.com/SuZ7W4Z.jpeg",
-    category: "Lançamento"
+    category: "Brasilidade"
   },
   {
     id: "fly",
@@ -64,7 +64,7 @@ const SAMPLE_PRODUCTS = [
     details: "Algodão 30.1 penteado, modelagem ampla, estampa silk screen.",
     image: "https://i.imgur.com/NZkBcyv.jpeg",
     imageBack: "https://i.imgur.com/zlcXbf1.jpeg",
-    category: "Streetwear"
+    category: "Brasilidade"
   }
 ];
 
@@ -104,7 +104,6 @@ export default function Home() {
                 ))}
               </CarouselContent>
               
-              {/* Setas de navegação proeminentes nas laterais */}
               <div className="flex">
                 <CarouselPrevious className="absolute -left-2 md:-left-12 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 backdrop-blur-md border-primary/10 text-primary hover:bg-primary hover:text-white transition-all shadow-xl" />
                 <CarouselNext className="absolute -right-2 md:-right-12 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 backdrop-blur-md border-primary/10 text-primary hover:bg-primary hover:text-white transition-all shadow-xl" />
@@ -131,9 +130,9 @@ export default function Home() {
            <div className="p-4 md:p-8">
               <h3 className="text-2xl md:text-3xl font-headline text-primary mb-6">Manifesto Urbano</h3>
               <p className="text-primary/70 mb-8 leading-relaxed font-body text-sm md:text-base">
-                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
-                Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
-                sempre com autenticidade e linhos de alta gramatura.
+                Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria e se adapta ao seu ritmo. 
+                Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde. 
+                Ser versátil, é ser Versare.
               </p>
               <Link href="/pre-sell">
                 <Button variant="outline" className="w-full md:w-auto rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
