@@ -88,7 +88,7 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="relative">
+          <div className="relative px-4 md:px-0">
             <Carousel
               opts={{
                 align: "start",
@@ -103,9 +103,11 @@ export default function Home() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="hidden md:flex justify-end gap-2 mt-8">
-                <CarouselPrevious className="static translate-y-0 h-10 w-10 border-primary/10 hover:bg-primary hover:text-white" />
-                <CarouselNext className="static translate-y-0 h-10 w-10 border-primary/10 hover:bg-primary hover:text-white" />
+              
+              {/* Setas de navegação proeminentes nas laterais */}
+              <div className="flex">
+                <CarouselPrevious className="absolute -left-2 md:-left-12 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 backdrop-blur-md border-primary/10 text-primary hover:bg-primary hover:text-white transition-all shadow-xl" />
+                <CarouselNext className="absolute -right-2 md:-right-12 top-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white/80 backdrop-blur-md border-primary/10 text-primary hover:bg-primary hover:text-white transition-all shadow-xl" />
               </div>
             </Carousel>
           </div>
@@ -131,7 +133,7 @@ export default function Home() {
               <p className="text-primary/70 mb-8 leading-relaxed font-body text-sm md:text-base">
                 Versare é sobre a liberdade de movimento. É o streetwear que entende de alfaiataria. 
                 Cada drop é pensado para quem transita entre o concreto da cidade e a leveza do fim de tarde, 
-                sempre com autenticidade e materiais de verdade.
+                sempre com autenticidade e linhos de alta gramatura.
               </p>
               <Link href="/pre-sell">
                 <Button variant="outline" className="w-full md:w-auto rounded-full uppercase tracking-widest text-[10px] border-primary text-primary hover:bg-primary hover:text-white px-8 h-12 transition-all duration-300">
